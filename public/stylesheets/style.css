@@ -1,0 +1,169 @@
+*                  { margin:0; padding:0; border:0; cursor: none; }
+.select-disable     { -khtml-user-select: none; -moz-user-select: none;
+                    -o-user-select: none;  user-select: none; }
+button::-moz-focus-inner { border: 0; }
+body               { font-family: Arial; font-size:100%; overflow:hidden}
+h2                 { font-size: 2em; color: #222; letter-spacing: 2px; line-height: 1.1em ;}
+h3                 { font-weight: normal; margin-bottom:10px; font-size:1.5em;}
+hr                 { border: 1px solid #fff; width: 91%; margin-top: 10px; margin-bottom: 10px;}
+a:link             { text-decoration: none; color: #444;}
+a:visited          { color: #444;}
+a:active, a:focus  { outline-style: none; outline: 0; }
+.disabled          { visibility: hidden;}
+
+img#frontarrow     { position:fixed; left:900px; top:650px;}
+img#frontbook      { position:fixed; left:1280px; top: 400px;}
+div#overlay        { position: fixed; width:100%; height: 100%; top:0; left: 0;
+                     z-index: 50; background: #000; opacity: 0.8; display:none;}
+div#vi-leter       { color: #fff; position:fixed; display:none;
+                     top: 470px; left:0px; z-index:1000; width:1680px; text-align:center;}
+#vi-leter p        { font-size:3em; }
+div#avbryt         { z-index: 1000; position: fixed; top: 570px; left: 620px;}
+#retry-knapp { display:none;}
+div.clearfix       { clear:both;}
+div#barcode_search { text-align: center; padding: 20px;}
+#loading           { width:60px; display:inline-block; text-align:left;}
+input.barcode_field  { border:1px solid gray; margin-top:150px; padding: 10px; text-align: center; font-style: italic; color:#666;}
+
+div.image-wrapper  { width: 250px; height:360px; position:relative;}
+div.image-big      { background: #fff; box-shadow: 6px 6px 7px 2px rgba(0,0,0,0.35);
+                     position:relative; width: 250px; max-height:360;}
+img.omtalt-bok     { width: 230px; max-height: 340px; border: 10px solid white;
+                     box-shadow: 5px 6px 7px 2px rgba(0,0,0,0.25);
+                      position:absolute;top:0;bottom:0;margin:auto;}
+div.hyllestatus    { font-size:1.5em; bottom:40px; left:-5px; display:block; position:absolute; text-align:center;
+                     color:#fff; padding:5px; opacity:0.7; width:250px;}
+div.inne           { background: green;}
+div.ute            { background: red;}
+div#omtale-bilde   { display: block; width: 230px; height: 320px; background:#fff; padding:10px;
+                     box-shadow: 1px 3px 10px 2px rgba(0,0,0,0.25);}
+div#inner-border   { padding: 20px; border:2px solid gray; background: #ddd; height:280px; text-align: center;}
+div.book-title     { color:#333; font-family: Times; font-size: 1.5em; margin-bottom: 60px; font-style: italic;}
+div.book-author    { color:#333; font-family: Arial; font-size: 1.3em; margin: 20px;}
+
+div.no-review      { padding:1em; font-size: 1.5em;}
+div.no-review p    { line-height: 1.2em;}
+div.no-review li   { margin-left: 1em; padding: 0.2em;}
+
+div.review         { margin-top:20px;font-size: 1.3em; padding: 20px 40px; width:88%; height:77%; overflow:hidden; }
+div.review p       { margin-bottom:0.6em;}
+p.source         { font-size: 0.7em; margin-top:1em; font-weight:bold;}
+
+div#debug          { background-color:yellow; border: 1px solid black; border-radius: 2px;}
+div#container      { width: 1680px; height:1049px; color: #222; border:0px solid black; overflow: hidden;
+                     background-image: url("../img/leftbar.png"); background-repeat: no-repeat;}
+div#nysgjerrig     { width:100%; height: 100%; vertical-align: middle}
+div#nysgjerrig-tittel { margin-top:100px; font-size: 6em; font-weight: bold; text-align: center}
+div#nysgjerrig-undertittel { margin:200px;font-size: 4em; text-align: center}
+
+div#header         { margin-left:400px; height: 100px; width: 1225px; padding-top:35px; }
+p#title            { font-size: 2.5em; font-weight: bold; color: #333; }
+p#sub-title        { margin-top: 15px;font-size: 1.6em; font-weight: bold; color: #333;}
+div#header-text    { float: left; }
+div#flags          { float: right; }
+img.flag           { margin-left: 150px; display:none;}
+div.buffer         { clear:both; margin-top:60px;}
+
+
+div#left-bar { background: rgba(230,87,64, 0); margin-right: 60px; float:left;
+                     width: 238px; height: 1049px; position:relative; }
+
+div#avslutt-container { position: absolute; bottom:0; left:0;}
+button#avslutt span    { position:relative; bottom:15px;}
+#avslutt-ikon      { position: absolute; top:35px; left:30px;}
+div#logo-container { height:170px; background: #444;}
+div#top-buttons    { float: right; margin: 24px;}
+div#contents       { padding: 0; float: left; width: 1365px; overflow:hidden; position: relative;}
+div#content-left   { margin-left: 94px; height: 460px; width: 300px; float: left; }
+
+div#content-right  { float: left; margin-left:85px; width:785px; height: 460px; position: relative;}
+div#content-bottom { clear:both; margin-top: 55px; width:1365px; height:367px;
+                     background: #555; color: #fff; padding:10px;}
+div.flere          { float:left; width: 660px; padding-left:10px; }
+div.relaterte      { float:left; width: 660px; border-left: 2px dashed white; padding-left:20px;}
+div.logo           { width: 218px; height:170px; padding:10px; }
+img.logo           { margin-left:10px; width: 150px; height: 150px;}
+button.top-button  { border-radius: 5px; height: 80px; width: 240px;
+                     margin-left: 24px; font-size: 1.2em; color: #444;
+                     box-shadow: 6px 6px 7px 2px rgba(0,0,0,0.15);
+                     background: -moz-linear-gradient(top,  #eee,  #b5b5b5);}
+.top-button:active { position:relative; top: 3px; }
+
+button.square      { height: 120px; width: 160px; color: #444; margin: 33px;
+                     box-shadow: 6px 6px 7px 2px rgba(0,0,0,0.15);
+                     background: -moz-linear-gradient(top,  #eee,  #b5b5b5);
+                     font-size: 1.2em; font-weight: bold;}
+button.square:active { position: relative; top: 3px; color: #000;
+                       border: 1px solid gray; box-shadow: 0;
+                       background: -moz-linear-gradient(bottom,  #eee,  #aaa)}
+#tilbake             { margin-top: 10px; position: relative;}
+#tilbake-pil         { height:20px; position: absolute; left:18px; top: 50px; }
+
+div.liste-small     { width:125px; height:300px; float:left; margin-right:40px;
+                      overflow: visible; cursor: pointer;}
+   .liste-small p   { word-wrap: normal; margin-top:10px; }
+.wider              { width:150px; }
+div.cover-small     { width:125px; height:180px; overflow:hidden;;
+                      background: #fff; box-shadow: 6px 6px 7px 2px rgba(0,0,0,0.35);
+                       position:relative;}
+   .cover-small img { width:115px; max-height:170px; border: 5px solid white;
+                      position:absolute;top:0;bottom:0;margin:auto;}
+div.cover-small-missing { width:120px; height:170px; border: 5px solid white;
+                          background: -moz-linear-gradient(top,  #eee,  #b5b5b5);
+                          text-align: center; color:#444; display:table-cell; vertical-align:middle; }
+
+div#omtale-wrapper { width: 815px; height:460px; border: 2px solid #999; overflow:hidden;
+                     box-shadow:inset 0 0 10px #bbb; background:#fff; position:relative;}
+
+div#omtale-scroll  { float: right; margin-right:20px; }
+div.rating         { width:218px; height:60px; border: 1px solid #aaa; padding:14px;}
+div.ratings        { margin-top: 14px; font-size: 0.9em; display:table; text-align:center;}
+.ratings span      { display:table-cell; vertical-align: middle; padding-left:1em;}
+                     width:260px; height: 30px; text-align: center;}
+.inne              { background: green; opacity:0.7; color: #fff;}
+
+#scrollable        { position:relative; overflow:hidden; height: 575px; }
+#scroller          { height: 390px; overflow: auto; width: 840px;}
+
+img.rating         { margin-top: 20px; margin-bottom: 10px;;}
+img.scroll-icon    { width: 60px;}
+
+div#omtale-bilde-liste   { display: block; height: 260px; width: 220px; background:#fff; padding:10px;}
+div#inner-border-liste   { padding: 10px; border:2px solid gray; background: #ddd; height: 277px ; width: 177px; text-align: center;}
+div.book-title-liste     { color:#333; font-family: Times; font-size: 1.5em; margin-bottom: 60px; font-style: italic;}
+div.book-author-liste    { color:#333; font-family: Arial; font-size: 1.2em; margin: 20px;}
+
+div#liste-wrapper  { margin-left:10px; overflow:auto; width:1430px; height: 915px;}
+div.liste-bilde    { height:320px; width: 220px; margin: auto; overflow:hidden;
+                     padding: 0; position: absolute; left:40px; bottom:40px; background:#fff;
+                     box-shadow: 6px 6px 7px 2px rgba(0,0,0,0.35); }
+ul.listevisning    { list-style-type: none; margin-top:66px; }
+ul.listevisning li { display: inline-block; width: 260px; height: 450px; position: relative;
+                     background-color: #666; margin: 0 50px 80px 0; padding: 20px;
+                     box-shadow: 1px  2px 20px 5px rgba(0,0,0,0.25);
+                     text-align: center; overflow:hidden; color:#fff;}
+
+img.listevisning   { width:200px; max-height: 300px; border:10px solid white;
+                     position:absolute;top:0;bottom:0;margin:auto;left:0;}
+p.liste-forfatter  { text-align: left; font-size:18px; margin-bottom: 5px; margin-left: 20px;}
+p.liste-tittel     { text-align: left; font-weight:bold; font-size:1.3em; margin-left:20px;}
+
+ul.review-list     { list-style:none; padding:0; margin:0; width:100%; text-align:left;}
+ul.review-list li  { padding:0 10px; height:300px; }
+
+div#fade-to-white  { position: absolute; top: 0; left: 0; width:100%; padding: 50px 0;
+                     background-image: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);}
+
+.indicator-wrapper {
+    position: absolute;
+    bottom: 10px;
+    left:50%;
+}
+
+#right_arrow  { position: absolute; top: 120px; right: -80px;}
+#left_arrow  { position: absolute; top: 120px; left: -50px;}
+
+#indicator li { display:block; float:left; list-style:none; width:8px; height:8px;
+                background: #aaa; border-radius:4px; text-indent:-9999em;
+                margin-right:4px;}
+#indicator li.active { background: #f8941d;}

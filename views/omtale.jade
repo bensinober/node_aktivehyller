@@ -1,0 +1,79 @@
+extends layout
+
+block contents
+  h1= title
+  p Welcome to #{title}
+
+  div.buffer
+  div id="content-left"
+    div.image-wrapper
+      if book.cover_url
+        div.image-big
+          img src="#{book.cover_url}" class="omtalt-bok"
+      else
+        div id="omtale-bilde"
+          div id="inner-border"
+            div.book-author #{book.authors}
+            div.book-title #{book.title}
+      if book.book_on_shelf == "in"
+        div class="hyllestatus inne" Boka er inne
+      else if book.book_on_shelf == "out"
+        div class="hyllestatus ute" Boka er utlånt
+        
+    div.ratings
+  
+  div id="content-right"
+    div id="left_arrow"
+      img src="/img/arrow_left_inactive.png"
+    div id="right_arrow"
+      if book.review_collection.length > 1
+        img src="/img/arrow_right_active.png"
+      else
+        img src="/img/arrow_right_inactive.png"
+    div id="omtale-wrapper"
+      div id="scroller"
+        if book.review_collection.length > 1
+          each r,i in book.review_collection
+            div class="slide"
+              if i==0
+                div class="review current" id="omtale_1"
+              else 
+                div class="review current" id="omtale_#{i}" style="display:none"
+                  p #{r.text}
+                  p class="source" #{r.source}        
+        else
+          div class="no-review slide"
+            no reviews
+
+      if book.review_collection.length > 1
+        div class="indicator-wrapper"
+          ul id="indicator"
+            for i in (1..book.review_collection.length)
+              li #{i}
+
+  div.clearfix
+  div id="content-bottom"
+    div class="flere"
+      if book.same_author_collection.length != 0
+        h3 more
+        each b in book.same_author_collection
+          div.liste-small
+            input[class="tnr_id" type="hidden" value=(b.book_id)]
+            if b.cover_url
+              div.cover-small
+                img src="#{b.cover_url}"
+            else
+              div.cover-small-missing #{b.authors} <strong> #{b.title}</strong>
+            p.title: strong #{b.title}
+        if book.same_author_collection.length > 4
+          a href="/flere"
+            div.cover-small
+              div.cover-small-missing se mer
+      p &nbsp;
+    if book.similar_works_collection.length != 0
+      div class="relaterte"
+        h3 relaterte
+        if book.similar_works_collection.length > 4
+          a href="/relaterte"
+            div.cover-small
+              div.cover-small-missing "see more"
