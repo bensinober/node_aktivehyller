@@ -1,79 +1,188 @@
 extends layout
 
-block contents
-  h1= title
-  p Welcome to #{title}
-
+block append contents
   div.buffer
-  div id="content-left"
+  div(id="content-left")
     div.image-wrapper
       if book.cover_url
         div.image-big
-          img src="#{book.cover_url}" class="omtalt-bok"
+          img(src="#{book.cover_url}" class="omtalt-bok")
       else
-        div id="omtale-bilde"
-          div id="inner-border"
+        div(id="omtale-bilde")
+          div(id="inner-border")
             div.book-author #{book.authors}
             div.book-title #{book.title}
       if book.book_on_shelf == "in"
-        div class="hyllestatus inne" Boka er inne
+        div(class="hyllestatus inne") Boka er inne
       else if book.book_on_shelf == "out"
-        div class="hyllestatus ute" Boka er utlånt
+        div(class="hyllestatus ute") Boka er utlånt
         
     div.ratings
   
-  div id="content-right"
-    div id="left_arrow"
-      img src="/img/arrow_left_inactive.png"
-    div id="right_arrow"
+  div(id="content-right")
+    div(id="left_arrow")
+      img(src="/images/arrow_left_inactive.png")
+    div(id="right_arrow")
       if book.review_collection.length > 1
-        img src="/img/arrow_right_active.png"
+        img(src="/images/arrow_right_active.png")
       else
-        img src="/img/arrow_right_inactive.png"
-    div id="omtale-wrapper"
-      div id="scroller"
+        img(src="/images/arrow_right_inactive.png")
+    div(id="omtale-wrapper")
+      div(id="scroller")
         if book.review_collection.length > 1
           each r,i in book.review_collection
-            div class="slide"
+            div(class="slide")
               if i==0
-                div class="review current" id="omtale_1"
+                div(class="review current" id="omtale_1")
               else 
-                div class="review current" id="omtale_#{i}" style="display:none"
+                div(class="review current" id="omtale_#{i}" style="display:none")
                   p #{r.text}
                   p class="source" #{r.source}        
         else
-          div class="no-review slide"
-            no reviews
+          div(class="no-review slide")
+            p no reviews
 
       if book.review_collection.length > 1
-        div class="indicator-wrapper"
-          ul id="indicator"
+        div(class="indicator-wrapper")
+          ul(id="indicator")
             for i in (1..book.review_collection.length)
               li #{i}
 
   div.clearfix
-  div id="content-bottom"
-    div class="flere"
+  div(id="content-bottom")
+    div(class="flere")
       if book.same_author_collection.length != 0
         h3 more
         each b in book.same_author_collection
           div.liste-small
-            input[class="tnr_id" type="hidden" value=(b.book_id)]
+            input(class="tnr_id" type="hidden" value=(b.book_id))
             if b.cover_url
               div.cover-small
-                img src="#{b.cover_url}"
+                img(src="#{b.cover_url}")
             else
               div.cover-small-missing #{b.authors} <strong> #{b.title}</strong>
             p.title: strong #{b.title}
         if book.same_author_collection.length > 4
-          a href="/flere"
+          a(href="/flere")
             div.cover-small
-              div.cover-small-missing se mer
+              div.cover-small-missing "se mer"
       p &nbsp;
     if book.similar_works_collection.length != 0
-      div class="relaterte"
+      div(class="relaterte")
         h3 relaterte
         if book.similar_works_collection.length > 4
-          a href="/relaterte"
+          a(href="/relaterte")
             div.cover-small
-              div.cover-small-missing "see more"
+              div.cover-small-missing "se mer"
+
+script(type='text/javascript').
+  $(document).ready(function () {
+
+    $('button#avbryt-knapp').on('click', function() {
+      $('#overlay').hide();
+      $('#vi-leter').hide();
+      if(request) {request.abort();} //abort running requests
+    });
+
+    $('#indicator li:first').addClass("active");
+
+    $('#left_arrow').on('click', function(){
+      var current = parseInt($('.current').attr('id').substr(7));
+      var numReviews = $('.review').size();
+
+      if (current > 0) {
+        var next = current - 1;
+        $('.current').removeClass('current').hide();
+        $('#omtale_'+next).addClass('current').show();
+
+        $('#indicator li').removeClass('active');
+        $('#indicator li:eq(' + next + ')').addClass('active');
+
+        $('#right_arrow img').attr('src', "/img/arrow_right_active.png");
+        if (next == 0) {
+          $('#left_arrow img').attr('src', "/img/arrow_left_inactive.png");
+        }
+      }
+    });
+
+    $('#right_arrow').on('click', function(){
+      var current = parseInt($('.current').attr('id').substr(7));
+      var numReviews = $('.review').size();
+
+      if (current < (numReviews -1)) {
+        var next = current + 1;
+        $('.current').removeClass('current').hide();
+        $('#omtale_'+next).addClass('current').show();
+
+        $('#indicator li').removeClass('active');
+        $('#indicator li:eq(' + next + ')').addClass('active');
+
+        $('#left_arrow img').attr('src', "/img/arrow_left_active.png");
+        if (next == numReviews -1) {
+          $('#right_arrow img').attr('src', "/img/arrow_right_inactive.png");
+        }
+      }
+
+    });
+
+    $('.liste-small').on('click', function(evt) {
+      evt.preventDefault();
+        var title = $(this).find('p.title').html();
+        var tnr = $(this).find('input.tnr_id').val();
+        // Save tnr & title in case of retry
+        $('#seeking_tnr').val(tnr);
+        $('#seeking_title').val(title);
+
+        // show overlay
+        $('button#retry-knapp').hide();
+        $('#overlay').show();
+        $('button#avbryt-knapp').html('Avbryt');
+        $('div#vi-leter p').html("#{t.fetching_info} \"" + title + '" <div id="loading"></div>' );
+        $('#vi-leter').show();
+
+        request = $.ajax({
+          url: '/populate/'+tnr,
+          type: 'GET'});
+
+        request.done(function(msg) {
+          $.get('/copy', function(data) {
+            window.location.replace("/omtale");
+          });
+        });
+
+        request.fail(function(jqXHR, textStatus, errorThrown) {
+          $('div#vi-leter p').html('&#9760; Beklager, dette tok for lang tid!' );
+          $('button#retry-knapp').show();
+          return;
+        });
+    });
+
+    $('#retry-knapp').on('click', function(evt) {
+      evt.preventDefault();
+        var tnr = $('#seeking_tnr').val();
+        var title = $('#seeking_title').val();
+
+        // show overlay
+        $('button#retry-knapp').hide();
+        $('#overlay').show();
+        $('button#avbryt-knapp').html('Avbryt');
+        $('div#vi-leter p').html("#{t.fetching_info} \"" + title + '" <div id="loading"></div>' );
+        $('#vi-leter').show();
+
+        request = $.ajax({
+          url: '/populate/'+tnr,
+          type: 'GET'});
+
+        request.done(function(msg) {
+          $.get('/copy', function(data) {
+            window.location.replace("/omtale");
+          });
+        });
+
+        request.fail(function(jqXHR, textStatus, errorThrown) {
+          $('div#vi-leter p').html('&#9760; Beklager, dette tok for lang tid!' );
+          $('button#retry-knapp').show();
+          return;
+        });
+    });
+  });

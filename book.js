@@ -8,7 +8,7 @@ function Book(tnr) {
   this.same_author_collection = [];
   this.similar_works_collection = [];
 }
-Book.prototype.find = function(err, callback){
+Book.prototype.find = function(callback){
   var self = this;
   console.log("looking for book: " + this.uri);
   // find book from book uri
@@ -45,6 +45,7 @@ Book.prototype.find = function(err, callback){
         self[i] = item[i].value;
       }
     });
+  callback(self);
   });
 }
 module.exports = Book

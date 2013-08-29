@@ -1,5 +1,11 @@
 extends layout
 
-block contents
-  //h1= title
-  //p Welcome to #{title}
+block body
+  div#container(style="background-image:url('/images/startscreen.png')" class="select-disable dim")
+    div#vi-leter
+      p Vi leter
+        span#loading
+      div#avbryt
+        button.top-button(id="avbryt-knapp") Avbryt
+    div#overlay
+    
