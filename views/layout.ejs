@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Linux/x86 (vers 25 March 2009), see www.w3.org" />
+  <meta charset="utf-8" />
+
+  <title><% title %></title>
+  <link href="/stylesheets/style.css" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/jquery.min.js" type="text/javascript">
+</script>
+  <script type="text/javascript" src="/javascripts/websocket.js">
+</script>
+</head>
+
+<body>
+  <div id="container" class="select-disable dim">
+    <input type="hidden" id="seeking_tnr" /> <input type="hidden" id="seeking_title" />
+
+    <div id="left-bar">
+      <div class="logo"><img src="/images/logo.png" class="logo" /></div>
+
+      <div id="avslutt-container">
+        <a href="/"><button id="avslutt" class="square"><a href="/"><span>CLOSE <img src=
+        "/images/avslutt.png" id="avslutt-ikon" /></span> </a></button></a>
+      </div>
+    </div>
+
+    <div id="header">
+      <div id="header-text"></div>
+    </div>
+
+    <div id="contents">
+
+    <%- body %>
+ 
+    </div>
+    <div id="vi-leter">
+      <p>vi leter</p>
+
+      <div id="avbryt">
+        <button id="avbryt-knapp" class="top-button">Avbryt</button><button id=
+        "retry-knapp" class="top-button">Prøv på nytt</button>
+      </div>
+    </div>
+
+    <div id="overlay"></div>
+  </div>
+</body>
+</html>

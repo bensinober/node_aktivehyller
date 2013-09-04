@@ -1,5 +1,5 @@
 // Initialize
-var ws = new WebSocket("ws://localhost:4567/ws");
+var ws = new WebSocket("ws://localhost:4568");
 var request;
 
 $('button#avbryt-knapp').on('click', function() {

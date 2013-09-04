@@ -1,6 +1,6 @@
 function Book(tnr) {
   sparql = require('sparql');
-  client = new sparql.Client('http://datatest.deichman.no/sparql');
+  client = new sparql.Client('http://data.deichman.no/sparql');
 
   //:book_id, :title, :format, :cover_url, :isbn, :authors, :responsible, :rating, :tnr,
   //:lang, :work_tnrs, :book_on_shelf, :work_id, :work_isbns, :review_collection, :same_author_collection, 
