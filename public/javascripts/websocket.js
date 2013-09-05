@@ -30,6 +30,7 @@ ws.onmessage = function(evt) {
     check_format = $.getJSON('/checkformat/'+evt.data);
     check_format.done(function(data) {
       if (data) {
+        //console.log(data);
         $('div#vi-leter p').html("Henter info om \"" + data.book.title + '" <span id="loading"></span>' );
 
         //hent all info til omtalevisning her
@@ -38,7 +39,7 @@ ws.onmessage = function(evt) {
         request.done(function(data) {
         //$.get('/copy', function(data) {
             window.location.replace("/omtale");
-            console.log(data);
+            //console.log(data);
         //  });
         });
 

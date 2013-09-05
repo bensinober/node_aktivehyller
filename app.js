@@ -9,7 +9,6 @@ var expressLayouts = require('express-ejs-layouts');
 var http = require('http');
 var path = require('path');
 
-
 /**
  * Environment
  */
@@ -24,10 +23,11 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(expressLayouts);
-app.use(app.router);
 app.use(express.cookieParser());
 app.use(express.session({secret: '1234567890QWERTYÆØÅ'}));
+app.use(expressLayouts);
+app.use(app.router);
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
@@ -35,8 +35,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 // Book class
-//var book = require('./book.js');
-
+var Book = require('./book.js');
 /**
  * Routes
  */
@@ -46,15 +45,10 @@ var omtaleRoute = require('./routes/omtale');
 var checkformatRoute = require('./routes/checkformat');
 
 app.get('/', routes.index);
-app.get('/checkformat/:tnr', checkformatRoute.checkformat); 
-app.get('/omtale/:tnr', omtaleRoute.tnrlookup);
-app.get('/omtale', omtaleRoute.show);
-app.get('/populate', function(req,res) {
-  var book = require('./book.js');
-  book.populate(function(data){
-    res.json({book: data});
-  });
-});
+app.get('/checkformat/:tnr', checkformatRoute.checkFormat); 
+app.get('/omtale/:tnr', omtaleRoute.tnrLookup);
+app.get('/populate', omtaleRoute.populateBook);
+app.get('/omtale', omtaleRoute.displayBook);
  
 
 http.createServer(app).listen(app.get('port'), function(){

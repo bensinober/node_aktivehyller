@@ -8,6 +8,7 @@ function Book(tnr) {
   if (tnr) {
     this.tnr = parseInt(tnr);
     this.uri = 'http://data.deichman.no/resource/tnr_' + this.tnr;
+    this.title, this.format,this.cover_url, this.isbn, this.responsible, this.rating, this.lang, this.book_on_shelf = '';
     this.authors = [];
     this.work_isbns = [];
     this.review_collection = [];
@@ -200,7 +201,7 @@ Book.prototype.fetch_similar_works = function(callback){
     OPTIONAL { ?book_id <http://purl.org/dc/terms/creator> ?similar_book_creator . \
     ?similar_book_creator <http://xmlns.com/foaf/0.1/name> ?creatorName . } \
     MINUS { ?similar_work <http://purl.org/dc/terms/creator> ?creator_id . } }';
-  console.log(query);
+  //console.log(query);
   client.query(query, function(err,res) {
     if(err) {
      throw err;
@@ -261,7 +262,7 @@ Book.prototype.populate = function(callback){
   //});
 }
 
-module.exports = Book
+module.exports = Book;
 
 /* implemented functions
 var book = new Book("882715");
