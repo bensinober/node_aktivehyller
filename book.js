@@ -1,6 +1,6 @@
-var Book = function (tnr) {
-  var sparql = require('sparql');
-  var client = new sparql.Client('http://data.deichman.no/sparql');
+function Book(tnr) {
+  sparql = require('sparql');
+  client = new sparql.Client('http://data.deichman.no/sparql');
 
   //:book_id, :title, :format, :cover_url, :isbn, :authors, :responsible, :rating, :tnr,
   //:lang, :work_tnrs, :book_on_shelf, :work_id, :work_isbns, :review_collection, :same_author_collection, 
@@ -266,7 +266,18 @@ module.exports = Book
 /* implemented functions
 var book = new Book("882715");
 
-book.find();
+book.checkformat(function(data) {
+  if (data) {
+    console.log("Book found: "+data);
+    book.find(function(err) {
+      if(err) { throw err };
+      console.log(book);
+    });
+  } else {
+    console.log("Book not found");
+  }
+});
+
 book.fetch_local_reviews();
 book.fetch_isbns();
 book.fetch_similar_works();
