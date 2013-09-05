@@ -1,13 +1,13 @@
-function Book(tnr) {
-  sparql = require('sparql');
-  client = new sparql.Client('http://data.deichman.no/sparql');
+var Book = function (tnr) {
+  var sparql = require('sparql');
+  var client = new sparql.Client('http://data.deichman.no/sparql');
 
   //:book_id, :title, :format, :cover_url, :isbn, :authors, :responsible, :rating, :tnr,
   //:lang, :work_tnrs, :book_on_shelf, :work_id, :work_isbns, :review_collection, :same_author_collection, 
   //:similar_works_collection, :abstract, :krydder, :randomized_books
   if (tnr) {
-    this.tnr = tnr;
-    this.uri = 'http://data.deichman.no/resource/tnr_' + tnr;
+    this.tnr = parseInt(tnr);
+    this.uri = 'http://data.deichman.no/resource/tnr_' + this.tnr;
     this.authors = [];
     this.work_isbns = [];
     this.review_collection = [];
@@ -242,8 +242,8 @@ Book.prototype.checkformat = function(callback){
 // a synchronuous method to populate entire book
 Book.prototype.populate = function(callback){
   var self = this;
-  self.find(function(err) {
-    if (err) throw err;
+  //self.find(function(err) {
+  //  if (err) throw err;
     self.fetch_local_reviews(function(err) {
       if (err) throw err;
       self.fetch_isbns(function(err) {
@@ -258,7 +258,7 @@ Book.prototype.populate = function(callback){
         });
       });
     });
-  });
+  //});
 }
 
 module.exports = Book
