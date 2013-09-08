@@ -15,6 +15,8 @@ var path = require('path');
 
 var Book = require('./book.js');
 var Rfidgeek = require('rfidgeek');
+var rfid = new Rfidgeek();
+rfid.scan();
 
 /**
  * Environment
@@ -53,9 +55,26 @@ var checkformatRoute = require('./routes/checkformat');
 app.get('/', routes.index);
 app.get('/checkformat/:tnr', checkformatRoute.checkFormat); 
 app.get('/omtale/:tnr', omtaleRoute.tnrLookup);
-app.get('/populate', omtaleRoute.populateBook);
-app.get('/omtale', omtaleRoute.displayBook);
- 
+app.get('/rfid', function(req, res) {
+    // Eventsource header
+    res.writeHead(200, {
+        'Content-Type': 'text/event-stream',
+        'Connection': 'keep-alive',
+        'Cache-Control': 'no-cache',
+    });
+    console.log('Client connect');
+    
+    // create rfid event listener
+    rfid.on('rfiddata', function(data) {
+      console.log("RFID data received in external app: "+data);
+      res.write("event: rfiddata\r\n");
+      res.write("data: "+data+"\r\n\n");
+    });
+                    
+    res.on('close', function() {
+      console.log("Client left");
+    });
+}); 
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

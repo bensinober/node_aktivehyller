@@ -76,6 +76,7 @@ Book.prototype.find = function(callback){
 
 Book.prototype.fetch_local_reviews = function(callback){
    var self = this;
+   self.review_collection = [];
    console.log("fetching reviews for: " + this.work_id);
    
   // get reviews from work id
@@ -101,10 +102,12 @@ Book.prototype.fetch_local_reviews = function(callback){
      throw err;
    }
    res.results.bindings.forEach(function(item) {
-     for (key in item) {
-       var i = String(key);
-       self[i] = item[i].value;
+      var review = {};
+      for (key in item) {
+         var i = String(key);
+         review[i] = item[i].value;
       }
+      self.review_collection.push(review);
     });
     callback();
   });
@@ -143,7 +146,7 @@ Book.prototype.fetch_same_author_books = function(callback){
   var self = this;
   self.same_author_collection = [];
   
-  console.log("fetching same author book for: " + this.work_id);
+  console.log("fetching same author book for: " + self.work_id);
   
   var query = 'SELECT DISTINCT (sql:SAMPLE (?cover_url) AS ?cover_url) (sql:SAMPLE (?alt_cover_url) AS ?alt_cover_url) \
     ?similar_work ?lang ?original_language ?title ?book_id \
@@ -183,7 +186,7 @@ Book.prototype.fetch_similar_works = function(callback){
   var self = this;
   self.similar_works_collection = [];
   
-  console.log("fetching similar works for: " + this.work_id);
+  console.log("fetching similar works for: " + self.work_id);
   var query = 'SELECT DISTINCT (sql:SAMPLE (?cover_url) AS ?cover_url) (sql:SAMPLE (?alt_cover_url) AS ?alt_cover_url) \
     ?book_id ?title ?lang ?creatorName ?creator_id ?original_language ?format ?similar_work \
     FROM <http://data.deichman.no/books> \
@@ -243,28 +246,26 @@ Book.prototype.checkformat = function(callback){
 // a synchronuous method to populate entire book
 Book.prototype.populate = function(callback){
   var self = this;
-  //self.find(function(err) {
-  //  if (err) throw err;
-    self.fetch_local_reviews(function(err) {
+  self.fetch_local_reviews(function(err) {
+    if (err) throw err;
+    self.fetch_isbns(function(err) {
       if (err) throw err;
-      self.fetch_isbns(function(err) {
+      self.fetch_similar_works(function(err) {
         if (err) throw err;
-        self.fetch_similar_works(function(err) {
+        self.fetch_same_author_books(function(err) {
+          //console.log(self);
           if (err) throw err;
-          self.fetch_same_author_books(function(err) {
-            //console.log(self);
-            if (err) throw err;
-            callback(self);
-          });
+          callback();
         });
       });
     });
-  //});
+  });
 }
 
 module.exports = Book;
 
 /* implemented functions
+var Book = require('./book.js');
 var book = new Book("882715");
 
 book.checkformat(function(data) {
@@ -279,7 +280,7 @@ book.checkformat(function(data) {
   }
 });
 
-book.fetch_local_reviews();
+book.fetch_local_reviews(function() { console.log(book) });
 book.fetch_isbns();
 book.fetch_similar_works();
 book.fetch_same_author_books();
