@@ -10,6 +10,13 @@ var http = require('http');
 var path = require('path');
 
 /**
+ * Local classes
+ */
+
+var Book = require('./book.js');
+var Rfidgeek = require('rfidgeek');
+
+/**
  * Environment
  */
  
@@ -34,8 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-// Book class
-var Book = require('./book.js');
+
 /**
  * Routes
  */

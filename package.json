@@ -10,7 +10,6 @@
     "ejs": "*",
     "express-ejs-layouts": "*",
     "sparql": "*",
-    "websocket": "*",
-    "serialport": "*"
+    "rfidgeek": "*"
   }
 }

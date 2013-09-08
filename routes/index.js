@@ -4,5 +4,7 @@
  */
 
 exports.index = function(req, res){
-  res.render('index', { title: 'Aktive hyller' });
+  var Rfidgeek = require('rfidgeek');
+  var rfid = new Rfidgeek();
+  res.render('index', { rfid: rfid, title: 'Aktive hyller' });
 };
