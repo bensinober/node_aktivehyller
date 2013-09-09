@@ -169,12 +169,12 @@ Book.prototype.fetch_same_author_books = function(callback){
      throw err;
     }
     res.results.bindings.forEach(function(item) {
-      var book = new Book;
+      var sameAuthor = {};
       for (key in item) {
          var i = String(key);
-         book[i] = item[i].value;
+         sameAuthor[i] = item[i].value;
       }
-      self.same_author_collection.push(book);
+      self.same_author_collection.push(sameAuthor);
     });
     callback();
   })
@@ -210,12 +210,12 @@ Book.prototype.fetch_similar_works = function(callback){
      throw err;
     }
     res.results.bindings.forEach(function(item) {
-      var book = new Book;
+      var similarWork = {};
       for (key in item) {
          var i = String(key);
-         book[i] = item[i].value;
+         similarWork[i] = item[i].value;
       }
-      self.similar_works_collection.push(book);
+      self.similar_works_collection.push(similarWork);
     });
     callback();
   });

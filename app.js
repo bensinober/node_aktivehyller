@@ -10,10 +10,9 @@ var http = require('http');
 var path = require('path');
 
 /**
- * Local classes
+ * Instantiate Rfid reader
  */
 
-var Book = require('./book.js');
 var Rfidgeek = require('rfidgeek');
 var rfid = new Rfidgeek();
 rfid.scan();
@@ -47,14 +46,16 @@ if ('development' == app.get('env')) {
 /**
  * Routes
  */
- 
+var BookRoute = require('./routes/book.js');
+
+var Handlers = {
+    Book: new BookRoute()
+};
 var routes = require('./routes');    // automatically requires 'routes/index.js'
-var omtaleRoute = require('./routes/omtale');
-var checkformatRoute = require('./routes/checkformat');
 
 app.get('/', routes.index);
-app.get('/checkformat/:tnr', checkformatRoute.checkFormat); 
-app.get('/omtale/:tnr', omtaleRoute.tnrLookup);
+app.get('/checkformat/:tnr', Handlers.Book.checkFormat); 
+app.get('/omtale/:tnr', Handlers.Book.tnrLookup);
 app.get('/rfid', function(req, res) {
     // Eventsource header
     res.writeHead(200, {

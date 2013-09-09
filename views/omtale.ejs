@@ -1,73 +1,106 @@
 <div class="buffer"></div>
 
-  <div id="content-left">
-    <div class="image-wrapper">
-      <% if (book.cover_url) { %>
-        <div class="image-big">
-          <img src="<%= book.cover_url %>" class="omtalt-bok"/>
-        </div>
-      <% } else { %>
-        <div id="omtale-bilde">
-          <div id="inner-border">
-            <div class="book-author"> 
-              <%= book.authors %>
-            </div>
-            <div class="book-title">
-              <%= book.title %>>
-            </div>
-        </div>
-      <% } %>
-    </div>
-
-    <div class="ratings"></div>
-  </div>
-
-  <div id="content-right">
-    <div id="left_arrow"><img src="/images/arrow_left_inactive.png" /></div>
-      <% if (book.review_collection.length >= 1) { %>
-        <div id="right_arrow"><img src="/images/arrow_right_active.png" /></div>
-      <% } else { %>
-        <div id="right_arrow"><img src="/images/arrow_right_inactive.png" /></div>
-      <% } %>
-    <div id="omtale-wrapper">
-      <div id="scroller">
-        <% if (book.review_collection.length >= 1) { %>
-          <% book.review_collection.forEach(function(r,i) { %>
-            <div class="slide">
-              <% if (i == 0) { %>
-                <div class="review current" id="omtale_<%= i %>">
-              <% } else { %>
-                <div class="review" id="omtale_<%= i %>" style="'display:none'">
-              <% } %>
-              <p> <%= r.review_text %> </p>
-              <p class="source"> <%= r.review_source %> </p>
-            </div>
-          <% }); %>
-        <% } else { %>
-          <div class="no-review slide">
-            <p>no reviews ... sorry</p>
+<div id="content-left">
+  <div class="image-wrapper">
+    <% if (book.cover_url) { %>
+      <div class="image-big">
+        <img src="<%= book.cover_url %>" class="omtalt-bok"/>
+      </div>
+    <% } else { %>
+      <div id="omtale-bilde">
+        <div id="inner-border">
+          <div class="book-author"> 
+            <%= book.authors %>
           </div>
-        <% } %>
+          <div class="book-title">
+            <%= book.title %>>
+          </div>
       </div>
-    </div>
+    <% } %>
   </div>
 
-  <div class="clearfix"></div>
+  <div class="ratings"></div>
+</div>
 
-  <div id="content-bottom">
-    <div class="flere">
+<div id="content-right">
+  <div id="left_arrow"><img src="/images/arrow_left_inactive.png" /></div>
+    <% if (book.review_collection.length > 1) { %>
+      <div id="right_arrow"><img src="/images/arrow_right_active.png" /></div>
+    <% } else { %>
+      <div id="right_arrow"><img src="/images/arrow_right_inactive.png" /></div>
+    <% } %>
+  <div id="omtale-wrapper">
+    <div id="scroller">
+      <% if (book.review_collection.length != 0) { %>
+        <% book.review_collection.forEach(function(r,i) { %>
+          <div class="slide">
+            <% if (i == 0) { %>
+              <div class="review current" id="omtale_<%= i %>">
+            <% } else { %>
+              <div class="review" id="omtale_<%= i %>" style="'display:none'">
+            <% } %>
+            <p> <%= r.review_text %> </p>
+            <p class="source"> <%= r.review_source %> </p>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <div class="no-review slide">
+          <p>no reviews ... sorry</p>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<div class="clearfix"></div>
+
+<div id="content-bottom">
+  <div class="flere">
+    <% if (book.same_author_collection.length != 0) { %>
       <h3>Flere</h3>
-
-      <div class="liste-small">
-        <input type="hidden" value="http://data.deichman.no/resource/tnr_159107"
-        class="tnr_id" />
-
-        <div class="cover-small"><img src=
-        "http://krydder.bib.no/0040/20589.bilde.1327537551.s.jpg" /></div>
-
-        <p class="title"><strong>Den grï¿½nne dagen</strong></p>
-      </div>
-        <p>&nbsp;</p>
+      <% book.same_author_collection.forEach(function(b,i) { %>
+        <div class="liste-small">
+          <input type="hidden" class="tnr_id" value="<%= b.book_id %>"/>
+          <% if (b.cover_url) { %>
+            <div class="cover-small">
+              <img src="<%= b.cover_url %>" />
+            </div>
+          <% } else { %>
+            <div class="cover-small-missing">
+              <%= b.authors %> <strong> <%= b.title %></strong>
+            </div>
+            <p>&nbsp;</p>
+          <% } %>
+          <p class="title"> <strong> <%= b.title %></strong> </p>
+        </div> 
+      <% }); %>
+    <% } %>
+  </div> 
+  <% if (book.similar_works_collection.length != 0) { %>
+    <div class="relaterte">
+      <h3>Relaterte</h3>
+      <% book.similar_works_collection.forEach(function(b,i) { %>
+        <div class="liste-small">
+          <input type="hidden" class="tnr_id" value="<%= b.book_id %>"/>
+          <% if (b.cover_url) { %>
+            <div class="cover-small">
+              <img src="<%= b.cover_url %>" />
+            </div>
+          <% } else { %>
+            <div class="cover-small-missing">
+              <%= b.authors %> <strong> <%= b.title %></strong>
+            </div>
+            <p>&nbsp;</p>
+          <% } %>
+        <p class="title"> <strong> <%= b.title %></strong> </p>
+        </div> 
+      <% }); %>        
+      <% if (book.similar_works_collection.length > 4) { %>
+        <a href="/relaterte" />
+        <div class="cover-small">
+          <div class="cover-small-missing">se mer</div>
+        </div>
+      <% } %>
     </div>
-  </div>
+  <% } %>
 </div>
