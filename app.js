@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -10,9 +9,9 @@ var http = require('http');
 var path = require('path');
 
 /**
- * Instantiate Rfid reader
+ * Instantiate Rfid reader and load Book class
  */
-
+var Book = require('./book.js');
 var Rfidgeek = require('rfidgeek');
 var rfid = new Rfidgeek();
 rfid.scan();
@@ -31,8 +30,8 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(express.cookieParser());
-app.use(express.session({secret: '1234567890QWERTYÆØÅ'}));
+//app.use(express.cookieParser());
+//app.use(express.session({secret: '1234567890QWERTYÆØÅ'}));
 app.use(expressLayouts);
 app.use(app.router);
 
@@ -47,35 +46,23 @@ if ('development' == app.get('env')) {
  * Routes
  */
 var BookRoute = require('./routes/book.js');
+var RfidRoute = require('./routes/rfid.js');
 
 var Handlers = {
-    Book: new BookRoute()
+    Book: new BookRoute(Book),
+    Rfid: new RfidRoute(rfid)
 };
+
 var routes = require('./routes');    // automatically requires 'routes/index.js'
 
 app.get('/', routes.index);
-app.get('/checkformat/:tnr', Handlers.Book.checkFormat); 
+app.get('/checkformat/:tnr', Handlers.Book.checkFormat);
+app.get('/populate/:tnr', Handlers.Book.populate); 
+app.get('/copy', function(req,res) { console.log(Book) }); // does nothing, for now...
 app.get('/omtale/:tnr', Handlers.Book.tnrLookup);
-app.get('/rfid', function(req, res) {
-    // Eventsource header
-    res.writeHead(200, {
-        'Content-Type': 'text/event-stream',
-        'Connection': 'keep-alive',
-        'Cache-Control': 'no-cache',
-    });
-    console.log('Client connect');
-    
-    // create rfid event listener
-    rfid.on('rfiddata', function(data) {
-      console.log("RFID data received in external app: "+data);
-      res.write("event: rfiddata\r\n");
-      res.write("data: "+data+"\r\n\n");
-    });
-                    
-    res.on('close', function() {
-      console.log("Client left");
-    });
-}); 
+app.get('/rfid', Handlers.Rfid.eventSource);
+app.get('/flere', Handlers.Book.more);
+app.get('/relaterte', Handlers.Book.related);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

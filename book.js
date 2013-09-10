@@ -151,7 +151,7 @@ Book.prototype.fetch_same_author_books = function(callback){
   var query = 'SELECT DISTINCT (sql:SAMPLE (?cover_url) AS ?cover_url) (sql:SAMPLE (?alt_cover_url) AS ?alt_cover_url) \
     ?similar_work ?lang ?original_language ?title ?book_id \
     FROM <http://data.deichman.no/books> \
-    WHERE { <http://data.deichman.no/resource/tnr_1267837> <http://purl.org/dc/terms/creator> ?creator . \
+    WHERE { <'+self.uri+'> <http://purl.org/dc/terms/creator> ?creator . \
     ?work <http://purl.org/spar/fabio/hasManifestation> <'+self.uri+'> . \
     ?similar_work <http://purl.org/dc/terms/creator> ?creator . \
     ?similar_work <http://purl.org/spar/fabio/hasManifestation> ?book_id . \
