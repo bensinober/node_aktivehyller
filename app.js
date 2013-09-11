@@ -42,6 +42,18 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+/*
+ * App in-memory session hash
+ */ 
+var session = {};
+session.books = {};
+session.history = [];  // Array of Hash
+                       // ex: {:path => "/omtale" :book => session[:books][:tnr]}
+session.current = null // Current book in session
+session.log = {start: "pending", stop: null, rfid: 0, omtale: 0, flere: 0, relaterte: 0};
+
+module.exports.session = session;
+
 /**
  * Routes
  */
@@ -63,6 +75,7 @@ app.get('/omtale/:tnr', Handlers.Book.tnrLookup);
 app.get('/rfid', Handlers.Rfid.eventSource);
 app.get('/flere', Handlers.Book.more);
 app.get('/relaterte', Handlers.Book.related);
+app.get('/back', Handlers.Book.back);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
