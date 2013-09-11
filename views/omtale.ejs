@@ -138,9 +138,9 @@
         $('#indicator li').removeClass('active');
         $('#indicator li:eq(' + next + ')').addClass('active');
 
-        $('#right_arrow img').attr('src', "/img/arrow_right_active.png");
+        $('#right_arrow img').attr('src', "/images/arrow_right_active.png");
         if (next == 0) {
-          $('#left_arrow img').attr('src', "/img/arrow_left_inactive.png");
+          $('#left_arrow img').attr('src', "/images/arrow_left_inactive.png");
         }
       }
     });
@@ -157,9 +157,9 @@
         $('#indicator li').removeClass('active');
         $('#indicator li:eq(' + next + ')').addClass('active');
 
-        $('#left_arrow img').attr('src', "/img/arrow_left_active.png");
+        $('#left_arrow img').attr('src', "/images/arrow_left_active.png");
         if (next == numReviews -1) {
-          $('#right_arrow img').attr('src', "/img/arrow_right_inactive.png");
+          $('#right_arrow img').attr('src', "/images/arrow_right_inactive.png");
         }
       }
 
@@ -209,7 +209,7 @@
         $('button#retry-knapp').hide();
         $('#overlay').show();
         $('button#avbryt-knapp').html('Avbryt');
-        $('div#vi-leter p').html("#{t.fetching_info} \"" + title + '" <div id="loading"></div>' );
+        $('div#vi-leter p').html("Henter info om \"" + title + '" <div id="loading"></div>' );
         $('#vi-leter').show();
 
         request = $.ajax({
