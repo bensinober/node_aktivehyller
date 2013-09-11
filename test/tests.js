@@ -9,5 +9,12 @@ describe('GET /', function(){
     request('localhost:4567')
       .get('/')
       .expect(200, done);
-  })
+  });
+
+  it('fails on wrong page', function(done){
+    request('localhost:4567')
+      .get('/bogus')
+      .expect(404, done);
+  });
 })
+

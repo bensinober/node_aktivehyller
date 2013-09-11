@@ -13,7 +13,7 @@
             <%= book.authors %>
           </div>
           <div class="book-title">
-            <%= book.title %>>
+            <%= book.title %>
           </div>
         </div>
       </div>
@@ -209,7 +209,7 @@
         $('button#retry-knapp').hide();
         $('#overlay').show();
         $('button#avbryt-knapp').html('Avbryt');
-        $('div#vi-leter p').html("Henter info om \"" + title + '" <div id="loading"></div>' );
+        $('div#vi-leter p').html('Henter info om \"' + title + '" <div id="loading"></div>' );
         $('#vi-leter').show();
 
         request = $.ajax({

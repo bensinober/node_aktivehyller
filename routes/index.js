@@ -9,5 +9,5 @@ exports.index = function(req, res){
   session.history = [];
   session.current = null;
   session.log = {start: "starting", stop: null, rfid: 0, omtale: 0, flere: 0, relaterte: 0};
-  res.render('index', { layout: false, title: 'Aktive hyller' });
+  res.render('index', { layout: false, title: 'Aktive hyller', path: req.path, session: session });
 };

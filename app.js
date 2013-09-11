@@ -52,8 +52,6 @@ session.history = [];  // Array of Hash
 session.current = null // Current book in session
 session.log = {start: "pending", stop: null, rfid: 0, omtale: 0, flere: 0, relaterte: 0};
 
-module.exports.session = session;
-
 /**
  * Routes
  */
@@ -81,4 +79,5 @@ http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
+module.exports.session = session;
 module.exports.rfid = rfid;
