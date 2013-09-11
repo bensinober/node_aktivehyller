@@ -62,7 +62,7 @@ var RfidRoute = require('./routes/rfid.js');
 
 var Handlers = {
     Book: new BookRoute(Book),
-    Rfid: new RfidRoute(rfid)
+    Rfid: new RfidRoute()
 };
 
 var routes = require('./routes');    // automatically requires 'routes/index.js'
@@ -80,3 +80,5 @@ app.get('/back', Handlers.Book.back);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+module.exports.rfid = rfid;

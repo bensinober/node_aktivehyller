@@ -14,6 +14,14 @@ setInterval(function() {
     $("#loading").html(""+Array(i+1).join("."));
 }, 500);
 
+rfid.onopen = function() {
+  console.log("opened!");
+}
+
+rfid.onclose = function() {
+  console.log("closed!");
+}
+
 rfid.addEventListener('rfiddata', function(rfiddata) {
   console.log(rfiddata);
   if (rfiddata.data == "tag removed") {

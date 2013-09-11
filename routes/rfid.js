@@ -3,9 +3,11 @@
  * takes rfid object as input
  */
  
-function RfidRoute(rfid) {
+function RfidRoute() {
 
-this.eventSource = function(req, res) {
+  this.eventSource = function(req, res) {
+    var rfid = require('../app').rfid;
+
     // Eventsource header
     res.writeHead(200, {
         'Content-Type': 'text/event-stream',

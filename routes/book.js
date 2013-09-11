@@ -5,7 +5,7 @@
 
 function BookRoute(Book) {
 
-  var session = require('../app').session; // Inherit session
+  var session = require('../app').session; // Inherit session from app
 
   this.checkFormat = function(req,res) {
     var book = new Book(req.params.tnr);
@@ -62,7 +62,7 @@ function BookRoute(Book) {
   
   this.back = function(req,res) { 
     var book = session.book;
-    session.history = session.history //[0...-1]
+    //session.history = session.history //[0...-1]
     var back = session.history.pop
     session.current = session.books.back.tnr
     res.redirect(back.path)
