@@ -14,7 +14,8 @@ var path = require('path');
 var Book = require('./book.js');
 var Rfidgeek = require('rfidgeek');
 var rfid = new Rfidgeek();
-rfid.scan();
+rfid.init();
+rfid.start();
 
 /**
  * Environment
@@ -79,5 +80,8 @@ http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
+/**
+ * export modules
+ */
 module.exports.session = session;
 module.exports.rfid = rfid;

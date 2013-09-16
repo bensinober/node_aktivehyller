@@ -11,7 +11,7 @@
     "ejs": "*",
     "express-ejs-layouts": "*",
     "sparql": "*",
-    "rfidgeek": "*"
+    "rfidgeek": ">=0.0.4"
   },
   "devDependencies": {
     "mocha": "*",
