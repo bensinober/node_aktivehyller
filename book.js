@@ -235,7 +235,7 @@ Book.prototype.checkformat = function(callback){
   var query = 'ASK FROM <http://data.deichman.no/books> \
   { <'+this.uri+'> <http://purl.org/dc/terms/title> ?title . \
     <'+this.uri+'> <http://purl.org/dc/terms/format> ?format . \
-    FILTER(?title = <http://data.deichman.no/format/Book> || <http://data.deichman.no/format/Audiobook>) }';
+    FILTER(?format = <http://data.deichman.no/format/Book> || ?format = <http://data.deichman.no/format/Audiobook>) }';
     
   client.query(query, function(err,res) {
     if (err) callback(err);

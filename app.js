@@ -84,4 +84,5 @@ http.createServer(app).listen(app.get('port'), function(){
  * export modules
  */
 module.exports.session = session;
-module.exports.rfid = rfid;
+module.exports.rfid    = rfid;
+module.exports.app     = app; // for testing
