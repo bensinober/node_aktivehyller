@@ -6,14 +6,6 @@ var Book = require('../book.js');
  
 describe('BOOK API', function(){
 
-  it('finds a book in the RDF store', function(done){
-    var book = new Book(882715);
-    book.find(function() {
-      expect(book.tnr).to.be(882715);
-      console.log(book);
-      done();
-    });
-  });
   describe('book format', function() {
     
     it('validates on accepted book format', function(done){

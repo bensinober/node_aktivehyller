@@ -11,7 +11,7 @@ var path = require('path');
 /**
  * Instantiate Rfid reader and load Book class
  */
-var Book = require('./book.js');
+var Book = require('./lib/book.js');
 var Rfidgeek = require('rfidgeek');
 var rfid = new Rfidgeek();
 rfid.init();
@@ -23,7 +23,7 @@ rfid.start();
  
 var app = express();
 
-// all environments
+// All environments
 app.set('port', process.env.PORT || 4567);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs'); 
@@ -31,14 +31,12 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-//app.use(express.cookieParser());
-//app.use(express.session({secret: '1234567890QWERTYÆØÅ'}));
 app.use(expressLayouts);
 app.use(app.router);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// development only
+// Development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
@@ -46,18 +44,19 @@ if ('development' == app.get('env')) {
 /*
  * App in-memory session hash
  */ 
+
 var session = {};
-session.books = {};
-session.history = [];  // Array of Hash
-                       // ex: {:path => "/omtale" :book => session[:books][:tnr]}
-session.current = null // Current book in session
-session.log = {start: "pending", stop: null, rfid: 0, omtale: 0, flere: 0, relaterte: 0};
 
 /**
  * Routes
  */
+
 var BookRoute = require('./routes/book.js');
 var RfidRoute = require('./routes/rfid.js');
+
+/*
+ * Route Handlers
+ */
 
 var Handlers = {
     Book: new BookRoute(Book),
@@ -67,14 +66,6 @@ var Handlers = {
 var routes = require('./routes');    // automatically requires 'routes/index.js'
 
 app.get('/', routes.index);
-app.get('/checkformat/:tnr', Handlers.Book.checkFormat);
-app.get('/populate/:tnr', Handlers.Book.populate); 
-app.get('/copy', function(req,res) { console.log(Book) }); // does nothing, for now...
-app.get('/omtale/:tnr', Handlers.Book.tnrLookup);
-app.get('/rfid', Handlers.Rfid.eventSource);
-app.get('/flere', Handlers.Book.more);
-app.get('/relaterte', Handlers.Book.related);
-app.get('/back', Handlers.Book.back);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
@@ -83,6 +74,7 @@ http.createServer(app).listen(app.get('port'), function(){
 /**
  * export modules
  */
+
 module.exports.session = session;
 module.exports.rfid    = rfid;
-module.exports.app     = app; // for testing
+module.exports.app     = app; // export app for testing
