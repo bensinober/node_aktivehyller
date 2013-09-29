@@ -1,10 +1,10 @@
-var assert = require('assert');
-var expect = require('expect.js');
-var request = require('supertest');
-var app = require('../app.js').app;
-var Book = require('../book.js');
+var assert = require('assert'),
+    expect = require('expect.js'),
+    request = require('supertest'),
+    app = require('../app.js').app,
+    Book = require('../lib/book.js');
  
-describe('BOOK API', function(){
+describe('BOOK API', function() {
 
   describe('book format', function() {
     
