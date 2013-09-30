@@ -89,7 +89,7 @@ npm_install:
 
 /etc/init/aktivehyller.conf:
   file.managed:
-    - source: salt://aktivehyller/files/aktivehyller.conf
+    - source: salt://node_aktivehyller/files/aktivehyller.conf
 
 ######## 
 # LOCAL SETTINGS
@@ -97,13 +97,13 @@ npm_install:
     
 /home/aktiv/code/node_aktivehyller/public/img/startscreen.png:
   file.managed:
-    - source: salt://aktivehyller/files/startscreen.png
+    - source: salt://node_aktivehyller/files/startscreen.png
     - user: aktiv
     - group: aktiv
 
 /home/aktiv/code/node_aktivehyller/public/img/leftbar.png:
   file.managed:
-    - source: salt://aktivehyller/files/leftbar.png
+    - source: salt://node_aktivehyller/files/leftbar.png
     - user: aktiv
     - group: aktiv
               
@@ -124,13 +124,13 @@ npm_install:
 
 /home/aktiv/.config/autostart/aktivehyller.desktop:
   file.managed:
-    - source: salt://aktivehyller/files/aktivehyller.desktop
+    - source: salt://node_aktivehyller/files/aktivehyller.desktop
     - require:
       - file: /home/aktiv/.config/autostart
     
 /home/aktiv/.config/autostart/xscreensaver-timeout.desktop:
     file.managed:
-    - source: salt://aktivehyller/files/xscreensaver-timeout.desktop
+    - source: salt://node_aktivehyller/files/xscreensaver-timeout.desktop
     - require:
       - file: /home/aktiv/.config/autostart
       
@@ -143,7 +143,6 @@ aktivehyller:
     - running
     - enable: True
     - require:
-      - cmd: bundle_ah
       - file: /etc/init/aktivehyller.conf
     - watch:
       - git: https://github.com/digibib/node_aktivehyller.git
