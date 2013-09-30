@@ -35,7 +35,7 @@ installpkgs:
       - python-software-properties
       - software-properties-common
       - nodejs
-    require:
+    - require:
       - pkgrepo: nodejs
 
 ######## 

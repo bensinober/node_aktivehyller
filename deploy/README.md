@@ -4,6 +4,7 @@ This folder includes deploy scripts for the active shelves
 
 ## folders 
 
+```
 deploy/
 ├── files                     (local files to project deploy)
 │   ├── aktivehyller.conf
@@ -19,3 +20,4 @@ deploy/
 ├── README.md
 └── salt                      (configuration file for deployment with SaltStack)
     └── init.sls
+```
