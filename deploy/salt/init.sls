@@ -142,6 +142,7 @@ aktivehyller:
   service:
     - running
     - enable: True
+    - user: aktiv
     - require:
       - file: /etc/init/aktivehyller.conf
     - watch:
@@ -162,6 +163,6 @@ kill_aktivehyller:
 
 kill_xscreensaver-timeout:
   cmd.run:
-    - name: pkill xscreensaver-time*
+    - name: killall xscreensaver-timeout.sh
     - watch:
       - service: lightdm
