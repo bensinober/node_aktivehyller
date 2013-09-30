@@ -123,14 +123,14 @@ npm_install:
     - makedirs: True
 
 /home/aktiv/.config/autostart/aktivehyller.desktop:
-  file.symlink:
-    - target: /home/aktiv/code/node_aktivehyller/deploy/aktivehyller.desktop
+  file.managed:
+    - source: salt://aktivehyller/files/aktivehyller.desktop
     - require:
       - file: /home/aktiv/.config/autostart
     
 /home/aktiv/.config/autostart/xscreensaver-timeout.desktop:
-  file.symlink:
-    - target: /home/aktiv/code/node_aktivehyller/deploy/xscreensaver-timeout.desktop
+    file.managed:
+    - source: salt://aktivehyller/files/xscreensaver-timeout.desktop
     - require:
       - file: /home/aktiv/.config/autostart
       
@@ -145,15 +145,14 @@ aktivehyller:
     - require:
       - cmd: bundle_ah
       - file: /etc/init/aktivehyller.conf
-      - file: /home/aktiv/code/node_aktivehyller/config/settings.yml
     - watch:
-      - file: /home/aktiv/code/node_aktivehyller/config/settings.yml
+      - git: https://github.com/digibib/node_aktivehyller.git
 
 lightdm:
   service:
     - running
     - watch:
-      - git: https://github.com/digibib/node_aktivehyller.git
+      - service: aktivehyller
     - stateful: True
     
 kill_aktivehyller:
