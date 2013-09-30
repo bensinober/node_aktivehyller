@@ -36,7 +36,7 @@ installpkgs:
       - software-properties-common
       - nodejs
     require:
-      - nodejs
+      - pkgrepo: nodejs
 
 ######## 
 # USERS
@@ -95,12 +95,6 @@ npm_install:
 # LOCAL SETTINGS
 ########
     
-/home/aktiv/code/node_aktivehyller/config/settings.yml:
-  file.managed:
-    - source: salt://aktivehyller/files/ahsettings.yml
-    - user: aktiv
-    - group: aktiv
-
 /home/aktiv/code/node_aktivehyller/public/img/startscreen.png:
   file.managed:
     - source: salt://aktivehyller/files/startscreen.png
@@ -130,13 +124,13 @@ npm_install:
 
 /home/aktiv/.config/autostart/aktivehyller.desktop:
   file.symlink:
-    - target: /home/aktiv/code/node_aktivehyller/scripts/aktivehyller.desktop
+    - target: /home/aktiv/code/node_aktivehyller/deploy/aktivehyller.desktop
     - require:
       - file: /home/aktiv/.config/autostart
     
 /home/aktiv/.config/autostart/xscreensaver-timeout.desktop:
   file.symlink:
-    - target: /home/aktiv/code/node_aktivehyller/scripts/xscreensaver-timeout.desktop
+    - target: /home/aktiv/code/node_aktivehyller/deploy/xscreensaver-timeout.desktop
     - require:
       - file: /home/aktiv/.config/autostart
       
