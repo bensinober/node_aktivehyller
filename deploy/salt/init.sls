@@ -10,6 +10,7 @@ removepkgs:
   pkg.purged:
     - pkgs:
       - abiword
+      - firefox
       - sylpheed
       - apport
       - pidgin
@@ -23,6 +24,7 @@ installpkgs:
   pkg.latest:
     - pkgs:
       - git-core
+      - chromium-browser
       - build-essential
       - curl
       - imagemagick
