@@ -162,6 +162,6 @@ kill_aktivehyller:
 
 kill_xscreensaver-timeout:
   cmd.run:
-    - name: pkill xscreensaver-timeout*
+    - name: pkill xscreensaver-time*
     - watch:
       - service: lightdm

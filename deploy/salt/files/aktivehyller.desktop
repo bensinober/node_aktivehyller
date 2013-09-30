@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Name=aktivehyller
 Comment=Aktive hyller
-Exec=/home/aktiv/code/node_aktivehyller/deploy/files/aktivehyller.sh
+Exec=/home/aktiv/code/node_aktivehyller/deploy/salt/files/aktivehyller.sh
 Type=Application
 Categories=;
 NotShowIn=GNOME;

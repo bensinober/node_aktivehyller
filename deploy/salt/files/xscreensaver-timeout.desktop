@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Name=xscreensaver-timeout
 Comment=xscreensaver-timeout
-Exec=/home/aktiv/code/node_aktivehyller/deploy/files/xscreensaver-timeout.sh
+Exec=/home/aktiv/code/node_aktivehyller/deploy/salt/files/xscreensaver-timeout.sh
 Type=Application
 Categories=;
 NotShowIn=GNOME;
