@@ -89,7 +89,7 @@ npm_install:
 
 /etc/init/aktivehyller.conf:
   file.managed:
-    - source: salt://node_aktivehyller/deploy/files/aktivehyller.conf
+    - source: salt://node_aktivehyller/deploy/salt/files/aktivehyller.conf
 
 ######## 
 # LOCAL SETTINGS
@@ -97,13 +97,13 @@ npm_install:
     
 /home/aktiv/code/node_aktivehyller/public/img/startscreen.png:
   file.managed:
-    - source: salt://node_aktivehyller/deploy/files/startscreen.png
+    - source: salt://node_aktivehyller/deploy/salt/files/startscreen.png
     - user: aktiv
     - group: aktiv
 
 /home/aktiv/code/node_aktivehyller/public/img/leftbar.png:
   file.managed:
-    - source: salt://node_aktivehyller/deploy/files/leftbar.png
+    - source: salt://node_aktivehyller/deploy/salt/files/leftbar.png
     - user: aktiv
     - group: aktiv
               
@@ -124,13 +124,13 @@ npm_install:
 
 /home/aktiv/.config/autostart/aktivehyller.desktop:
   file.managed:
-    - source: salt://node_aktivehyller/deploy/files/aktivehyller.desktop
+    - source: salt://node_aktivehyller/deploy/salt/files/aktivehyller.desktop
     - require:
       - file: /home/aktiv/.config/autostart
     
 /home/aktiv/.config/autostart/xscreensaver-timeout.desktop:
     file.managed:
-    - source: salt://node_aktivehyller/deploy/files/xscreensaver-timeout.desktop
+    - source: salt://node_aktivehyller/deploy/salt/files/xscreensaver-timeout.desktop
     - require:
       - file: /home/aktiv/.config/autostart
       
