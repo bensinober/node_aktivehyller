@@ -23,7 +23,7 @@ removepkgs:
 installpkgs:
   pkg.latest:
     - pkgs:
-      - git-core
+      - git
       - chromium-browser
       - build-essential
       - curl
@@ -67,10 +67,10 @@ https://github.com/digibib/node_aktivehyller.git:
   git.latest:
   - rev: develop
   - target: /home/aktiv/code/node_aktivehyller
-  - user: aktiv
   - force: True
   - require:
     - user: aktiv
+    - pkg: installpkgs
 
 ########## 
 # DEPENDENCIES
