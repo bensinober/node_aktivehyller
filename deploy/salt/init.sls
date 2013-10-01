@@ -38,6 +38,7 @@ installpkgs:
       - python-software-properties
       - software-properties-common
       - nodejs
+    - skip_verify: True
     - require:
       - pkgrepo: nodejs
 
