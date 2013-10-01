@@ -99,6 +99,12 @@ npm_install:
 # LOCAL SETTINGS
 ########
     
+/home/aktiv/code/node_aktivehyller/config/settings.json:
+  file.symlink:
+    - target: /home/aktiv/code/node_aktivehyller/config/example.settings.json
+    - user: aktiv
+    - group: aktiv
+
 /home/aktiv/code/node_aktivehyller/public/img/startscreen.png:
   file.managed:
     - source: salt://node_aktivehyller/deploy/salt/files/startscreen.png

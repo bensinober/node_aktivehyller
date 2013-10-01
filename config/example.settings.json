@@ -1,0 +1,4 @@
+{
+  "sparql_endpoint": "http://data.deichman.no/sparql",
+  "base_uri": "http://data.deichman.no"
+}

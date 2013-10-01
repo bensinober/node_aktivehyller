@@ -11,6 +11,8 @@ var path = require('path');
 /**
  * Instantiate Rfid reader and load Book class
  */
+
+var config = require('./config/settings.json');
 var Book = require('./lib/book.js');
 var Rfidgeek = require('rfidgeek');
 var rfid = new Rfidgeek();
@@ -78,3 +80,4 @@ http.createServer(app).listen(app.get('port'), function(){
 module.exports.session = session;
 module.exports.rfid    = rfid;
 module.exports.app     = app; // export app for testing
+module.exports.config  = config; 
