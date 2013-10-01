@@ -80,7 +80,7 @@ https://github.com/digibib/node_aktivehyller.git:
 
 npm_install:
   cmd.run:
-    - name: npm install > npminstall.txt
+    - name: HOME=/home/aktiv npm install > npminstall.txt
     - cwd: /home/aktiv/code/node_aktivehyller
     - stateful: True
     - require:
