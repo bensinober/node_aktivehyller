@@ -65,7 +65,7 @@ aktivuser:
                   
 https://github.com/digibib/node_aktivehyller.git:
   git.latest:
-  - rev: master
+  - rev: develop
   - target: /home/aktiv/code/node_aktivehyller
   - user: aktiv
   - force: True
