@@ -36,14 +36,21 @@ describe('BOOK API', function() {
  
     it('returns valid format for audiobook', function(done){
       book.from_tnr(974232, function() {
-        expect(book.valid_format).to.equal(true); 
+        expect(book.validFormat()).to.equal(true); 
         done();
       });      
     });
 
     it('returns invalid format for music CD', function(done){
       book.from_tnr(1031239, function() {
-        expect(book.valid_format).to.equal(false); 
+        expect(book.validFormat()).to.equal(false); 
+        done();
+      });
+    });
+
+    it('returns title when a book has an accepted format', function(done){
+      book.from_tnr(974232, function() {
+        expect(book.title).to.equal("Morgen i Jenin"); 
         done();
       });
     });
