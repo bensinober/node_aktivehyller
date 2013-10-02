@@ -12,40 +12,40 @@ describe('BOOK API', function() {
     var book = new Book(config);
     
     it('creates a book from tnr', function(){
-      book.from_tnr(1);
-      expect(book.tnr).to.equal(1);
+      book.from_tnr(1, function() {
+        expect(book.tnr).to.equal(1);
+      });
     });
 
-    it('creates a book uri', function(){
-      book.from_tnr(1);
-      expect(book.uri).to.equal('http://data.deichman.no/resource/tnr_1');
+    it('creates a book uri', function(done){
+      book.from_tnr(1, function() {
+        expect(book.uri).to.equal('http://data.deichman.no/resource/tnr_1');
+        done();
+      });
     });
 
-    it('creates a book uri from configuration', function(){
+    it('creates a book uri from configuration', function(done){
       var config = {"endpoint": "http://data.deichman.no/sparql",
                      "base_uri": "http://data.lillehammer.no/resource/tnr_"};
       var book = new Book(config);
-      book.from_tnr(1);
-      expect(book.uri).to.equal('http://data.lillehammer.no/resource/tnr_1');
-    });
-
-    it('returns valid format for audiobook', function(done){
-      setTimeout(function(){
-        book.from_tnr(974232);
-        console.dir(book);
-        expect(book.valid_format).to.equal(true); 
-        // complete the async beforeEach
+      book.from_tnr(1, function() {
+        expect(book.uri).to.equal('http://data.lillehammer.no/resource/tnr_1');
         done();
-      }, 50);
+      });
+    });    
+ 
+    it('returns valid format for audiobook', function(done){
+      book.from_tnr(974232, function() {
+        expect(book.valid_format).to.equal(true); 
+        done();
+      });      
     });
 
     it('returns invalid format for music CD', function(done){
-      setTimeout(function(){
-        book.from_tnr(1031239);
+      book.from_tnr(1031239, function() {
         expect(book.valid_format).to.equal(false); 
-        // complete the async beforeEach
         done();
-      }, 50);
+      });
     });
 
   });
