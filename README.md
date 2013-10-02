@@ -36,3 +36,6 @@ All neccessary files under `salt/files`
 Install required modules:
 
 ```npm install``` from root application folder
+
+
+## Vagrant
