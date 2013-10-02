@@ -2,12 +2,13 @@ var assert = require('assert'),
     expect = require('expect.js'),
     app = require('../app').app,
     Book = require('../lib/book.js');
- 
+    //mySparqlService = require('../lib/sparqlservice.js');
+
 describe('BOOK API', function() {
 
   describe('book lookup', function() {
 
-    var config = {"endpoint": "http://data.deichman.no/sparql",
+    var config = {"endpoint": "http://data.deichman.no/sparqlz",
                   "base_uri": "http://data.deichman.no/resource/tnr_"};
     var book = new Book(config);
     
@@ -41,6 +42,13 @@ describe('BOOK API', function() {
       });      
     });
 
+    it('returns valid even if only one of many formats is valid', function(done){
+      book.from_tnr(1447893, function() {
+        expect(book.validFormat()).to.equal(true); 
+        done();
+      });
+    });
+
     it('returns invalid format for music CD', function(done){
       book.from_tnr(1031239, function() {
         expect(book.validFormat()).to.equal(false); 
@@ -54,6 +62,7 @@ describe('BOOK API', function() {
         done();
       });
     });
+
 
   });
 
