@@ -62,7 +62,10 @@ describe('BOOK API', function() {
       });
     });
 
-    it('returns author of a book', function(done){
+  });
+
+  describe('find book info', function() {
+    it('returns authors of a book to an array', function(done){
       book.from_tnr(974232, function() {
         book.populate(function() {
           expect(book.authors[0]).to.have.keys('creatorName');
@@ -71,7 +74,15 @@ describe('BOOK API', function() {
       });
     });
 
-  });
+    it('sets responsible of book', function(done){
+      book.from_tnr(1429670, function() {
+        book.populate(function() {
+          expect(book.responsible).to.match(/Nils\ Gaup/);
+          done();
+        });
+      });
+    });
 
+  });
 
 });
