@@ -5,16 +5,15 @@ var assert = require('assert'),
     //mySparqlService = require('../lib/sparqlservice.js');
 
 describe('BOOK API', function() {
-
-  describe('book lookup', function() {
-
-    var config = {"endpoint": "http://data.deichman.no/sparqlz",
-                  "base_uri": "http://data.deichman.no/resource/tnr_"};
-    var book = new Book(config);
+  var config = {"base_uri": "http://data.deichman.no/resource/tnr_"};
+  var book = new Book(config);
+  
+  describe('check book', function() {
     
-    it('creates a book from tnr', function(){
+    it('creates a book from tnr', function(done){
       book.from_tnr(1, function() {
         expect(book.tnr).to.equal(1);
+        done();
       });
     });
 
@@ -63,7 +62,16 @@ describe('BOOK API', function() {
       });
     });
 
+    it('returns author of a book', function(done){
+      book.from_tnr(974232, function() {
+        book.populate(function() {
+          expect(book.authors[0]).to.have.keys('creatorName');
+          done();
+        });
+      });
+    });
 
   });
+
 
 });
