@@ -38,4 +38,9 @@ Install required modules:
 ```npm install``` from root application folder
 
 
+## Integration tests
+
+requires phantomjs and casperjs
+both can be downloaded and installed manually
+
 ## Vagrant
