@@ -44,3 +44,5 @@ requires phantomjs and casperjs
 both can be downloaded and installed manually
 
 ## Vagrant
+
+Not documented yet.
