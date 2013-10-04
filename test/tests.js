@@ -1,5 +1,6 @@
 var assert = require('assert'),
     expect = require('expect.js'),
+    _ = require('underscore'),
     app = require('../app').app,
     Book = require('../lib/book.js');
     //mySparqlService = require('../lib/sparqlservice.js');
@@ -65,6 +66,7 @@ describe('BOOK API', function() {
   });
 
   describe('find book info', function() {
+
     it('returns authors of a book to an array', function(done){
       book.fromTnr(974232, function() {
         book.populate(function() {
@@ -102,14 +104,27 @@ describe('BOOK API', function() {
       });
     });
 
-    it('fetcher other works by author', function(done){
+    it('fetches other works by author', function(done){
       book.fromTnr(72680, function() {
         book.populate(function() {
           expect(book.sameAuthorBooks).to.not.be.empty();
+          expect(_.filter(book.sameAuthorBooks, function(s) { 
+            return s.authorWork == 'http://data.deichman.no/work/x10293500_the_lord_of_the_rings';
+          })[0].lang).to.match(/nob/);
           done();
         });
       });
     });
+
+    it('fetches similar works', function(done){
+      book.fromTnr(583095, function() {
+        book.populate(function() {
+          expect(book.similarWorks).to.not.be.empty();
+          console.dir(book.similarWorks);
+          done();
+        });
+      });
+    })
 
   });
 
