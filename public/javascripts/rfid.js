@@ -37,7 +37,7 @@ rfid.addEventListener('rfiddata', function(rfiddata) {
     check_format = $.getJSON('/check/'+rfiddata.data);
     check_format.done(function(data) {
       if (data) {
-        window.location.replace("/omtale/"+rfiddata.data);
+        window.location.replace("/review/"+rfiddata.data);
       } else {
         $('div#vi-leter p').html("Beklager, vi støtter bare bøker og lydbøker");
         $('button#avbryt-knapp').html('OK');
