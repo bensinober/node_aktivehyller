@@ -47,7 +47,7 @@ if ('development' == app.get('env')) {
  * App in-memory session hash
  */ 
 
-var session = {};
+var session = {history: []};
 
 /**
  * Routes
@@ -61,7 +61,7 @@ var RfidRoute = require('./routes/rfid.js');
  */
 
 var Handlers = {
-    Book: new BookRoute(Book),
+    Book: new BookRoute(Book, session),
     Rfid: new RfidRoute()
 };
 
@@ -69,6 +69,7 @@ var routes = require('./routes');    // automatically requires 'routes/index.js'
 
 app.get('/', routes.index);
 app.get('/check/:tnr', Handlers.Book.checkFormat);
+app.get('/omtale/:tnr', Handlers.Book.omtale);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
@@ -78,7 +79,7 @@ http.createServer(app).listen(app.get('port'), function(){
  * export modules
  */
 
-module.exports.session = session;
+//module.exports.session = session;
 module.exports.rfid    = rfid;
 module.exports.app     = app; // export app for testing
 module.exports.config  = config; 
