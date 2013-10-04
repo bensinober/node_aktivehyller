@@ -52,7 +52,7 @@ var session = {history: []};
 /**
  * Routes
  */
-
+var routes = require('./routes');    // automatically requires 'routes/index.js'
 var BookRoute = require('./routes/book.js');
 var RfidRoute = require('./routes/rfid.js');
 
@@ -65,11 +65,13 @@ var Handlers = {
     Rfid: new RfidRoute()
 };
 
-var routes = require('./routes');    // automatically requires 'routes/index.js'
+
 
 app.get('/', routes.index);
 app.get('/check/:tnr', Handlers.Book.checkFormat);
 app.get('/omtale/:tnr', Handlers.Book.omtale);
+
+app.get('/rfid', Handlers.Rfid.eventSource);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

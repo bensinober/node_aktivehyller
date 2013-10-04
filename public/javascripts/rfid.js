@@ -34,7 +34,7 @@ rfid.addEventListener('rfiddata', function(rfiddata) {
     $('#vi-leter p').html("Vi leter etter boka <span id=\"loading\"></span>");
     $('#vi-leter').show();
 
-    check_format = $.getJSON('/checkformat/'+rfiddata.data);
+    check_format = $.getJSON('/check/'+rfiddata.data);
     check_format.done(function(data) {
       if (data) {
         window.location.replace("/omtale/"+rfiddata.data);
