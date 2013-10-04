@@ -72,6 +72,7 @@ var Handlers = {
 app.get('/', routes.index);
 app.get('/check/:tnr', Handlers.Book.checkFormat);
 app.get('/omtale/:tnr', Handlers.Book.omtale);
+app.get('/flere', Handlers.Book.flere);
 
 app.get('/rfid', Handlers.Rfid.eventSource);
 
@@ -83,7 +84,6 @@ http.createServer(app).listen(app.get('port'), function(){
  * export modules
  */
 
-//module.exports.session = session;
 module.exports.rfid    = rfid;
 module.exports.app     = app; // export app for testing
 module.exports.config  = config;

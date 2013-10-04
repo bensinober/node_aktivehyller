@@ -29,10 +29,15 @@ function BookRoute(Book, session) {
       if (err) { res.send(500, 'Something broke!' + err ); }
       book.populate(function(err) {
         if (err) { res.send(500, 'Something broke!' + err ); }
+        session.book = book ;
         res.render('omtale', {title: 'Omtale', path: req.path, book: book})
       });
-    }) 
+    });
   }
 
+  this.flere = function(req, res) {
+    // renders sameAuthor books listing
+    res.render('flere', {title: 'Flere bøker av forfatteren', path: req.path, book: session.book})
+  }
 }
 module.exports = BookRoute;
