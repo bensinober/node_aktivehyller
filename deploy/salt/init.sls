@@ -169,10 +169,10 @@ kill_aktivehyller:
   cmd.run:
     - name: pkill aktivehyller*
     - watch:
-      - service: lightdm
+      - service: aktivehyller
 
 kill_xscreensaver-timeout:
   cmd.run:
     - name: killall xscreensaver-timeout.sh
     - watch:
-      - service: lightdm
+      - service: aktivehyller
