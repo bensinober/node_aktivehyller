@@ -9,7 +9,7 @@
     <% } else { %>
       <div id="omtale-bilde">
         <div id="inner-border">
-          <div class="book-author"> 
+          <div class="book-author">
             <%= book.authors %>
           </div>
           <div class="book-title">
@@ -72,10 +72,10 @@
             <div class="cover-small-missing">
               <%= b.authors %> <strong> <%= b.title %></strong>
             </div>
-            
+
           <% } %>
           <p class="title"> <strong> <%= b.title %></strong> </p>
-        </div> 
+        </div>
       <% }); %>
       <% if (book.sameAuthorBooks.length > 4) { %>
         <a href="/flere" />
@@ -85,7 +85,7 @@
       <% } %>
     <% } %>
     <p>&nbsp;</p>
-  </div> 
+  </div>
   <% if (book.similarWorks.length != 0) { %>
     <div class="relaterte">
       <h3>Relaterte</h3>
@@ -104,8 +104,8 @@
             <p>&nbsp;</p>
           <% } %>
         <p class="title"> <strong> <%= b.title %></strong> </p>
-        </div> 
-      <% }); %>        
+        </div>
+      <% }); %>
       <% if (book.similarWorks.length > 4) { %>
         <a href="/relaterte" />
         <div class="cover-small">
@@ -116,6 +116,7 @@
   <% } %>
 </div>
 <script type='text/javascript'>
+  document.onselectstart = function(){ return false; };
   $(document).ready(function () {
 
     $('button#avbryt-knapp').on('click', function() {
@@ -204,7 +205,7 @@
         var uri = $('#seeking_tnr').val();
         var title = $('#seeking_title').val();
         var tnr = /tnr_(.*)/.exec(uri)[1];
-        
+
         // show overlay
         $('button#retry-knapp').hide();
         $('#overlay').show();
