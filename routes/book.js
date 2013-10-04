@@ -23,21 +23,45 @@ function BookRoute(Book, session) {
 	}
 
   this.omtale = function(req, res) {
+    // renders current book in review
+    if (session.current) {
+      res.render('omtale', {path: req.path, book: session.current});
+    } else {
+      res.redirect('/');
+    }
+  }
+
+  this.omtaleFromTnr = function(req, res) {
     // takes a tnr and populates book, renders omtale view
     var book = new Book(config);
     book.fromTnr(req.params.tnr, function(err) {
       if (err) { res.send(500, 'Something broke!' + err ); }
       book.populate(function(err) {
         if (err) { res.send(500, 'Something broke!' + err ); }
-        session.book = book ;
-        res.render('omtale', {title: 'Omtale', path: req.path, book: book})
+        session.current = book ;
+        res.render('omtale', {path: req.path, book: book})
+      });
+    });
+  }
+
+  this.populate = function(req, res) {
+    // takes a tnr and populates book, renders omtale view
+    var book = new Book(config);
+    book.fromTnr(req.params.tnr, function(err) {
+      if (err) { res.send(500, 'Something broke!' + err ); }
+      book.populate(function(err) {
+        if (err) { res.send(500, 'Something broke!' + err ); }
+        session.current = book ;
+        res.send(200, "Populated OK!");
       });
     });
   }
 
   this.flere = function(req, res) {
     // renders sameAuthor books listing
-    res.render('flere', {title: 'Flere bøker av forfatteren', path: req.path, book: session.book})
+    res.render('flere', {title: 'Flere bøker av forfatteren', path: req.path, book: session.current})
   }
+  
+
 }
 module.exports = BookRoute;

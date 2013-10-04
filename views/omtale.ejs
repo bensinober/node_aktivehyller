@@ -218,9 +218,9 @@
           type: 'GET'});
 
         request.done(function(msg) {
-          $.get('/copy', function(data) {
+          //$.get('/copy', function(data) {
             window.location.replace("/omtale");
-          });
+          //});
         });
 
         request.fail(function(jqXHR, textStatus, errorThrown) {

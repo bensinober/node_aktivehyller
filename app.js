@@ -71,7 +71,9 @@ var Handlers = {
 
 app.get('/', routes.index);
 app.get('/check/:tnr', Handlers.Book.checkFormat);
-app.get('/omtale/:tnr', Handlers.Book.omtale);
+app.get('/omtale/:tnr', Handlers.Book.omtaleFromTnr);
+app.get('/omtale', Handlers.Book.omtale);
+app.get('/populate/:tnr', Handlers.Book.populate);
 app.get('/flere', Handlers.Book.flere);
 
 app.get('/rfid', Handlers.Rfid.eventSource);
