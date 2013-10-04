@@ -9,6 +9,8 @@ mySparqlService.setConfig(config);
 function BookRoute(Book) {
 
 	this.checkFormat = function(req, res) {
+		// Checks that the item is a valid format (currently Book & Audiobook),
+		// and sets the title
 		var book = new Book(config);
 		book.fromTnr(req.params.tnr, function() {
 			valid = book.validFormat();
