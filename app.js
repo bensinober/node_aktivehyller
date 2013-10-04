@@ -3,6 +3,7 @@
  */
 
 var express = require('express');
+var _ = require('underscore');
 var ejs = require('ejs');
 var expressLayouts = require('express-ejs-layouts');
 var http = require('http');
@@ -22,19 +23,20 @@ rfid.start();
 /**
  * Environment
  */
- 
+
 var app = express();
 
 // All environments
 app.set('port', process.env.PORT || 4567);
 app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs'); 
+app.set('view engine', 'ejs');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(expressLayouts);
 app.use(app.router);
+app.locals({_: _});
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -45,7 +47,7 @@ if ('development' == app.get('env')) {
 
 /*
  * App in-memory session hash
- */ 
+ */
 
 var session = {history: []};
 
@@ -84,4 +86,4 @@ http.createServer(app).listen(app.get('port'), function(){
 //module.exports.session = session;
 module.exports.rfid    = rfid;
 module.exports.app     = app; // export app for testing
-module.exports.config  = config; 
+module.exports.config  = config;
