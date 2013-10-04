@@ -95,6 +95,10 @@ npm_install:
   file.managed:
     - source: salt://node_aktivehyller/deploy/salt/files/aktivehyller.conf
 
+/etc/chromium-browser/policies/managed/aktivhylle.json:
+    file.managed:
+    - source: salt://node_aktivehyller/deploy/salt/files/aktivhylle.json
+
 ########
 # LOCAL SETTINGS
 ########
@@ -143,10 +147,6 @@ npm_install:
     - source: salt://node_aktivehyller/deploy/salt/files/xscreensaver-timeout.desktop
     - require:
       - file: /home/aktiv/.config/autostart
-
-/etc/chromium-browser/policies/managed/aktivhylle.json:
-    file.managed:
-    - source: salt://node_aktivehyller/deploy/salt/files/aktivhylle.json
 
 ##########
 # SERVICES
