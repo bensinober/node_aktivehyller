@@ -8,14 +8,17 @@ mySparqlService.setConfig(config);
 
 function BookRoute(Book) {
 
-  this.checkFormat = function(req, res) {
-    var book = new Book(config);
-    book.from_tnr(req.params.tnr, function() {
-      valid = book.validFormat();
-      res.json({valid: valid, title: book.title});
-    });
+	this.checkFormat = function(req, res) {
+		var book = new Book(config);
+		book.fromTnr(req.params.tnr, function() {
+			valid = book.validFormat();
+			res.json({
+				valid: valid,
+				title: book.title
+			});
+		});
 
-  }
-  
+	};
+
 }
 module.exports = BookRoute;
