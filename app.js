@@ -36,7 +36,6 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(expressLayouts);
 app.use(app.router);
-app.locals({_: _});
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -46,10 +45,11 @@ if ('development' == app.get('env')) {
 }
 
 /*
- * App in-memory session hash
+ * App locals, accessible to all routes and renderings
  */
 
 var session = {history: []};
+app.locals({_: _, session: session});
 
 /**
  * Routes

@@ -1,7 +1,7 @@
 #!/bin/bash
 CHROMIUM=/usr/bin/chromium-browser
 CHROMIUMPREFS=~/.config/chromium
-
+sleep 3
 while true
 do
   #rm -rf \$CHROMIUMPREFS/Singleton*

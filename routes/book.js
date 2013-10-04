@@ -29,7 +29,7 @@ function BookRoute(Book, session) {
       if (err) { res.send(500, 'Something broke!' + err ); }
       book.populate(function(err) {
         if (err) { res.send(500, 'Something broke!' + err ); }
-        res.render('omtale', {title: 'Omtale', path: req.path, book: book, session: session})
+        res.render('omtale', {title: 'Omtale', path: req.path, book: book})
       });
     }) 
   }
