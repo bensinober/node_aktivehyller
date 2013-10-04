@@ -105,13 +105,13 @@ npm_install:
     - user: aktiv
     - group: aktiv
 
-/home/aktiv/code/node_aktivehyller/public/img/startscreen.png:
+/home/aktiv/code/node_aktivehyller/public/images/startscreen.png:
   file.managed:
     - source: salt://node_aktivehyller/deploy/salt/files/startscreen.png
     - user: aktiv
     - group: aktiv
 
-/home/aktiv/code/node_aktivehyller/public/img/leftbar.png:
+/home/aktiv/code/node_aktivehyller/public/images/leftbar.png:
   file.managed:
     - source: salt://node_aktivehyller/deploy/salt/files/leftbar.png
     - user: aktiv
