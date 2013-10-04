@@ -20,18 +20,18 @@ function BookRoute(Book, session) {
 				title: book.title
 			});
 		});
-	}
+	};
 
-  this.omtale = function(req, res) {
+  this.review = function(req, res) {
     // renders current book in review
     if (session.current) {
-      res.render('omtale', {path: req.path, book: session.current});
+      res.render('review', {path: req.path, book: session.current});
     } else {
       res.redirect('/');
     }
-  }
+  };
 
-  this.omtaleFromTnr = function(req, res) {
+  this.reviewsFromTnr = function(req, res) {
     // takes a tnr and populates book, renders omtale view
     var book = new Book(config);
     book.fromTnr(req.params.tnr, function(err) {
@@ -39,29 +39,34 @@ function BookRoute(Book, session) {
       book.populate(function(err) {
         if (err) { res.send(500, 'Something broke!' + err ); }
         session.current = book ;
-        res.render('omtale', {path: req.path, book: book})
+        res.render('review', {path: req.path, book: book})
       });
     });
-  }
+  };
 
   this.populate = function(req, res) {
     // takes a tnr and populates book, renders omtale view
     var book = new Book(config);
     book.fromTnr(req.params.tnr, function(err) {
       if (err) { res.send(500, 'Something broke!' + err ); }
-      book.populate(function(err) {
+      book.populate(function(err) { 
         if (err) { res.send(500, 'Something broke!' + err ); }
         session.current = book ;
         res.send(200, "Populated OK!");
       });
     });
-  }
+  };
 
-  this.flere = function(req, res) {
+  this.moreByAuthor = function(req, res) {
     // renders sameAuthor books listing
-    res.render('flere', {title: 'Flere bøker av forfatteren', path: req.path, book: session.current})
-  }
-  
+    res.render('more', {title: 'Flere bøker av forfatteren', path: req.path, book: session.current})
+  };
+
+  this.similarWorks = function(req, res) {
+    // renders similarWorks books listing
+    res.render('similar', {title: 'Lignende verk', path: req.path, book: session.current})
+  };
+
 
 }
 module.exports = BookRoute;

@@ -77,7 +77,7 @@
         </div>
       <% }); %>
       <% if (book.sameAuthorBooks.length > 4) { %>
-        <a href="/flere">
+        <a href="/more">
         <div class="cover-small">
           <div class="cover-small-missing">se mer</div>
         </div>
@@ -107,7 +107,7 @@
         </div>
       <% }); %>
       <% if (book.similarWorks.length > 4) { %>
-        <a href="/relaterte" />
+        <a href="/similar" />
         <div class="cover-small">
           <div class="cover-small-missing">se mer</div>
         </div>
@@ -189,7 +189,7 @@
 
         request.done(function(msg) {
           //$.get('/copy', function(data) {
-            window.location.replace("/omtale/"+tnr);
+            window.location.replace("/review/"+tnr);
           //});
         });
 
@@ -219,7 +219,7 @@
 
         request.done(function(msg) {
           //$.get('/copy', function(data) {
-            window.location.replace("/omtale");
+            window.location.replace("/review");
           //});
         });
 

@@ -40,7 +40,7 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Development only
-if ('development' == app.get('env')) {
+if ('development' === app.get('env')) {
   app.use(express.errorHandler());
 }
 
@@ -65,20 +65,21 @@ var RfidRoute = require('./routes/rfid.js');
 var Handlers = {
     Book: new BookRoute(Book, session),
     Rfid: new RfidRoute()
-};
+  };
 
 
 
 app.get('/', routes.index);
 app.get('/check/:tnr', Handlers.Book.checkFormat);
-app.get('/omtale/:tnr', Handlers.Book.omtaleFromTnr);
-app.get('/omtale', Handlers.Book.omtale);
+app.get('/review/:tnr', Handlers.Book.reviewsFromTnr);
+app.get('/review', Handlers.Book.review);
 app.get('/populate/:tnr', Handlers.Book.populate);
-app.get('/flere', Handlers.Book.flere);
+app.get('/more', Handlers.Book.moreByAuthor);
+app.get('/similar', Handlers.Book.similarWorks);
 
 app.get('/rfid', Handlers.Rfid.eventSource);
 
-http.createServer(app).listen(app.get('port'), function(){
+http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
 });
 

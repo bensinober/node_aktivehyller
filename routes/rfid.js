@@ -17,13 +17,16 @@ function RfidRoute() {
     console.log('Client connect');
     
     // create rfid event listener
-    rfid.on('rfiddata', function(data) {
+    var rfidlistener = function(data) {
       console.log("RFID data received in external app: "+data);
       res.write("event: rfiddata\r\n");
       res.write("data: "+data+"\r\n\n");
-    });
-                    
+    }
+    rfid.on('rfiddata', rfidlistener);
+    
+    // delete rfiddata listener on close                
     res.on('close', function() {
+      rfid.removeListener('rfiddata', rfidlistener);
       console.log("Client left");
     });
   }

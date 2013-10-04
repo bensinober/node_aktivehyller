@@ -30,13 +30,13 @@
 
     <div id="header">
       <div id="header-text">
-        <% if (path == "/omtale") { %>
+        <% if (path == "/review") { %>
           <p id="title"><%= book.title %></p>
           <p id="sub-title"><%= book.authors %></p>
-        <% } else if (path == "/flere") { %>
+        <% } else if (path == "/more") { %>
           <p id="title">Flere bøker av forfatteren</p>
           <p id="sub-title"><%= book.authors %></p>
-        <% } else if (path == "/relaterte") { %>
+        <% } else if (path == "/similar") { %>
           <p id="title">Lignende verk</p>
           <p id="sub-title">
             <span><%= book.title %>&nbsp;</span>

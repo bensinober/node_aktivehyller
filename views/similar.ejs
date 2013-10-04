@@ -1,21 +1,21 @@
 <div id="liste-wrapper">
   <ul class="listevisning">
-    <% book.sameAuthorBooks.forEach(function(sameAuthorBook,i) { %>
+    <% book.similarWorks.forEach(function(similarWork,i) { %>
       <a href="/omtale" class="liste-link" >
         <li>
-          <p class="liste-tittel"><%= sameAuthorBook.title %></p>
-          <p class="liste-forfatter"><%= sameAuthorBook.authors %></p>
-          <% var tnr = /tnr_(.*)/.exec(sameAuthorBook.bookId)[1] %>
+          <p class="liste-tittel"><%= similarWork.title %></p>
+          <p class="liste-forfatter"><%= similarWork.authors %></p>
+          <% var tnr = /tnr_(.*)/.exec(similarWork.bookId)[1] %>
           <input class="tnr_id" type="hidden" value="<%= tnr %>" />
           <hr style="width:100%;" />
           <div class="liste-bilde">
-            <% if (sameAuthorBook.coverUrl) { %>
-              <img src="<%= sameAuthorBook.coverUrl %>" class="listevisning" />
+            <% if (similarWork.coverUrl) { %>
+              <img src="<%= similarWork.coverUrl %>" class="listevisning" />
             <% } else { %>
               <div id="omtale-bilde-liste">
                 <div id="inner-border-liste">
-                  <div class="book-author-liste"> <% sameAuthorBook.authors %> </div>
-                  <div class="book-title-liste"> <% sameAuthorBook.title %> </div>
+                  <div class="book-author-liste"> <% similarWork.authors %> </div>
+                  <div class="book-title-liste"> <% similarWork.title %> </div>
                 </div>
               </div>
             <% } %>
@@ -57,7 +57,7 @@
 
         request.done(function(msg) {
           //$.get('/copy', function(data) {
-            window.location.replace("/omtale/");
+            window.location.replace("/review/"+tnr);
           //});
         });
 
@@ -86,7 +86,7 @@
 
         request.done(function(msg) {
           //$.get('/copy', function(data) {
-            window.location.replace("/omtale/"+tnr);
+            window.location.replace("/review/"+tnr);
           //});
         });
 
