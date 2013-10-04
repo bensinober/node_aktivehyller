@@ -10,7 +10,7 @@
       <div id="omtale-bilde">
         <div id="inner-border">
           <div class="book-author">
-            <%= book.authors %>
+            <%= _.map(book.authors, function(a) { return a.creatorName; }).join(', ') %>
           </div>
           <div class="book-title">
             <%= book.title %>
