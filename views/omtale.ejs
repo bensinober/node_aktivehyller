@@ -63,25 +63,25 @@
       <% num = book.sameAuthorBooks.length < 5 ? book.sameAuthorBooks.length : 3 %>
       <% book.sameAuthorBooks.slice(0,num).forEach(function(b,i) { %>
         <div class="liste-small">
-          <input type="hidden" class="tnr_id" value="<%= b.book_id %>"/>
+          <input type="hidden" class="tnr_id" value="<%= b.bookId %>"/>
+          <div class="cover-small">
           <% if (b.coverUrl) { %>
-            <div class="cover-small">
               <img src="<%= b.coverUrl %>" />
-            </div>
           <% } else { %>
             <div class="cover-small-missing">
-              <%= b.authors %> <strong> <%= b.title %></strong>
+              <%= _.map(book.authors, function(a) { return a.creatorName; }).join(', ') %> <strong> <%= b.title %></strong>
             </div>
-
           <% } %>
+          </div>
           <p class="title"> <strong> <%= b.title %></strong> </p>
         </div>
       <% }); %>
       <% if (book.sameAuthorBooks.length > 4) { %>
-        <a href="/flere" />
+        <a href="/flere">
         <div class="cover-small">
           <div class="cover-small-missing">se mer</div>
         </div>
+        </a>
       <% } %>
     <% } %>
     <p>&nbsp;</p>
@@ -92,7 +92,7 @@
       <% num = book.sameAuthorBooks.length < 5 ? book.sameAuthorBooks.length : 3 %>
       <% book.similarWorks.slice(0,num).forEach(function(b,i) { %>
         <div class="liste-small">
-          <input type="hidden" class="tnr_id" value="<%= b.book_id %>"/>
+          <input type="hidden" class="tnr_id" value="<%= b.bookId %>"/>
           <% if (b.coverUrl) { %>
             <div class="cover-small">
               <img src="<%= b.coverUrl %>" />

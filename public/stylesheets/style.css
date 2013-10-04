@@ -1,4 +1,4 @@
-*                  { margin:0; padding:0; border:0; cursor: url(blank.cur); }
+*                  { margin:0; padding:0; border:0; /*cursor: url(blank.cur);*/ }
 .select-disable     { -khtml-user-select: none; -moz-user-select: none;
                     -o-user-select: none;  user-select: none; }
 button::-moz-focus-inner { border: 0; }
@@ -86,16 +86,16 @@ img.logo           { margin-left:10px; width: 150px; height: 150px;}
 button.top-button  { border-radius: 5px; height: 80px; width: 240px;
                      margin-left: 24px; font-size: 1.2em; color: #444;
                      box-shadow: 6px 6px 7px 2px rgba(0,0,0,0.15);
-                     background: -moz-linear-gradient(top,  #eee,  #b5b5b5);}
+                     background: -webkit-linear-gradient(top,  #eee,  #b5b5b5);}
 .top-button:active { position:relative; top: 3px; }
 
 button.square      { height: 120px; width: 160px; color: #444; margin: 33px;
                      box-shadow: 6px 6px 7px 2px rgba(0,0,0,0.15);
-                     background: -moz-linear-gradient(top,  #eee,  #b5b5b5);
+                     background: -webkit-linear-gradient(top,  #eee,  #b5b5b5);
                      font-size: 1.2em; font-weight: bold;}
 button.square:active { position: relative; top: 3px; color: #000;
                        border: 1px solid gray; box-shadow: 0;
-                       background: -moz-linear-gradient(bottom,  #eee,  #aaa)}
+                       background: -webkit-linear-gradient(bottom,  #eee,  #aaa)}
 #tilbake             { margin-top: 10px; position: relative;}
 #tilbake-pil         { height:20px; position: absolute; left:18px; top: 50px; }
 
@@ -108,8 +108,8 @@ div.cover-small     { width:125px; height:180px; overflow:hidden;;
                        position:relative;}
    .cover-small img { width:115px; max-height:170px; border: 5px solid white;
                       position:absolute;top:0;bottom:0;margin:auto;}
-div.cover-small-missing { width:120px; height:170px; border: 5px solid white;
-                          background: -moz-linear-gradient(top,  #eee,  #b5b5b5);
+div.cover-small-missing { width:120px; height:180px; border: 5px solid white;
+                          background: -webkit-linear-gradient(top,  #eee,  #b5b5b5);
                           text-align: center; color:#444; display:table-cell; vertical-align:middle; }
 
 div#omtale-wrapper { width: 815px; height:460px; border: 2px solid #999; overflow:hidden;
@@ -152,7 +152,7 @@ ul.review-list     { list-style:none; padding:0; margin:0; width:100%; text-alig
 ul.review-list li  { padding:0 10px; height:300px; }
 
 div#fade-to-white  { position: absolute; top: 0; left: 0; width:100%; padding: 50px 0;
-                     background-image: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);}
+                     background-image: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);}
 
 .indicator-wrapper {
     position: absolute;
