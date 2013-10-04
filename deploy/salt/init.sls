@@ -1,4 +1,4 @@
-########## 
+##########
 # PACKAGES
 ##########
 
@@ -42,7 +42,7 @@ installpkgs:
     - require:
       - pkgrepo: nodejs
 
-######## 
+########
 # USERS
 ########
 
@@ -60,11 +60,11 @@ aktivuser:
       - plugdev
       - aktiv
       - sudo
-    
-######## 
+
+########
 # GIT
 ########
-                  
+
 https://github.com/digibib/node_aktivehyller.git:
   git.latest:
   - rev: develop
@@ -74,7 +74,7 @@ https://github.com/digibib/node_aktivehyller.git:
     - user: aktiv
     - pkg: installpkgs
 
-########## 
+##########
 # DEPENDENCIES
 ##########
 
@@ -86,8 +86,8 @@ npm_install:
     - require:
       - pkg: installpkgs
       - git: https://github.com/digibib/node_aktivehyller.git
-        
-######## 
+
+########
 # GLOBAL SETTINGS
 ########
 
@@ -95,10 +95,10 @@ npm_install:
   file.managed:
     - source: salt://node_aktivehyller/deploy/salt/files/aktivehyller.conf
 
-######## 
+########
 # LOCAL SETTINGS
 ########
-    
+
 /home/aktiv/code/node_aktivehyller/config/settings.json:
   file.symlink:
     - target: /home/aktiv/code/node_aktivehyller/config/example.settings.json
@@ -116,7 +116,7 @@ npm_install:
     - source: salt://node_aktivehyller/deploy/salt/files/leftbar.png
     - user: aktiv
     - group: aktiv
-              
+
 /home/aktiv/code:
   file.directory:
     - user: aktiv
@@ -137,14 +137,18 @@ npm_install:
     - source: salt://node_aktivehyller/deploy/salt/files/aktivehyller.desktop
     - require:
       - file: /home/aktiv/.config/autostart
-    
+
 /home/aktiv/.config/autostart/xscreensaver-timeout.desktop:
     file.managed:
     - source: salt://node_aktivehyller/deploy/salt/files/xscreensaver-timeout.desktop
     - require:
       - file: /home/aktiv/.config/autostart
-      
-########## 
+
+/etc/chromium-browser/policies/managed/aktivhylle.json:
+    file.managed:
+    - source: salt://node_aktivehyller/deploy/salt/files/aktivhylle.json
+
+##########
 # SERVICES
 ##########
 
@@ -164,7 +168,7 @@ lightdm:
     - watch:
       - service: aktivehyller
     - stateful: True
-    
+
 kill_aktivehyller:
   cmd.run:
     - name: pkill aktivehyller*
