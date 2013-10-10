@@ -1,0 +1,2 @@
+# files not to include in git
+.vagrant*
