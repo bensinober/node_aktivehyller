@@ -1,4 +1,4 @@
-require 'vagrant-salt'
+#require 'vagrant-salt'
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 

@@ -168,6 +168,7 @@ aktivehyller:
     - user: aktiv
     - require:
       - file: /etc/init/aktivehyller.conf
+      - file: /home/aktiv/code/node_aktivehyller/config/settings.json
     - watch:
       - git: https://github.com/digibib/node_aktivehyller.git
 
