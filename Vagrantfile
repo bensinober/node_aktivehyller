@@ -38,7 +38,7 @@ Vagrant::Config.run do |config|
   # config.vm.share_folder "v-data", "/vagrant_data", "../data"
 
   ## For masterless, mount your salt file root
-  config.vm.share_folder "salt_file_root", "/srv/salt", "./salt"
+  config.vm.share_folder "salt_file_root", "/srv/salt/node_aktivehyller", "./"
 
   ## Use all the defaults:
   config.vm.provision :salt do |salt|
