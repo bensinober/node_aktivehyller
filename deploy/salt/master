@@ -1,5 +1,0 @@
-# Override Salt File Server settings
-
-file_roots:
-  base:
-    - /home/jenkins/salt/node_aktivehyller/deploy/salt

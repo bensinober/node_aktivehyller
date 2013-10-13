@@ -45,4 +45,4 @@ both can be downloaded and installed manually
 
 ## Vagrant
 
-Not documented yet.
+Read about deploy in `deploy/README.md`
