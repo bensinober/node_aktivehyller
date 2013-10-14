@@ -92,20 +92,23 @@ npm_install:
 
 /etc/init/aktivehyller.conf:
   file.managed:
-#    - source: salt://files/aktivehyller.conf
     - source: salt://files/aktivehyller.conf
+    - source: salt://node_aktivehyller/salt/roots/salt/files/aktivehyller.conf
 
 /etc/chromium-browser/policies/managed/aktivhylle.json:
     file.managed:
     - source: salt://files/aktivhylle.json
+    - source: salt://node_aktivehyller/salt/roots/salt/files/aktivhylle.json
 
 /etc/lightdm/lightdm.conf:
     file.managed:
     - source: salt://files/lightdm.conf
+    - source: salt://node_aktivehyller/salt/roots/salt/files/lightdm.conf
 
 /etc/lightdm/lightdm-restart.sh:
     file.managed:
     - source: salt://files/lightdm-restart.sh
+    - source: salt://node_aktivehyller/salt/roots/salt/files/lightdm-restart.sh
     - mode: 0755
 
 ########
@@ -121,14 +124,12 @@ npm_install:
 /home/aktiv/code/node_aktivehyller/public/images/startscreen.png:
   file.managed:
     - source: salt://files/startscreen.png
-    - user: aktiv
-    - group: aktiv
+    - source: salt://node_aktivehyller/salt/roots/salt/files/startscreen.png
 
 /home/aktiv/code/node_aktivehyller/public/images/leftbar.png:
   file.managed:
     - source: salt://files/leftbar.png
-    - user: aktiv
-    - group: aktiv
+    - source: salt://node_aktivehyller/salt/roots/salt/files/leftbar.png
 
 /home/aktiv/code:
   file.directory:
@@ -148,12 +149,14 @@ npm_install:
 /home/aktiv/.config/autostart/aktivehyller.desktop:
   file.managed:
     - source: salt://files/aktivehyller.desktop
+    - source: salt://node_aktivehyller/salt/roots/salt/files/aktivehyller.desktop
     - require:
       - file: /home/aktiv/.config/autostart
 
 /home/aktiv/.config/autostart/xscreensaver-timeout.desktop:
     file.managed:
     - source: salt://files/xscreensaver-timeout.desktop
+    - source: salt://node_aktivehyller/salt/roots/salt/files/xscreensaver-timeout.desktop
     - require:
       - file: /home/aktiv/.config/autostart
 
