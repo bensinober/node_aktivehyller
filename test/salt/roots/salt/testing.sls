@@ -9,23 +9,9 @@ nodejs:
 
 casperjs:
   pkgrepo.managed:
-    - ppa: pcarrier/ppa
+    - ppa: stephane-brunner/raring
     - require_in: phantomjs
     - require_in: casperjs
-
-removepkgs:
-  pkg.purged:
-    - pkgs:
-      - abiword
-      - firefox
-      - sylpheed
-      - apport
-      - pidgin
-      - transmission
-      - gnumeric
-      - xfburn
-      - mtpaint
-      - simple-scan
 
 installpkgs:
   pkg.latest:
@@ -35,6 +21,8 @@ installpkgs:
       - python-software-properties
       - software-properties-common
       - nodejs
+      - casperjs
+      - phantomjs
     - skip_verify: True
     - require:
       - pkgrepo: nodejs
@@ -108,7 +96,7 @@ npm_install:
 
 aktivehyller:
   cmd.run:
-    - name: ./integration.sh > tests/integrationtest.out
+    - name: ./integration.sh > test/integrationtest.out
     - cwd: /home/aktiv/code/node_aktivehyller
     - require:
       - pkg: installpkgs
