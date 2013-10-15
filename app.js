@@ -49,7 +49,7 @@ if ('development' === app.get('env')) {
  */
 
 var session = {history: []};
-app.locals({_: _, session: session});
+app.locals({_: _, session: session, env: app.get('env')});
 
 /**
  * Routes

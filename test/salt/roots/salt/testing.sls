@@ -17,6 +17,7 @@ installpkgs:
   pkg.latest:
     - pkgs:
       - git
+      - language-pack-nb
       - openssh-server
       - python-software-properties
       - software-properties-common
