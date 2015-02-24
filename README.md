@@ -46,3 +46,8 @@ both can be downloaded and installed manually
 ## Vagrant
 
 Read about deploy in `deploy/README.md`
+
+## License
+
+License is MIT
+Copy of MIT Licence in root folder
