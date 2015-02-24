@@ -2,12 +2,19 @@
  * Module dependencies.
  */
 
-var express = require('express');
-var _ = require('underscore');
-var ejs = require('ejs');
-var expressLayouts = require('express-ejs-layouts');
 var http = require('http');
 var path = require('path');
+var _ = require('underscore');
+
+// Express with modules
+var express = require('express');
+var ejs = require('ejs');
+var expressLayouts = require('express-ejs-layouts');
+var errorHandler   = require('errorhandler')
+var bodyParser     = require('body-parser');
+var favicon        = require('express-favicon');
+var methodOverride = require('method-override')
+var logger         = require('morgan');
 
 /**
  * Instantiate Rfid reader and load Book class
@@ -25,23 +32,25 @@ rfid.start();
  */
 
 var app = express();
+var router = express.Router();
 
 // All environments
 app.set('port', process.env.PORT || 4567);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
+app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride());
 app.use(expressLayouts);
-app.use(app.router);
+app.use(router);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Development only
 if ('development' === app.get('env')) {
-  app.use(express.errorHandler());
+  app.use(errorHandler());
 }
 
 /*
@@ -49,7 +58,7 @@ if ('development' === app.get('env')) {
  */
 
 var session = {history: []};
-app.locals({_: _, session: session, env: app.get('env')});
+app.locals = {_: _, session: session, env: app.get('env')};
 
 /**
  * Routes
@@ -79,7 +88,7 @@ app.get('/similar', Handlers.Book.similarWorks);
 
 app.get('/rfid', Handlers.Rfid.eventSource);
 
-http.createServer(app).listen(app.get('port'), function () {
+var server = http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
 });
 

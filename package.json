@@ -8,9 +8,15 @@
     "test": "mocha"
   },
   "dependencies": {
-    "express": "3.3.7",
+    "express": ">= 4.0.0",
     "ejs": "*",
     "express-ejs-layouts": "*",
+    "errorhandler": "*",
+    "express-favicon": "*",
+    "errorhandler": "*",
+    "morgan": "*",
+    "body-parser": "*",
+    "method-override": "*",
     "sparql": "*",
     "rfidgeek": ">=0.0.5",
     "underscore": "*"
