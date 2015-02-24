@@ -1,0 +1,10 @@
+CHANGELOG
+0.0.4: 2014-10-13
+  Implemented Vagrant and SaltStack provisioning
+0.0.3: 2014-02-15
+  Implemented GUI and rfidgeek module
+0.0.2: 2014-02-01
+  First working version - unstable
+0.0.1: 2013-10-08
+  Rewrite of project https://github.com/digibib/aktive-hyller.git to Node.js
+  Built using TDD
