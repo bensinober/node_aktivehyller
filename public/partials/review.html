@@ -1,0 +1,122 @@
+<div class="reviewModePartial">
+    {{#reviewMode}}
+      <div id="contents">
+        <div class="buffer"></div>
+        <div id="content-left">
+          <div class="image-wrapper">
+            {{#if (book.coverUrl) }}
+              <div class="image-big">
+                <img src="{{ book.coverUrl }}" class="omtalt-bok"/>
+              </div>
+            {{else}}
+              <div id="omtale-bilde">
+                <div id="inner-border">
+                  <div class="book-author">
+                    <!-- TODO: book authors separated with comma -->
+                    <!--{{ _.map(book.authors, function(a) { return a.creatorName; }).join(', ') }}-->
+                  </div>
+                  <div class="book-title">
+                    {{ book.title }}
+                  </div>
+                </div>
+              </div>
+            {{/if}}
+          </div>
+          <div class="ratings"></div>
+        </div>
+        <div id="content-right">
+          <div id="left_arrow"><img src="/images/arrow_left_inactive.png" /></div>
+            {{#if (book.localReviews.length > 1) }}
+              <div id="right_arrow"><img src="/images/arrow_right_active.png" /></div>
+            {{else}}
+              <div id="right_arrow"><img src="/images/arrow_right_inactive.png" /></div>
+            {{/if}}
+          <div id="omtale-wrapper">
+            <div id="scroller">
+              {{#if (book.localReviews.length != 0) }}
+                 {{#book.localReviews:num}}
+                  <div class="slide">
+                    {{#if (num == 0) }}
+                      <div class="review current" id="omtale_{{ num }}">
+                    {{else}}
+                      <div class="review" id="omtale_{{ num }}" style="'display:none'">
+                    {{/if}}
+                    <p> {{ reviewText }} </p>
+                    <p class="source"> {{ reviewSource }} </p>
+                    </div>
+                  </div>
+                {{/book.localReviews}}
+              {{else}}
+                <div class="no-review slide">
+                  <p>no reviews ... sorry</p>
+                </div>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div id="content-bottom">
+          <div class="flere">
+            {{#if (book.sameAuthorBooks.length != 0) }}
+              <h3>Flere</h3>
+              <!-- TODO: recreate logic: if < 5 show all, else show three and a "more" img -->
+              <!--<% num = book.sameAuthorBooks.length < 5 ? book.sameAuthorBooks.length : 3 %>-->
+              {{#book.sameAuthorBooks:num}}
+                <div class="liste-small">
+                  <input type="hidden" class="tnr_id" value="{{bookId}}"/>
+                  <div class="cover-small">
+                  {{#if (coverUrl) }}
+                      <img src="{{ coverUrl }}" />
+                  {{else}}
+                    <div class="cover-small-missing">
+                      <!-- TODO: book authors separated with comma -->
+                      <!-- _.map(book.authors, function(a) { return a.creatorName; }).join(', ') %> <strong> {{title}}</strong>-->
+                    </div>
+                  {{/if}}
+                  </div>
+                  <p class="title"> <strong> {{title}}</strong> </p>
+                </div>
+              {{/book.sameAuthorBooks}}
+              {{#if (sameAuthorBooks.length > 4) }}
+                <a href="/more">
+                <div class="cover-small">
+                  <div class="cover-small-missing">se mer</div>
+                </div>
+                </a>
+              {{/if}}
+            {{/if}}
+            <p>&nbsp;</p>
+          </div>
+          {{#if (book.similarWorks.length != 0) }}
+            <div class="relaterte">
+              <h3>Relaterte</h3>
+              <!-- TODO: recreate logic: if < 5 show all, else show three and a "more" img -->
+              <!--<% num = book.sameAuthorBooks.length < 5 ? book.sameAuthorBooks.length : 3 %>-->
+              {{#book.similarWorks:num}}
+                <div class="liste-small">
+                  <input type="hidden" class="tnr_id" value="{{bookId}}"/>
+                  {{#if (coverUrl) }}
+                    <div class="cover-small">
+                      <img src="{{coverUrl}}" />
+                    </div>
+                  {{else}}
+                    <div class="cover-small-missing">
+                      {{ b.authors }} <strong> {{ b.title }} </strong>
+                    </div>
+                    <p>&nbsp;</p>
+                  {{/if}}
+                <p class="title"> <strong> {{ b.title }}</strong> </p>
+                </div>
+              {{/book.similarWorks}}
+              {{#if (book.similarWorks.length > 4) }}
+                <a href="/similar" />
+                <div class="cover-small">
+                  <div class="cover-small-missing">se mer</div>
+                </div>
+              {{/if}}
+            </div>
+          {{/if}}
+          </div>
+      </div>
+    {{/reviewMode}}
+  </div>
