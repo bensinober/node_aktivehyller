@@ -11,10 +11,26 @@
 </head>
 
 <body>
+
   <div id="container" class="select-disable dim">
     <input type="hidden" id="seeking_tnr" /> 
     <input type="hidden" id="seeking_title" />
 
+  <!-- Ractive Element Placeholders -->
+  
+  <!-- leftbar -->
+  <div id="leftbarElement"></div>
+  
+  <!-- header -->
+  <div id="headerElement"></div>
+
+  <!-- contents -->
+  <div id="contentsElement"></div>
+
+  <!-- Ractive Templates -->
+
+  <!-- Ractive leftbar Template -->
+  <script id="leftbarTemplate" type="text/ractive">
     <div id="left-bar">
       <div class="logo"><img src="/images/logo.png" class="logo" /></div>
       <% if (session.history.length > 0) { %>
@@ -31,7 +47,10 @@
       </div>
       <% } %>
     </div>
+  </script>
 
+  <!-- Ractive header Template -->
+  <script id="headerTemplate" type="text/ractive">
     <div id="header">
       <div id="header-text">
         <% if (path == "/review") { %>
@@ -49,12 +68,15 @@
         <% } %>
       </div>
     </div>
+  </script>
 
+  <!-- Ractive contents Template -->
+  <script id="contentsTemplate" type="text/ractive">
     <div id="contents">
-
-    <%- body %>
- 
+      <%- body %>
     </div>
+  </script>
+
     <div id="vi-leter">
       <p>vi leter</p>
 
@@ -66,5 +88,42 @@
 
     <div id="overlay"></div>
   </div>
+
+<script type="text/javascript">
+  /* 
+   * LEFT-BAR RACTIVE
+   */
+  
+  var leftbarRactive = new Ractive({
+      el: "#leftbarElement",
+      template: "#leftbarTemplate",
+      data: { }
+  });
+</script>
+
+<script type="text/javascript">
+  /* 
+   * HEADER RACTIVE
+   */
+  
+  var headerRactive = new Ractive({
+      el: "#headerElement",
+      template: "#headerTemplate",
+      data: { }
+  });
+</script>
+
+<script type="text/javascript">
+  /* 
+   * CONTENTS RACTIVE
+   */
+  
+  var contentsRactive = new Ractive({
+      el: "#contentsElement",
+      template: "#contentsTemplate",
+      data: { }
+  });
+</script>
+
 </body>
 </html>
