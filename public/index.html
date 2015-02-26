@@ -63,8 +63,8 @@
     <div id="vi-leter">
       <p>vi leter</p>
       <div id="avbryt">
-        <button id="avbryt-knapp" class="top-button">Avbryt</button>
-        <button id="retry-knapp" class="top-button">Prøv på nytt</button>
+        <button id="avbryt-knapp" class="top-button" on-click="cancelRequest">Avbryt</button>
+        <button id="retry-knapp" class="top-button" on-click="retryRequest">Prøv på nytt</button>
       </div>
     </div>
     <div id="overlay"></div>
@@ -146,6 +146,7 @@
         console.dir(event.context);
         var tnr = /tnr_(.*)/.exec(event.context.bookId)[1];
         console.log(tnr);
+        // TODO: Rewrite into ractive
         // show overlay
         $('button#retry-knapp').hide();
         $('#overlay').show();
@@ -167,6 +168,10 @@
           $('button#retry-knapp').show();
           return;
         });
+      },
+      cancelRequest: function(event) {
+        console.dir(event.context);
+        if(request) {request.abort();} //abort running requests
       }
     });
   });

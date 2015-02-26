@@ -12,7 +12,10 @@
             <div id="inner-border">
               <div class="book-author">
                 <!-- TODO: book authors separated with comma -->
-                <!--{{ _.map(book.authors, function(a) { return a.creatorName; }).join(', ') }}-->
+                  <!--{{ _.map(book.authors, function(a) { return a.creatorName; }).join(', ') }}-->
+                {{#book.authors }}
+                  {{creatorName}}
+                {{/book.authors }}
               </div>
               <div class="book-title">
                 {{ book.title }}
@@ -64,11 +67,11 @@
           {{#book.sameAuthorBooks:num}}
             <div class="liste-small">
               <input type="hidden" class="tnr_id" value="{{bookId}}" />
-              <div class="cover-small">
+              <div class="cover-small" on-click="lookupBook">
               {{#if (coverUrl) }}
-                  <img src="{{ coverUrl }}" on-click="lookupBook"/>
+                  <img src="{{ coverUrl }}" />
               {{else}}
-                <div class="cover-small-missing">
+                <div class="cover-small-missing" >
                   <!-- TODO: book authors separated with comma -->
                   <!-- _.map(book.authors, function(a) { return a.creatorName; }).join(', ') %> <strong> {{title}}</strong>-->
                 </div>
@@ -79,7 +82,7 @@
           {{/book.sameAuthorBooks}}
           {{#if (sameAuthorBooks.length > 4) }}
             <a href="/more">
-            <div class="cover-small">
+            <div class="cover-small" on-click="moreAuthorBooks">
               <div class="cover-small-missing">se mer</div>
             </div>
             </a>
@@ -96,21 +99,20 @@
             <div class="liste-small">
               <input type="hidden" class="tnr_id" value="{{bookId}}" />
               {{#if (coverUrl) }}
-                <div class="cover-small">
-                  <img src="{{coverUrl}}" on-click="lookupBook" />
+                <div class="cover-small" on-click="lookupBook">
+                  <img src="{{coverUrl}}"  />
                 </div>
               {{else}}
-                <div class="cover-small-missing">
-                  {{ authors }} <strong> {{ title }} </strong>
+                <div class="cover-small-missing" on-click="lookupBook">
+                  {{ creatorName }} <strong> {{ title }} </strong>
                 </div>
-                <p>&nbsp;</p>
               {{/if}}
             <p class="title"> <strong> {{ title }}</strong> </p>
             </div>
           {{/book.similarWorks}}
           {{#if (book.similarWorks.length > 4) }}
             <a href="/similar" />
-            <div class="cover-small">
+            <div class="cover-small" on-click="moreAuthorBooks">
               <div class="cover-small-missing">se mer</div>
             </div>
           {{/if}}
