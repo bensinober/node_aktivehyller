@@ -159,7 +159,7 @@
 
         request.done(function(msg) {
           console.log(msg);
-          contentsRactive.set({book: msg});
+          contentsRactive.set({book: msg, reviewIndex: 0});
           $('#overlay').hide();
           $('#vi-leter').hide();
         });
@@ -172,6 +172,12 @@
       cancelRequest: function(event) {
         console.dir(event.context);
         if(request) {request.abort();} //abort running requests
+      },
+      nextReview: function(event) {
+        console.dir(event.context);
+        var idx = contentsRactive.get("reviewIndex");
+        idx++;
+        contentsRactive.set({reviewIndex: idx});
       }
     });
   });

@@ -29,25 +29,20 @@
     <div id="content-right">
       <div id="left_arrow"><img src="/images/arrow_left_inactive.png" /></div>
         {{#if (book.localReviews.length > 1) }}
-          <div id="right_arrow"><img src="/images/arrow_right_active.png" /></div>
+          <div id="right_arrow"><img src="/images/arrow_right_active.png" on-click="nextReview" /></div>
         {{else}}
           <div id="right_arrow"><img src="/images/arrow_right_inactive.png" /></div>
         {{/if}}
       <div id="omtale-wrapper">
         <div id="scroller">
           {{#if (book.localReviews.length != 0) }}
-             {{#book.localReviews:num}}
-              <div class="slide">
-                {{#if (num == 0) }}
-                  <div class="review current" id="omtale_{{ num }}">
-                {{else}}
-                  <div class="review" id="omtale_{{ num }}" style="'display:none'">
-                {{/if}}
-                <p> {{ reviewText }} </p>
-                <p class="source"> {{ reviewSource }} </p>
-                </div>
+              <div>
+                  <div class="review">
+                    <h3> {{book.localReviews[reviewIndex].reviewTitle}} </h3>
+                    <p> {{book.localReviews[reviewIndex].reviewText}} </p>
+                    <p class="source"> {{book.localReviews[reviewIndex].reviewSource}} </p>
+                  </div>
               </div>
-            {{/book.localReviews}}
           {{else}}
             <div class="no-review slide">
               <p>no reviews ... sorry</p>
