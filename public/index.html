@@ -142,8 +142,6 @@
     // events
     contentsRactive.on({
       lookupBook: function(event) {
-        // HERE!
-        console.dir(event.context);
         var tnr = /tnr_(.*)/.exec(event.context.bookId)[1];
         console.log(tnr);
         // TODO: Rewrite into ractive
@@ -173,10 +171,14 @@
         console.dir(event.context);
         if(request) {request.abort();} //abort running requests
       },
-      nextReview: function(event) {
-        console.dir(event.context);
+      nextReview: function() {
         var idx = contentsRactive.get("reviewIndex");
         idx++;
+        contentsRactive.set({reviewIndex: idx});
+      },
+      previousReview: function() {
+        var idx = contentsRactive.get("reviewIndex");
+        idx--;
         contentsRactive.set({reviewIndex: idx});
       }
     });

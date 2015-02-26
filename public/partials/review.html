@@ -27,19 +27,23 @@
       <div class="ratings"></div>
     </div>
     <div id="content-right">
-      <div id="left_arrow"><img src="/images/arrow_left_inactive.png" /></div>
-        {{#if (book.localReviews.length > 1) }}
-          <div id="right_arrow"><img src="/images/arrow_right_active.png" on-click="nextReview" /></div>
-        {{else}}
-          <div id="right_arrow"><img src="/images/arrow_right_inactive.png" /></div>
-        {{/if}}
+      {{#if (reviewIndex > 0) }}
+        <div id="left_arrow"><img src="/images/arrow_left_active.png" on-click="previousReview"/></div>
+      {{else}}
+        <div id="left_arrow"><img src="/images/arrow_left_inactive.png" /></div>
+      {{/if}}
+      {{#if (book.localReviews.length > reviewIndex+1) }}
+        <div id="right_arrow"><img src="/images/arrow_right_active.png" on-click="nextReview" /></div>
+      {{else}}
+        <div id="right_arrow"><img src="/images/arrow_right_inactive.png" /></div>
+      {{/if}}
       <div id="omtale-wrapper">
         <div id="scroller">
           {{#if (book.localReviews.length != 0) }}
               <div>
                   <div class="review">
-                    <h3> {{book.localReviews[reviewIndex].reviewTitle}} </h3>
-                    <p> {{book.localReviews[reviewIndex].reviewText}} </p>
+                    <h3> {{ book.localReviews[reviewIndex].reviewTitle }} </h3>
+                    <p> {{{ book.localReviews[reviewIndex].reviewText }}} </p>
                     <p class="source"> {{book.localReviews[reviewIndex].reviewSource}} </p>
                   </div>
               </div>
