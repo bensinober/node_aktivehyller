@@ -46,8 +46,8 @@
   <script id="headerTemplate" type="text/ractive">
     <div id="header">
       <div id="header-text">
-          <p id="title">{{ book.title }}</p>
-          <p id="sub-title">{{ book.authors }}</p>
+          <p id="title">{{ title }}</p>
+          <p id="sub-title">{{ authors }}</p>
       </div>
     </div>
   </script>
@@ -87,7 +87,7 @@
   var headerRactive = new Ractive({
       el: "#headerElement",
       template: "#headerTemplate",
-      data: { }
+      data: { title: "Rummy Dummy", authors: "Some One" }
   });
 </script>
 <script type="text/javascript">
@@ -155,9 +155,14 @@
           url: '/populate/'+tnr,
           type: 'GET'});
 
-        request.done(function(msg) {
-          console.log(msg);
-          contentsRactive.set({book: msg, reviewIndex: 0});
+        request.done(function(response) {
+          console.log(response);
+          contentsRactive.set({book: response, reviewIndex: 0});
+          var authors = [];
+          response.authors.forEach(function(a) {
+            authors.push(a.creatorName);
+          });
+          headerRactive.set({title: response.title, authors: authors.join(', ') })
           $('#overlay').hide();
           $('#vi-leter').hide();
         });
