@@ -8,8 +8,6 @@ var _ = require('underscore');
 
 // Express with modules
 var express = require('express');
-//var ejs = require('ejs');
-//var expressLayouts = require('express-ejs-layouts');
 var errorHandler   = require('errorhandler')
 var bodyParser     = require('body-parser');
 var favicon        = require('express-favicon');
@@ -37,15 +35,12 @@ var router = express.Router();
 
 // All environments
 app.set('port', process.env.PORT || 4567);
-//app.set('views', __dirname + '/views');
-//app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public'), {extensions: ['html']}));
 app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride());
-//app.use(expressLayouts);
 app.use(router);
 
 

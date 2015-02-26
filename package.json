@@ -9,15 +9,12 @@
   },
   "dependencies": {
     "express": ">= 4.0.0",
-    "ejs": "*",
-    "express-ejs-layouts": "*",
-    "errorhandler": "*",
     "express-favicon": "*",
     "express-session": "*",
+    "method-override": "*",
+    "body-parser": "*",
     "errorhandler": "*",
     "morgan": "*",
-    "body-parser": "*",
-    "method-override": "*",
     "sparql": "*",
     "rfidgeek": ">=0.0.5",
     "underscore": "*"
