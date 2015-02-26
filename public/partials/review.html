@@ -54,6 +54,7 @@
       </div>
     </div>
     <div class="clearfix"></div>
+    <!-- Similar and related books coverflow -->
     <div id="content-bottom">
       <div class="flere">
         {{#if (book.sameAuthorBooks.length != 0) }}
@@ -62,10 +63,10 @@
           <!--<% num = book.sameAuthorBooks.length < 5 ? book.sameAuthorBooks.length : 3 %>-->
           {{#book.sameAuthorBooks:num}}
             <div class="liste-small">
-              <input type="hidden" class="tnr_id" value="{{bookId}}"/>
+              <input type="hidden" class="tnr_id" value="{{bookId}}" />
               <div class="cover-small">
               {{#if (coverUrl) }}
-                  <img src="{{ coverUrl }}" />
+                  <img src="{{ coverUrl }}" on-click="lookupBook"/>
               {{else}}
                 <div class="cover-small-missing">
                   <!-- TODO: book authors separated with comma -->
@@ -93,18 +94,18 @@
           <!--<% num = book.sameAuthorBooks.length < 5 ? book.sameAuthorBooks.length : 3 %>-->
           {{#book.similarWorks:num}}
             <div class="liste-small">
-              <input type="hidden" class="tnr_id" value="{{bookId}}"/>
+              <input type="hidden" class="tnr_id" value="{{bookId}}" />
               {{#if (coverUrl) }}
                 <div class="cover-small">
-                  <img src="{{coverUrl}}" />
+                  <img src="{{coverUrl}}" on-click="lookupBook" />
                 </div>
               {{else}}
                 <div class="cover-small-missing">
-                  {{ b.authors }} <strong> {{ b.title }} </strong>
+                  {{ authors }} <strong> {{ title }} </strong>
                 </div>
                 <p>&nbsp;</p>
               {{/if}}
-            <p class="title"> <strong> {{ b.title }}</strong> </p>
+            <p class="title"> <strong> {{ title }}</strong> </p>
             </div>
           {{/book.similarWorks}}
           {{#if (book.similarWorks.length > 4) }}

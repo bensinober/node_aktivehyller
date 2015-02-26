@@ -13,6 +13,7 @@ var express = require('express');
 var errorHandler   = require('errorhandler')
 var bodyParser     = require('body-parser');
 var favicon        = require('express-favicon');
+var session        = require('express-session');
 var methodOverride = require('method-override')
 var logger         = require('morgan');
 
@@ -56,7 +57,7 @@ if ('development' === app.get('env')) {
 /*
  * App locals, accessible to all routes and renderings
  */
-
+// TODO: Rewrite to use express-session for webapp
 var session = {history: []};
 app.locals = {_: _, session: session, env: app.get('env')};
 

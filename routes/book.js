@@ -52,7 +52,7 @@ function BookRoute(Book, session) {
       book.populate(function(err) { 
         if (err) { res.send(500, 'Something broke!' + err ); }
         session.current = book ;
-        res.send(200, "Populated OK!");
+        res.status(200).send(book);
       });
     });
   };
