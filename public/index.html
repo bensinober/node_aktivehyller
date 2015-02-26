@@ -55,9 +55,12 @@
         Uses Partials, loaded below -->
 
   <script id="contentsTemplate" type="text/ractive">
+    <div id="contents">
+      <div class="buffer"></div>
       {{>review}}
       {{>more}}
       {{>similar}}
+    </div>
   </script>
 
     <div id="vi-leter">
@@ -157,7 +160,7 @@
 
         request.done(function(response) {
           console.log(response);
-          contentsRactive.set({book: response, reviewIndex: 0});
+          contentsRactive.set({book: response, reviewIndex: 0, reviewMode: true, moreFromAuthorMode: false, similarWorkMode: false});
           var authors = [];
           response.authors.forEach(function(a) {
             authors.push(a.creatorName);
@@ -185,6 +188,12 @@
         var idx = contentsRactive.get("reviewIndex");
         idx--;
         contentsRactive.set({reviewIndex: idx});
+      },
+      moreAuthorBooks: function() {
+        contentsRactive.set({reviewMode: false, moreFromAuthorMode: true, similarWorkMode: false});
+      },
+      moreSimilarBooks: function() {
+        contentsRactive.set({reviewMode: false, moreFromAuthorMode: false, similarWorkMode: true});
       }
     });
   });

@@ -1,17 +1,13 @@
 {{#similarWorkMode}}
-<div id="liste-wrapper">
-  <ul class="listevisning">
-     {{#book.similarWorks:num}}
-      <a href="/omtale" class="liste-link" >
-        <li>
+  <div id="liste-wrapper">
+    <ul class="listevisning">
+       {{#book.similarWorks:num}}
+        <li on-click="lookupBook">
           <p class="liste-tittel">{{ title }}</p>
           <p class="liste-forfatter">{{ authors }}</p>
-          <!-- TODO: regex here to get tnr -->
-          <!--<% var tnr = /tnr_(.*)/.exec(similarWork.bookId)[1] %>-->
-          <input class="tnr_id" type="hidden" value="{{ tnr }}" />
           <hr style="width:100%;" />
           <div class="liste-bilde">
-            {{#if (similarWork.coverUrl) }}
+            {{#if (coverUrl) }}
               <img src="{{ coverUrl }}" class="listevisning" />
             {{else}}
               <div id="omtale-bilde-liste">
@@ -23,9 +19,8 @@
             {{/if}}
           </div>
         </li>
-      </a>
-    {{/book.similarWorks}}
-  </ul>
-</div>
-<div id="fade-to-white"></div>
+      {{/book.similarWorks}}
+    </ul>
+  </div>
+  <div id="fade-to-white"></div>
 {{/similarWorkMode}}

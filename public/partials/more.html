@@ -1,31 +1,26 @@
 {{#moreFromAuthorMode}}
-<div id="liste-wrapper">
-  <ul class="listevisning">
-    {{ book.sameAuthorBooks:num }}
-      <a href="/omtale" class="liste-link" >
-        <li>
+  <div id="liste-wrapper">
+    <ul class="listevisning">
+      {{#book.sameAuthorBooks }}
+        <li on-click="lookupBook">
           <p class="liste-tittel">{{ title }}</p>
           <p class="liste-forfatter">{{ authors }}</p>
-          <!-- TODO: regex here to get tnr-->
-          <!--<% var tnr = /tnr_(.*)/.exec(sameAuthorBook.bookId)[1] %>-->
-          <input class="tnr_id" type="hidden" value="{{ tnr }}" />
           <hr style="width:100%;" />
           <div class="liste-bilde">
-            {{#if (sameAuthorBook.coverUrl) }}
-              <img src="{{ sameAuthorBook.coverUrl }}" class="listevisning" />
+            {{#if (coverUrl) }}
+              <img src="{{ coverUrl }}" class="listevisning" />
             {{else}}
               <div id="omtale-bilde-liste">
                 <div id="inner-border-liste">
-                  <div class="book-author-liste"> {{ authors }} </div>
+                  <div class="book-author-liste"></div>
                   <div class="book-title-liste"> {{ title }} </div>
                 </div>
               </div>
             {{/if}}
           </div>
         </li>
-      </a>
-    {{/book.sameAuthorBooks}}
-  </ul>
-</div>
-<div id="fade-to-white"></div>
+      {{/book.sameAuthorBooks}}
+    </ul>
+  </div>
+  <div id="fade-to-white"></div>
 {{/moreFromAuthorMode}}
