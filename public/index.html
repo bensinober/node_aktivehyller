@@ -122,7 +122,7 @@
 
   var ractive, partials = {}, promises;
 
-  promises = [ 'review','more' ].map( function ( name ) {
+  promises = [ 'review','more', 'similar' ].map( function ( name ) {
     return $.ajax( 'partials/' + name + '.html' ).then( function ( response ) {
       partials[ name ] = response;
     });
