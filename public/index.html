@@ -27,18 +27,13 @@
   <script id="leftbarTemplate" type="text/ractive">
     <div id="left-bar">
       <div class="logo"><img src="/images/logo.png" class="logo" /></div>
-      <!-- TODO: session history -->
-      {{#if (session.history.length > 0) }}
-        <a href="/back">
-          <button id="tilbake" class="square"><img src="/images/tilbake.png" id="tilbake-pil"/>TILBAKE</button>
-        </a>
-      <div id="avslutt-container">
-        <a href="/">
-          <button id="avslutt" class="square">
+      {{#if (bookStable.length > 0) }}
+        <button id="tilbake" class="square" on-click="previousBook"><img src="/images/tilbake.png" id="tilbake-pil"/>TILBAKE</button>
+        <div id="avslutt-container">
+          <button id="avslutt" class="square" on-click="close">
             <span>AVSLUTT <img src="/images/avslutt.png" id="avslutt-ikon" /></span>
           </button>
-        </a>
-      </div>
+        </div>
       {{/if}}
     </div>
   </script>
@@ -77,10 +72,25 @@
   /*
    * LEFT-BAR RACTIVE
    */
+  var bookStable = [];
   var leftbarRactive = new Ractive({
       el: "#leftbarElement",
       template: "#leftbarTemplate",
-      data: { }
+      data: { bookStable: bookStable }
+  });
+
+  // Events
+  leftbarRactive.on({
+    previousBook: function(event) {
+      bookStable.pop();            // remove one from stack
+      var book = bookStable[bookStable.length - 1];   // select last
+      console.log(book);
+      headerRactive.set({title: book.title, authors: book.authors});
+      contentsRactive.set({book: book});
+    },
+    close: function(event) {
+      console.log(event);
+    }
   });
 </script>
 <script type="text/javascript">
@@ -126,7 +136,7 @@
     ]
   }
 
-  var ractive, partials = {}, promises;
+  var partials = {}, promises, contentsRactive;
 
   promises = [ 'review','more', 'similar' ].map( function ( name ) {
     return $.ajax( 'partials/' + name + '.html' ).then( function ( response ) {
@@ -135,14 +145,17 @@
   });
 
   Promise.all( promises ).then( function () {
-    var contentsRactive = new Ractive({
+    contentsRactive = new Ractive({
       el: '#contentsElement',
       template: '#contentsTemplate',
       partials: partials,
       data: { reviewMode: true, moreFromAuthorMode: false, similarWorkMode: false, book: exampleBook }
     });
 
-    // events
+    // Session history - Object to be saved in session storage
+    var history = [];
+
+    // Events
     contentsRactive.on({
       lookupBook: function(event) {
         var tnr = /tnr_(.*)/.exec(event.context.bookId)[1];
@@ -159,13 +172,19 @@
           type: 'GET'});
 
         request.done(function(response) {
+          // successful request - populate App!
           console.log(response);
           contentsRactive.set({book: response, reviewIndex: 0, reviewMode: true, moreFromAuthorMode: false, similarWorkMode: false});
           var authors = [];
+          // comma, separated authors list
           response.authors.forEach(function(a) {
             authors.push(a.creatorName);
           });
-          headerRactive.set({title: response.title, authors: authors.join(', ') })
+          headerRactive.set({title: response.title, authors: authors.join(', ') });
+
+          // save to history
+          leftbarRactive.data.bookStable.push(response);
+
           $('#overlay').hide();
           $('#vi-leter').hide();
         });
