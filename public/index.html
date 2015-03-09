@@ -1,6 +1,9 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <link href="/stylesheets/style.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="/javascripts/jquery.min.js" ></script>
   <script type="text/javascript" src="/javascripts/ractive.min.js" ></script>
@@ -10,8 +13,6 @@
 </head>
 <body>
   <div id="container" class="select-disable dim">
-    <input type="hidden" id="seeking_tnr" />
-    <input type="hidden" id="seeking_title" />
   <!-- Ractive Element Placeholders -->
   <!-- leftbar -->
   <div id="leftbarElement"></div>
@@ -27,6 +28,7 @@
   <script id="leftbarTemplate" type="text/ractive">
     <div id="left-bar">
       <div class="logo"><img src="/images/logo.png" class="logo" /></div>
+      <button id="random" class="square" on-click="randomBook">SNURR</button>
       {{#if (bookStable.length > 0) }}
         <button id="tilbake" class="square" on-click="previousBook"><img src="/images/tilbake.png" id="tilbake-pil"/>TILBAKE</button>
         <div id="avslutt-container">
@@ -88,6 +90,14 @@
       headerRactive.set({title: book.title, authors: book.authors});
       contentsRactive.set({book: book});
     },
+    randomBook: function(event) {
+      console.log("choosing random book...");
+      $.ajax("/random").done(function(book) {
+        console.log("found book!")
+        headerRactive.set({title: book.title, authors: book.authors});
+        contentsRactive.fire("lookupBook", {}, book);
+      });
+    },
     close: function(event) {
       console.log(event);
     }
@@ -138,13 +148,13 @@
 
   var partials = {}, promises, contentsRactive;
 
-  promises = [ 'review','more', 'similar' ].map( function ( name ) {
-    return $.ajax( 'partials/' + name + '.html' ).then( function ( response ) {
-      partials[ name ] = response;
+  promises = ['review','more','similar'].map(function (name) {
+    return $.ajax('partials/' + name + '.html').then(function (response) {
+      partials[name] = response;
     });
   });
 
-  Promise.all( promises ).then( function () {
+  Promise.all(promises).then(function () {
     contentsRactive = new Ractive({
       el: '#contentsElement',
       template: '#contentsTemplate',
@@ -157,15 +167,22 @@
 
     // Events
     contentsRactive.on({
-      lookupBook: function(event) {
-        var tnr = /tnr_(.*)/.exec(event.context.bookId)[1];
+      lookupBook: function(event, book) {
+        if (book) {
+          var bookId = book.bookId;
+          var title  = book.title;
+        } else {
+          var bookId = event.context.bookId;
+          var title  = event.context.title;
+        }
+        var tnr = /tnr_(.*)/.exec(bookId)[1];
         console.log(tnr);
         // TODO: Rewrite into ractive
         // show overlay
         $('button#retry-knapp').hide();
         $('#overlay').show();
         $('button#avbryt-knapp').html('Avbryt');
-        $('div#vi-leter p').html("Henter info om \"" + event.context.title + '" <div id="loading"></div>' );
+        $('div#vi-leter p').html("Henter info om \"" + title + '" <div id="loading"></div>' );
         $('#vi-leter').show();
         request = $.ajax({
           url: '/populate/'+tnr,

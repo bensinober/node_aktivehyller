@@ -50,10 +50,20 @@ function BookRoute(Book, session) {
     book.fromTnr(req.params.tnr, function(err) {
       if (err) { res.send(500, 'Something broke!' + err ); }
       book.populate(function(err) { 
-        if (err) { res.send(500, 'Something broke!' + err ); }
-        session.current = book ;
-        res.status(200).send(book);
+        if (err) { res.status(500).send('Something broke!' + err); }
+        else { 
+          session.current = book ;
+          res.status(200).send(book);
+        }
       });
+    });
+  };
+
+  this.fetchRandomBook = function(req, res) {
+    var book = new Book(config);
+    book.random(function(err, randomBook) {
+      if (err) { res.send(500, 'Something broke!' + err ); }
+      res.json(randomBook);
     });
   };
 

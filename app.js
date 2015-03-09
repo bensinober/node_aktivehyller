@@ -21,10 +21,10 @@ var logger         = require('morgan');
 
 var config = require('./config/settings.json');
 var Book = require('./lib/book.js');
-var Rfidgeek = require('rfidgeek');
-var rfid = new Rfidgeek();
-rfid.init();
-rfid.start();
+//var Rfidgeek = require('rfidgeek');
+//var rfid = new Rfidgeek();
+//rfid.init();
+//rfid.start();
 
 /**
  * Environment
@@ -79,6 +79,8 @@ app.get('/check/:tnr', Handlers.Book.checkFormat);
 app.get('/review/:tnr', Handlers.Book.reviewsFromTnr);
 app.get('/review', Handlers.Book.review);
 app.get('/populate/:tnr', Handlers.Book.populate);
+app.get('/random', Handlers.Book.fetchRandomBook);
+
 app.get('/more', Handlers.Book.moreByAuthor);
 app.get('/similar', Handlers.Book.similarWorks);
 
@@ -92,6 +94,6 @@ var server = http.createServer(app).listen(app.get('port'), function () {
  * export modules
  */
 
-module.exports.rfid    = rfid;
+//module.exports.rfid    = rfid;
 module.exports.app     = app; // export app for testing
 module.exports.config  = config;
