@@ -100,6 +100,12 @@
     },
     close: function(event) {
       console.log(event);
+      var book = bookStable.shift();
+      console.log(book);
+      leftbarRactive.data.bookStable = [];
+      leftbarRactive.data.bookStable.push(book);
+      headerRactive.set({title: book.title, authors: book.authors});
+      contentsRactive.set({book: book});
     }
   });
 </script>
