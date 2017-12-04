@@ -1,4 +1,4 @@
-*                  { margin:0; padding:0; border:0; cursor: none; }
+*                  { margin:0; padding:0; border:0; }
 .select-disable     { -khtml-user-select: none; -moz-user-select: none;
                     -o-user-select: none;  user-select: none; }
 button::-moz-focus-inner { border: 0; }
@@ -13,17 +13,11 @@ a:active, a:focus  { outline-style: none; outline: 0; }
 
 img#frontarrow     { position:fixed; left:900px; top:650px;}
 img#frontbook      { position:fixed; left:1280px; top: 400px;}
-div#overlay        { position: fixed; width:100%; height: 100%; top:0; left: 0;
-                     z-index: 50; background: #000; opacity: 0.8; display:none;}
-div#vi-leter       { color: #fff; position:fixed; display:none;
-                     top: 470px; left:0px; z-index:1000; width:1680px; text-align:center;}
-#vi-leter p        { font-size:3em; }
-div#avbryt         { z-index: 1000; position: fixed; top: 570px; left: 620px;}
-#retry-knapp { display:none;}
+
+
 div.clearfix       { clear:both;}
 div#barcode_search { text-align: center; padding: 20px;}
 #loading           { width:60px; display:inline-block; text-align:left;}
-input.barcode_field  { border:1px solid gray; margin-top:150px; padding: 10px; text-align: center; font-style: italic; color:#666;}
 
 div.image-wrapper  { width: 250px; height:360px; position:relative;}
 div.image-big      { background: #fff; box-shadow: 6px 6px 7px 2px rgba(0,0,0,0.35);
@@ -50,28 +44,17 @@ div.review p       { margin-bottom:0.6em;}
 p.source         { font-size: 0.7em; margin-top:1em; font-weight:bold;}
 
 div#debug          { background-color:yellow; border: 1px solid black; border-radius: 2px;}
-div#container      { width: 1680px; height:1049px; color: #222; border:0px solid black; overflow: hidden;
-                     background-image: url("../images/leftbar.png"); background-repeat: no-repeat;}
+
 div#nysgjerrig     { width:100%; height: 100%; vertical-align: middle}
 div#nysgjerrig-tittel { margin-top:100px; font-size: 6em; font-weight: bold; text-align: center}
 div#nysgjerrig-undertittel { margin:200px;font-size: 4em; text-align: center}
 
-div#header         { margin-left:400px; height: 100px; width: 1225px; padding-top:35px; }
-p#title            { font-size: 2.5em; font-weight: bold; color: #333; }
-p#sub-title        { margin-top: 15px;font-size: 1.6em; font-weight: bold; color: #333;}
-div#header-text    { float: left; }
 div#flags          { float: right; }
 img.flag           { margin-left: 150px; display:none;}
 div.buffer         { clear:both; margin-top:60px;}
 
 
-div#left-bar { background: rgba(230,87,64, 0); margin-right: 60px; float:left;
-                     width: 238px; height: 1049px; position:relative; }
 
-div#avslutt-container { position: absolute; bottom:0; left:0;}
-button#avslutt span    { position:relative; bottom:15px;}
-#avslutt-ikon      { position: absolute; top:35px; left:30px;}
-div#logo-container { height:170px; background: #444;}
 div#top-buttons    { float: right; margin: 24px;}
 div#contents       { padding: 0; float: left; width: 1365px; overflow:hidden; position: relative;}
 div#content-left   { margin-left: 94px; height: 460px; width: 300px; float: left; }
@@ -81,8 +64,7 @@ div#content-bottom { clear:both; margin-top: 55px; width:1365px; height:367px;
                      background: #555; color: #fff; padding:10px;}
 div.flere          { float:left; width: 660px; padding-left:10px; }
 div.relaterte      { float:left; width: 660px; border-left: 2px dashed white; padding-left:20px;}
-div.logo           { width: 218px; height:170px; padding:10px; }
-img.logo           { margin-left:10px; width: 150px; height: 150px;}
+
 button.top-button  { border-radius: 5px; height: 80px; width: 240px;
                      margin-left: 24px; font-size: 1.2em; color: #444;
                      box-shadow: 6px 6px 7px 2px rgba(0,0,0,0.15);

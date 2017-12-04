@@ -1,0 +1,25 @@
+<div id="liste-wrapper">
+  <ul class="listevisning">
+    shit
+     {{#each book.similarWorks as sw}}
+      <li on-click="lookupBook">
+        <p class="liste-tittel">{{ sw.title }}</p>
+        <p class="liste-forfatter">{{ sw.authors }}</p>
+        <hr style="width:100%;" />
+        <div class="liste-bilde">
+          {{#if (sw.coverUrl) }}
+            <img src="{{ coverUrl }}" class="listevisning" />
+          {{else}}
+            <div id="omtale-bilde-liste">
+              <div id="inner-border-liste">
+                <div class="book-author-liste"> {{ sw.authors }} </div>
+                <div class="book-title-liste">{{ sw.title }} </div>
+              </div>
+            </div>
+          {{/if}}
+        </div>
+      </li>
+    {{/each}}
+  </ul>
+</div>
+<div id="fade-to-white"></div>

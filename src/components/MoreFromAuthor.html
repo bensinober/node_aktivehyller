@@ -1,0 +1,24 @@
+<div id="liste-wrapper">
+  <ul class="listevisning">
+    {{#each book.sameAuthorBooks as bsa }}
+      <li on-click="lookupBook">
+        <p class="liste-tittel">{{ bsa.title }}</p>
+        <p class="liste-forfatter">{{ bsa.authors }}</p>
+        <hr style="width:100%;" />
+        <div class="liste-bilde">
+          {{#if (bsa.coverUrl) }}
+            <img src="{{ coverUrl }}" class="listevisning" />
+          {{else}}
+            <div id="omtale-bilde-liste">
+              <div id="inner-border-liste">
+                <div class="book-author-liste"></div>
+                <div class="book-title-liste"> {{ bsa.title }} </div>
+              </div>
+            </div>
+          {{/if}}
+        </div>
+      </li>
+    {{/each}}
+  </ul>
+</div>
+<div id="fade-to-white"></div>

@@ -1,0 +1,43 @@
+<div id="header">
+  <div id="header-text">
+    {{#if (path === "/omtale") }}
+      <p class="title">{{ book.title }}</p>
+      <p class="sub-title">{{ book.authors }}</p>
+    {{elseif (path === "/flere") }}
+      <p class="title">Flere bøker av forfatteren</p>
+      <p class="sub-title">{{ book.authors }}</p>
+    {{elseif (path === "/relaterte") }}
+      <p class="title">Lignende verk</p>
+      <p class="sub-title">
+        <span>{{ book.title }}&nbsp;</span>
+        <span style="font-weight:normal;"> av {{ book.authors }}</span>
+      </p>
+    {{/if}}
+  </div>
+  <div id="search-field">
+    <form name="search">
+      <input class="search-input" type="text" name="field" on:blur="investigate(this)" />
+    </form>
+  </div>
+</div>
+
+<script>
+  export default {
+    data: () => ({
+      path: "/relaterte"
+    }),
+    methods: {
+      investigate: function(id) {
+        console.log(id)
+      }
+    }
+  }
+</script>
+
+<style>
+  #header         { margin-left:400px; height: 100px; width: 1225px; padding-top:35px; }
+  #header-text    { float: left; }
+  .title            { font-size: 2.5em; font-weight: bold; color: #333; }
+  .sub-title        { margin-top: 15px;font-size: 1.6em; font-weight: bold; color: #333;}
+  .search-input  { border:1px solid gray; margin-top:150px; padding: 10px; text-align: center; font-style: italic; color:#666;}
+</style>

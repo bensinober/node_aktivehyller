@@ -1,0 +1,86 @@
+<div id="left-bar">
+  <div class="logo"><img src="/images/logo.png" class="logo" /></div>
+  <button id="random" class="square" on-click="randomBook">SNURR</button>
+  {{#if (history.length > 0) }}
+    <button id="tilbake" class="square" on-click="previousBook"><img src="/images/tilbake.png" id="tilbake-pil"/>TILBAKE</button>
+    <div id="avslutt-container">
+      <button id="avslutt" class="square" on-click="close">
+        <span>AVSLUTT <img src="/images/avslutt.png" id="avslutt-ikon" /></span>
+      </button>
+    </div>
+  {{/if}}
+</div>
+<script>
+  export default {
+    data: () => ({
+      bookStable: []
+    }),
+    // Events?
+    methods: {
+      previousBook: function(event) {
+        bookStable.pop();            // remove one from stack
+        var book = bookStable[bookStable.length - 1];   // select last
+        console.log(book);
+        headerRactive.set({title: book.title, authors: book.authors});
+        contentsRactive.set({book: book});
+      },
+      randomBook: function(event) {
+        console.log("choosing random book...");
+        $.ajax("/random").done(function(book) {
+          console.log("found book!")
+          headerRactive.set({title: book.title, authors: book.authors});
+          contentsRactive.fire("lookupBook", {}, book);
+        });
+      },
+      close: function(event) {
+        console.log(event);
+        var book = bookStable.shift();
+        console.log(book);
+        leftbarRactive.data.bookStable = [];
+        leftbarRactive.data.bookStable.push(book);
+        headerRactive.set({title: book.title, authors: book.authors});
+        contentsRactive.set({book: book});
+      }
+    }
+  }
+</script>
+
+<style>
+  #left-bar {
+    background: rgba(230,87,64, 0);
+    margin-right: 60px;
+    float:left;
+    width: 238px;
+    height: 1049px;
+    position:relative;
+  }
+
+  #avslutt-container {
+    position: absolute;
+    bottom:0;
+    left:0;
+  }
+  button#avslutt span {
+    position:relative;
+    bottom:15px;
+  }
+  #avslutt-ikon {
+    position: absolute;
+    top:35px;
+    left:30px;
+  }
+  #logo-container {
+    height:170px;
+    background: #444;
+  }
+  div.logo {
+    width: 218px;
+    height:170px;
+    padding:10px;
+  }
+  img.logo {
+    margin-left:10px;
+    width: 150px;
+    height: 150px;
+  }
+</style>
