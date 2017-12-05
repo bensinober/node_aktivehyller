@@ -1,115 +1,19 @@
 <div id="contents">
   <div class="buffer"></div>
-  <Review book='{{exampleBook}}' :reviewIndex/>
-  <More book='{{exampleBook}}' />
-  <Similar book='{{exampleBook}}' />
+  {{#if (book) }}<Reviews :book />{{/if}}
+  <More />
+  <Similar />
 </div>
 
 <script>
-  import Review from './Review.html'
+  import Reviews from './Reviews.html'
   import MoreFromAuthor from './MoreFromAuthor.html'
   import SimilarWorks from './SimilarWorks.html'
   export default {
     components: {
-      Review,
+      Reviews,
       MoreFromAuthor,
       SimilarWorks
-    },
-    data: () => ({
-      reviewIndex: 0,
-      exampleBook: {
-        bookId: "http://data.deichman.no/resource/tnr_1430248",
-        title: "Rampete Robin",
-        authors: "Punk Cody",
-        coverUrl: "http://www.bokkilden.no/SamboWeb/servlet/VisBildeServlet?produktId=8973271",
-        localReviews: [ 
-          {
-            reviewTitle: "A review's title",
-            reviewText: "Some shit about the book, bla bla bla...",
-            reviewSource: "Komintern"
-          }
-        ],
-        sameAuthorBooks: [
-          {
-            bookId: "http://data.deichman.no/resource/tnr_1430248",
-            title: "Rampete Robin",
-            authors: "Wim Wam",
-            coverUrl: "http://www.bokkilden.no/SamboWeb/servlet/VisBildeServlet?produktId=8973271"
-          } 
-        ],
-        similarWorks: [
-          {
-            bookId: "http://data.deichman.no/resource/tnr_621959",
-            title: "Alle mine kjære",
-            authors: "Soma Catu",
-            coverUrl: "http://krydder.bib.no/0047/828961.bilde.1327545784.s.jpg"
-          }
-        ]
-      }
-    }),
-    methods: {
-      lookupBook: function(event, book) {
-        if (book) {
-          var bookId = book.bookId;
-          var title  = book.title;
-        } else {
-          var bookId = event.context.bookId;
-          var title  = event.context.title;
-        }
-        var tnr = /tnr_(.*)/.exec(bookId)[1];
-        console.log(tnr);
-        // TODO: Rewrite into ractive
-        // show overlay
-        $('button#retry-knapp').hide();
-        $('#overlay').show();
-        $('button#avbryt-knapp').html('Avbryt');
-        $('div#vi-leter p').html("Henter info om \"" + title + '" <div id="loading"></div>' );
-        $('#vi-leter').show();
-
-        request = $.ajax({
-          url: '/populate/'+tnr,
-          type: 'GET'});
-                request.done(function(response) {
-          // successful request - populate App!
-          console.log(response);
-          contentsRactive.set({book: response, reviewIndex: 0, reviewMode: true, moreFromAuthorMode: false, similarWorkMode: false});
-          var authors = [];
-          // comma, separated authors list
-          response.authors.forEach(function(a) {
-            authors.push(a.creatorName);
-          });
-          headerRactive.set({title: response.title, authors: authors.join(', ') });
-          // save to history
-          leftbarRactive.data.bookStable.push(response);
-          $('#overlay').hide();
-          $('#vi-leter').hide();
-        });
-        request.fail(function(jqXHR, textStatus, errorThrown) {
-          $('div#vi-leter p').html('&#9760; Beklager, dette tok for lang tid!' );
-          $('button#retry-knapp').show();
-          return;
-        });
-      },
-      cancelRequest: function(event) {
-        console.dir(event.context);
-        if(request) {request.abort();} //abort running requests
-      },
-      nextReview: function() {
-        var idx = contentsRactive.get("reviewIndex");
-        idx++;
-        contentsRactive.set({reviewIndex: idx});
-      },
-      previousReview: function() {
-        var idx = contentsRactive.get("reviewIndex");
-        idx--;
-        contentsRactive.set({reviewIndex: idx});
-      },
-      moreAuthorBooks: function() {
-        contentsRactive.set({reviewMode: false, moreFromAuthorMode: true, similarWorkMode: false});
-      },
-      moreSimilarBooks: function() {
-        contentsRactive.set({reviewMode: false, moreFromAuthorMode: false, similarWorkMode: true});
-      }
     }
   }
 </script>

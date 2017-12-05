@@ -1,9 +1,9 @@
 <div id="container" class="select-disable dim">
   <input type="hidden" id="seeking_tnr" /> 
   <input type="hidden" id="seeking_title" />
-  <LeftBar :history id="leftbarElement" />
+  <LeftBar :book :history id="leftbarElement" />
   <Header :book id="headerElement" />
-  <Content id="contentsElement" />
+  <Content :book id="contentsElement" />
   <div id="vi-leter">
     <p>vi leter</p>
     <div id="avbryt">
@@ -25,7 +25,40 @@
       err: "",
       title: "Aktive hyller",
       history: [],
-      book: { title: "Moron title", authors: "Authorial madness"}
+      book: {
+        bookId: "http://data.deichman.no/resource/tnr_1430248",
+        title: "Rampete Robin",
+        authors: "Punk Cody",
+        coverUrl: "http://www.bokkilden.no/SamboWeb/servlet/VisBildeServlet?produktId=8973271",
+        localReviews: [
+          {
+            reviewTitle: "A review's title",
+            reviewText: "Some shit about the book, bla bla bla...",
+            reviewSource: "Komintern"
+          },
+          {
+            reviewTitle: "Another review's title",
+            reviewText: "A lorem ipsum parody...",
+            reviewSource: "Lambada"
+          },
+        ],
+        sameAuthorBooks: [
+          {
+            bookId: "http://data.deichman.no/resource/tnr_1430248",
+            title: "Rampete Robin",
+            authors: "Wim Wam",
+            coverUrl: "http://www.bokkilden.no/SamboWeb/servlet/VisBildeServlet?produktId=8973271"
+          }
+        ],
+        similarWorks: [
+          {
+            bookId: "http://data.deichman.no/resource/tnr_621959",
+            title: "Alle mine kjære",
+            authors: "Soma Catu",
+            coverUrl: "http://krydder.bib.no/0047/828961.bilde.1327545784.s.jpg"
+          }
+        ]
+      }
     }),
     components: {
       LeftBar,

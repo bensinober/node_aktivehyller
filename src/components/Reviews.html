@@ -1,0 +1,172 @@
+<div id="content-left">
+  <div class="image-wrapper">
+    {{#if (book.coverUrl) }}
+      <div class="image-big">
+        <img src="{{ book.coverUrl }}" class="omtalt-bok"/>
+      </div>
+    {{else}}
+      <div id="omtale-bilde">
+        <div id="inner-border">
+          <div class="book-author">
+            {{#each book.authors as aut}}
+              {{ aut.creatorName }}
+            {{/each }}
+          </div>
+          <div class="book-title">
+            {{ book.title }}
+          </div>
+        </div>
+      </div>
+    {{/if}}
+  </div>
+  <div class="ratings"></div>
+</div>
+<div id="content-right">
+  {{#if (reviewIndex > 0) }}
+    <div id="left_arrow"><img src="/images/arrow_left_active.png" on:click='set({reviewIndex: reviewIndex-1})'/></div>
+  {{else}}
+    <div id="left_arrow"><img src="/images/arrow_left_inactive.png" /></div>
+  {{/if}}
+  {{#if (book.localReviews.length > reviewIndex+1) }}
+    <div id="right_arrow"><img src="/images/arrow_right_active.png" on:click='set({reviewIndex: reviewIndex+1})' /></div>
+  {{else}}
+    <div id="right_arrow"><img src="/images/arrow_right_inactive.png" /></div>
+  {{/if}}
+  <div id="omtale-wrapper">
+    <div id="scroller">
+      {{#if (book.localReviews.length != 0) }}
+        <Review>
+          <span slot="reviewTitle">{{ book.localReviews[reviewIndex].reviewTitle }}</span>
+          <span slot="reviewText">{{{ book.localReviews[reviewIndex].reviewText }}}</span>
+          <span slot="reviewSource">{{ book.localReviews[reviewIndex].reviewSource }}</span>
+        </Review>
+      {{else}}
+        <Review>
+          <span slot="reviewTitle"></span>
+          <span slot="reviewText">no reviews ... sorry</span>
+          <span slot="reviewSource"></span>
+        </Review>
+      {{/if}}
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>
+<!-- Similar and related books coverflow -->
+<div id="content-bottom">
+  <div class="flere">
+    {{#if (book.sameAuthorBooks.length != 0) }}
+      <h3>Flere</h3>
+      <!-- TODO: recreate logic: if < 5 show all, else show three and a "more" img -->
+      <!--<% num = book.sameAuthorBooks.length < 5 ? book.sameAuthorBooks.length : 3 %>-->
+      {{#each book.sameAuthorBooks as sa, idx }}
+        {{#if (idx < 3)}}
+          <div class="liste-small">
+            <div class="cover-small" on:click='lookupBook(sa)'>
+            {{#if (sa.coverUrl) }}
+                <img src="{{ sa.coverUrl }}" />
+            {{else}}
+              <div class="cover-small-missing" >
+                <strong> {{ sa.title }} </strong>
+              </div>
+            {{/if}}
+            </div>
+            <p class="title"> <strong> {{sa.title}}</strong> </p>
+          </div>
+        {{else}}
+          {{#if (idx === 3 && book.sameAuthorBooks.length > 5) }}
+            <div class="liste-small">
+              <div class="cover-small" on:click='moreAuthorBooks(sa)'>
+                <div class="cover-small-missing">se mer</div>
+              </div>
+            </div>
+          {{/if}}
+        {{/if}}
+      {{/each}}
+    {{/if}}
+    <p>&nbsp;</p>
+  </div>
+  <div class="relaterte">
+    {{#if (book.similarWorks.length != 0) }}
+      <h3>Relaterte</h3>
+      <!-- TODO: recreate logic: if < 5 show all, else show three and a "more" img -->
+      <!--<% num = book.sameAuthorBooks.length < 5 ? book.sameAuthorBooks.length : 3 %>-->
+      {{#each book.similarWorks as sw, idx}}
+        {{#if (idx < 3)}}
+          <div class="liste-small">
+            {{#if (sw.coverUrl) }}
+              <div class="cover-small" on:click='lookupBook(sw)'>
+                <img src="{{sw.coverUrl}}"  />
+              </div>
+            {{else}}
+              <div class="cover-small-missing" on:click='lookupBook(sw)'>
+                <!-- TODO: book authors separated with comma -->
+                <!-- _.map(book.authors, function(a) { return a.creatorName; }).join(', ') %> <strong> {{title}}</strong>-->
+                {{ sw.creatorName }} <strong> {{ sw.title }} </strong>
+              </div>
+            {{/if}}
+            <p class="title"> <strong> {{ sw.title }}</strong> </p>
+          </div>
+        {{else}}
+          {{#if (idx === 3 && book.similarWorks.length > 5) }}
+            <div class="liste-small">
+              <div class="cover-small" on;click='this.moreSimilarBooks()'>
+                <div class="cover-small-missing">se mer</div>
+              </div>
+            </div>
+          {{/if}}
+        {{/if}}
+      {{/each}}
+    {{/if}}
+  </div>
+</div>
+<script>
+  import Review from './Review.html'
+  import { doGetRequest } from '../utils/utils.js'
+  export default {
+    components: {
+      Review
+    },
+    data: () => ({
+      reviewIndex: 0
+    }),
+    methods: {
+      doGetRequest: doGetRequest,
+      lookupBook: function(book) {
+        console.log(book)
+        // TODO: Rewrite into ractive
+        // show overlay
+        //$('button#retry-knapp').hide();
+        //$('#overlay').show();
+        //$('button#avbryt-knapp').html('Avbryt');
+        //$('div#vi-leter p').html("Henter info om \"" + title + '" <div id="loading"></div>' );
+        //$('#vi-leter').show();
+        doGetRequest(`/populate/${book.bookId}`)
+        .then(res => {
+          console.log(res);
+          this.set({book: response, reviewIndex: 0, reviewMode: true, moreFromAuthorMode: false, similarWorkMode: false});
+          var authors = [];
+          // comma, separated authors list
+          response.authors.forEach(function(a) {
+            authors.push(a.creatorName);
+          });
+          headerRactive.set({title: response.title, authors: authors.join(', ') });
+          // save to history
+          leftbarRactive.data.bookStable.push(response);
+          $('#overlay').hide();
+          $('#vi-leter').hide();
+        })
+        .catch(err => {
+          console.log(err)
+          $('div#vi-leter p').html('&#9760; Beklager, dette tok for lang tid!' );
+          $('button#retry-knapp').show();
+        })
+      },
+      moreAuthorBooks () {
+        this.set({reviewMode: false, moreFromAuthorMode: true, similarWorkMode: false});
+      },
+      moreSimilarBooks () {
+        this.set({reviewMode: false, moreFromAuthorMode: false, similarWorkMode: true});
+      }
+    }
+  }
+</script>
