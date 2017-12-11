@@ -1,0 +1,39 @@
+---
+version: '2.1'
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  aktivehyller_db:
+    driver: local
+
+services:
+
+  virtuoso:
+    container_name: virtuoso-aktivehyller
+    #image: "digibib/virtuoso:478ae8750aac79c09bc314efae1a0148b06da2e4"
+    image: "digibib/virtuoso:587bf5a64c9847c1985bb4b4d8895d0bb4026147"
+    networks:
+      - backend
+    ports:
+      - "8890:8890"
+    environment:
+      DBA_PASSWORD: "secret"
+      SPARQL_UPDATE: "true"
+      DEFAULT_GRAPH: "http://data.deichman.no"
+      VIRT_Parameters_NumberOfBuffers: 170000
+      VIRT_Parameters_MaxDirtyBuffers: 130000
+      VIRT_Parameters_ThreadThreshold: 25
+      VIRT_Parameters_MaxStaticCursorRows: 20000
+      VIRT_Parameters_MaxClientConnections: 30
+      VIRT_HTTPServer_ServerThreads: 10
+      VIRT_HTTPServer_ServerThreads: 10
+      VIRT_HTTPServer_MaxKeepAlives: 10
+      VIRT_SPARQL_ResultSetMaxRows: 100000
+      VIRT_SPARQL_MaxQueryCostEstimationTime: 8000
+      VIRT_SPARQL_MaxQueryExecutionTime: 6000
+    volumes:
+      - "aktivehyller_db:/var/lib/virtuoso/db"
+      - "./toLoad:/var/lib/virtuoso/db/toLoad"
