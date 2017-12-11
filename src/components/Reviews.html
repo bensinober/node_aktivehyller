@@ -34,7 +34,7 @@
   {{/if}}
   <div id="omtale-wrapper">
     <div id="scroller">
-      {{#if (book.localReviews.length != 0) }}
+      {{#if (book.localReviews.length > 0) }}
         <Review>
           <span slot="reviewTitle">{{ book.localReviews[reviewIndex].reviewTitle }}</span>
           <span slot="reviewText">{{{ book.localReviews[reviewIndex].reviewText }}}</span>
@@ -54,7 +54,7 @@
 <!-- Similar and related books coverflow -->
 <div id="content-bottom">
   <div class="flere">
-    {{#if (book.sameAuthorBooks.length != 0) }}
+    {{#if (book.sameAuthorBooks.length > 0) }}
       <h3>Flere</h3>
       <!-- TODO: recreate logic: if < 5 show all, else show three and a "more" img -->
       <!--<% num = book.sameAuthorBooks.length < 5 ? book.sameAuthorBooks.length : 3 %>-->
@@ -75,7 +75,7 @@
         {{else}}
           {{#if (idx === 3 && book.sameAuthorBooks.length > 5) }}
             <div class="liste-small">
-              <div class="cover-small" on:click='moreAuthorBooks(sa)'>
+              <div class="cover-small" on:click='moresameAuthorBooks(sa)'>
                 <div class="cover-small-missing">se mer</div>
               </div>
             </div>
@@ -86,7 +86,7 @@
     <p>&nbsp;</p>
   </div>
   <div class="relaterte">
-    {{#if (book.similarWorks.length != 0) }}
+    {{#if (book.similarWorks.length > 0) }}
       <h3>Relaterte</h3>
       <!-- TODO: recreate logic: if < 5 show all, else show three and a "more" img -->
       <!--<% num = book.sameAuthorBooks.length < 5 ? book.sameAuthorBooks.length : 3 %>-->
@@ -109,7 +109,7 @@
         {{else}}
           {{#if (idx === 3 && book.similarWorks.length > 5) }}
             <div class="liste-small">
-              <div class="cover-small" on;click='this.moreSimilarBooks()'>
+              <div class="cover-small" on:click='moreSimilarWorks(sw)'>
                 <div class="cover-small-missing">se mer</div>
               </div>
             </div>
@@ -161,10 +161,12 @@
           $('button#retry-knapp').show();
         })
       },
-      moreAuthorBooks () {
+      moresameAuthorBooks (sa) {
+        console.dir(sa)
         this.set({reviewMode: false, moreFromAuthorMode: true, similarWorkMode: false});
       },
-      moreSimilarBooks () {
+      moreSimilarWorks (sw) {
+        console.dir(sw)
         this.set({reviewMode: false, moreFromAuthorMode: false, similarWorkMode: true});
       }
     }

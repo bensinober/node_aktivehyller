@@ -1,8 +1,10 @@
 <div id="contents">
   <div class="buffer"></div>
   {{#if (book) }}<Reviews :book />{{/if}}
-  <More />
-  <Similar />
+    <MoreFromAuthor :book/>
+  <!--
+    <SimilarWorks />
+  -->
 </div>
 
 <script>

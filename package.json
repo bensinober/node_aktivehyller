@@ -4,7 +4,10 @@
   "private": true,
   "repository": "https://gihub.com/digibib/aktive-shelves-webapp.git",
   "dependencies": {
-    "sparql": "*"
+    "express": "^4.16.2",
+    "http": "0.0.0",
+    "sparql": "*",
+    "sparql-client-2": "^0.6.2"
   },
   "devDependencies": {
     "rollup": "^0.49.3",
@@ -17,7 +20,8 @@
   },
   "scripts": {
     "build": "rollup -c -w",
-    "dev": "serve public & rollup -c -w",
+    "devold": "serve public & rollup -c -w",
+    "dev": "node app2.js & rollup -c -w",
     "start": "serve public",
     "test": "mocha"
   }

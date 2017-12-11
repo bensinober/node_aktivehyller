@@ -1,12 +1,12 @@
 <div id="header">
   <div id="header-text">
-    {{#if (path === "/omtale") }}
+    {{#if (path === "/omtale" && book) }}
       <p class="title">{{ book.title }}</p>
       <p class="sub-title">{{ book.authors }}</p>
-    {{elseif (path === "/flere") }}
+    {{elseif (path === "/flere" && book) }}
       <p class="title">Flere bøker av forfatteren</p>
       <p class="sub-title">{{ book.authors }}</p>
-    {{elseif (path === "/relaterte") }}
+    {{elseif (path === "/relaterte" && book) }}
       <p class="title">Lignende verk</p>
       <p class="sub-title">
         <span>{{ book.title }}&nbsp;</span>
@@ -14,17 +14,19 @@
       </p>
     {{/if}}
   </div>
+  <!--
   <div id="search-field">
     <form name="search">
       <input class="search-input" type="text" name="field" on:blur="investigate(this)" />
     </form>
   </div>
+-->
 </div>
 
 <script>
   export default {
     data: () => ({
-      path: "/relaterte"
+      path: "/omtale"
     }),
     methods: {
       investigate: function(id) {

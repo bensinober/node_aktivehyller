@@ -1,7 +1,7 @@
 <div id="container" class="select-disable dim">
   <input type="hidden" id="seeking_tnr" /> 
   <input type="hidden" id="seeking_title" />
-  <LeftBar :book :history id="leftbarElement" />
+  <LeftBar :book :history id="leftbarElement" on:snurr='chooseRandom()'/>
   <Header :book id="headerElement" />
   <Content :book id="contentsElement" />
   <div id="vi-leter">
@@ -19,46 +19,13 @@
   import LeftBar from './components/LeftBar.html'
   import Header from './components/Header.html'
   import Content from './components/Content.html'
-  import { distinct } from './utils/book.js'
+  import { distinct, solutions, bindings } from './utils/results.js'
   export default {
     data: () => ({
       err: "",
       title: "Aktive hyller",
       history: [],
-      book: {
-        bookId: "http://data.deichman.no/resource/tnr_1430248",
-        title: "Rampete Robin",
-        authors: "Punk Cody",
-        coverUrl: "http://www.bokkilden.no/SamboWeb/servlet/VisBildeServlet?produktId=8973271",
-        localReviews: [
-          {
-            reviewTitle: "A review's title",
-            reviewText: "Some shit about the book, bla bla bla...",
-            reviewSource: "Komintern"
-          },
-          {
-            reviewTitle: "Another review's title",
-            reviewText: "A lorem ipsum parody...",
-            reviewSource: "Lambada"
-          },
-        ],
-        sameAuthorBooks: [
-          {
-            bookId: "http://data.deichman.no/resource/tnr_1430248",
-            title: "Rampete Robin",
-            authors: "Wim Wam",
-            coverUrl: "http://www.bokkilden.no/SamboWeb/servlet/VisBildeServlet?produktId=8973271"
-          }
-        ],
-        similarWorks: [
-          {
-            bookId: "http://data.deichman.no/resource/tnr_621959",
-            title: "Alle mine kjære",
-            authors: "Soma Catu",
-            coverUrl: "http://krydder.bib.no/0047/828961.bilde.1327545784.s.jpg"
-          }
-        ]
-      }
+      book: null
     }),
     components: {
       LeftBar,
@@ -66,11 +33,55 @@
       Content
     },
     oncreate () {
-      this.sayHello()
+      console.log("Randomizer")
+      this.chooseRandom()
     },
     methods: {
-      sayHello: function () {
-        console.log("HELLO!")
+      chooseRandom: function() {
+        fetch('/random')
+        .then(res => { return res.json() })
+        .then(uri => {
+          console.log(uri)
+          this.populate(uri)
+        }).catch(err => console.log(err))
+      },
+
+      populate: function(uri) {
+        let b = { localReviews: [], sameAuthorBooks: [], similarWorks: []}
+        fetch(`/info/${encodeURIComponent(uri)}`)
+        .then(res => { return res.json() })
+        .then(json => {
+          b.workId  = json[0].workId.value
+          b.formats = json[0].format.value
+          b.authors = json[0].creatorName.value //extractProperties(data.solutions, ["creatorId", "creatorName"]);
+          b.title   = json[0].title.value
+          b.responsible = json[0].responsible ? json[0].responsible.value : null
+          b.coverUrl = json[0].coverUrl ? json[0].coverUrl.value : json[0].coverUrl ? json[0].coverUrl.value : null
+          return fetch(`/localreviews/${encodeURIComponent(uri)}`)
+        })
+        .then(res => { return res.json() })
+        .then(json => {
+          console.dir(json)
+          b.localReviews = solutions(json)
+          return fetch(`/sameauthor/${encodeURIComponent(uri)}`)
+        })
+        .then(res => { return res.json() })
+        .then(json => {
+          console.dir(json)
+          b.sameAuthorBooks = solutions(json)
+          return fetch(`/similarworks/${encodeURIComponent(uri)}`)
+        })
+        .then(res => { return res.json() })
+        .then(json => {
+          console.dir(json)
+          b.similarWorks = solutions(json)
+          return b
+        })
+        .then(b => {
+          console.log(b)
+          this.set({book: b})
+        })
+        .catch(err => console.log(err))
       }
     }
   }

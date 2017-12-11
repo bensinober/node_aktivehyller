@@ -1,4 +1,6 @@
-const queries = require('../lib/queries.js')
+//const config = { graph: 'http://data.lillehammer.folkebibl.no' }
+const config = { graph: 'http://data.deichman.no' }
+const queries = require('./queries.js')(config)
 
 const bindings = function(res) {
   // Parses the JSON response into bindings;
@@ -68,11 +70,10 @@ const exampleBook = {
 
 module.exports = (app) => {
 
-  app.get('/fetchRandomBook', (request, response) => {
-    queries.fetchRandomBook("http://dbpedia.org/David_Jones")
+  app.get('/random', (request, response) => {
+    queries.fetchRandomBook()
     .then(res => {
-      response.json(exampleBook)
-      //response.json(res)
+      response.json(res.results.bindings[0].tnr.value)
     })
     .catch(err => {
       console.log(err)
@@ -93,10 +94,11 @@ module.exports = (app) => {
   })
 
   app.get('/info/:uri', (request, response) => {
-    queries.fetchBookInfo("http://dbpedia.org/David_Jones")
+    console.dir(request.params)
+    queries.fetchBookInfo(request.params.uri)
     .then(res => {
-      response.json(exampleBook)
-      //response.json(res)
+      //console.dir(res.results)
+      response.json(res.results.bindings)
     })
     .catch(err => {
       console.log(err)
@@ -105,10 +107,10 @@ module.exports = (app) => {
   })
 
   app.get('/localreviews/:uri', (request, response) => {
-    queries.fetchLocalReviews("http://dbpedia.org/David_Jones")
+    queries.fetchLocalReviews(request.params.uri)
     .then(res => {
-      response.json(exampleBook)
-      //response.json(res)
+      console.dir(res.results)
+      response.json(res.results)
     })
     .catch(err => {
       console.log(err)
@@ -117,10 +119,10 @@ module.exports = (app) => {
   })
 
   app.get('/sameauthor/:uri', (request, response) => {
-    queries.fetchSameAuthorBooks("http://dbpedia.org/David_Jones")
+    queries.fetchSameAuthorBooks(request.params.uri)
     .then(res => {
-      response.json(exampleBook)
-      //response.json(res)
+      console.dir(res.results)
+      response.json(res.results)
     })
     .catch(err => {
       console.log(err)
@@ -129,10 +131,10 @@ module.exports = (app) => {
   })
 
   app.get('/similarworks/:uri', (request, response) => {
-    queries.fetchSimilarWorks("http://dbpedia.org/David_Jones")
+    queries.fetchSimilarWorks(request.params.uri)
     .then(res => {
-      response.json(exampleBook)
-      //response.json(res)
+      console.dir(res.results)
+      response.json(res.results)
     })
     .catch(err => {
       console.log(err)
