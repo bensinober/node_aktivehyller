@@ -40,7 +40,7 @@ module.exports = (config) => {
     fetchBookInfo: function(uri) {
       const q = `${prefixes}
           SELECT DISTINCT (sql:SAMPLE (?coverUrl) AS ?coverUrl) (sql:SAMPLE (?altCoverUrl) AS ?altCoverUrl)
-          (sql:SAMPLE (?workAbstract) AS ?workAbstract) (sql:SAMPLE (?workKrydder) AS ?workKrydder)
+          #(sql:SAMPLE (?workAbstract) AS ?workAbstract) (sql:SAMPLE (?workKrydder) AS ?workKrydder)
           ?title ?format ?isbn ?workId ?creatorName ?creatorId ?responsible ?abstract ?krydder ?lang
           FROM <${config.graph}>
           WHERE {
@@ -56,10 +56,10 @@ module.exports = (config) => {
               ?creatorId foaf:name ?creatorName . }
             OPTIONAL { <${uri}> rda:statementOfResponsibility ?responsible . }
             OPTIONAL { ?workId fabio:hasManifestation <${uri}> . }
-            OPTIONAL { ?workId fabio:hasManifestation ?book .
-              ?book dct:abstract ?workAbstract . }
-            OPTIONAL { ?workId fabio:hasManifestation ?book .
-              ?book deich:krydder_beskrivelse ?workKrydder . }
+            #OPTIONAL { ?workId fabio:hasManifestation ?book .
+            #  ?book dct:abstract ?workAbstract . }
+            #OPTIONAL { ?workId fabio:hasManifestation ?book .
+            #  ?book deich:krydder_beskrivelse ?workKrydder . }
           }`
 console.log(q)
         return client.query(q).execute()
