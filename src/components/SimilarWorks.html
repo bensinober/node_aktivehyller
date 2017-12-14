@@ -3,7 +3,7 @@
     {{#each book.similarWorks as sw}}
       <li on:click='fire("reviewsSimilarWorks", {sw})'>
         <p class="liste-tittel">{{ sw.title }}</p>
-        <p class="liste-forfatter">{{ sw.authors }}</p>
+        <p class="liste-forfatter">{{ sw.creatorName }}</p>
         <hr style="width:100%;" />
         <div class="liste-bilde">
           {{#if (sw.coverUrl) }}
@@ -11,7 +11,7 @@
           {{else}}
             <div id="omtale-bilde-liste">
               <div id="inner-border-liste">
-                <div class="book-author-liste"> {{ sw.authors }} </div>
+                <div class="book-author-liste"> {{ sw.creatorName }} </div>
                 <div class="book-title-liste">{{ sw.title }} </div>
               </div>
             </div>
