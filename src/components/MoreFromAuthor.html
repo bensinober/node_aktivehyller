@@ -1,18 +1,18 @@
 <div id="liste-wrapper">
   <ul class="listevisning">
-    {{#each book.sameAuthorBooks as bsa }}
-      <li on-click="lookupBook">
-        <p class="liste-tittel">{{ bsa.title }}</p>
-        <p class="liste-forfatter">{{ bsa.authors }}</p>
+    {{#each book.sameAuthorBooks as sa }}
+      <li on:click='lookupBook(sa)'>
+        <p class="liste-tittel">{{ sa.title }}</p>
+        <p class="liste-forfatter">{{ sa.authors }}</p>
         <hr style="width:100%;" />
         <div class="liste-bilde">
-          {{#if (bsa.coverUrl) }}
-            <img src="{{ bsa.coverUrl }}" class="listevisning" />
+          {{#if (sa.coverUrl) }}
+            <img src="{{ sa.coverUrl }}" class="listevisning" />
           {{else}}
             <div id="omtale-bilde-liste">
               <div id="inner-border-liste">
                 <div class="book-author-liste"></div>
-                <div class="book-title-liste"> {{ bsa.title }} </div>
+                <div class="book-title-liste"> {{ sa.title }} </div>
               </div>
             </div>
           {{/if}}
@@ -22,3 +22,12 @@
   </ul>
 </div>
 <div id="fade-to-white"></div>
+
+<script>
+  import { lookupBook } from '../utils/utils.js'
+  export default {
+    methods: {
+      lookupBook,
+    }
+  }
+</script>
