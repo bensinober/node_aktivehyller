@@ -32,8 +32,8 @@ services:
       VIRT_HTTPServer_ServerThreads: 10
       VIRT_HTTPServer_MaxKeepAlives: 10
       VIRT_SPARQL_ResultSetMaxRows: 100000
-      VIRT_SPARQL_MaxQueryCostEstimationTime: 8000
-      VIRT_SPARQL_MaxQueryExecutionTime: 6000
+      VIRT_SPARQL_MaxQueryCostEstimationTime: 80000000
+      VIRT_SPARQL_MaxQueryExecutionTime: 60000000
     volumes:
       - "aktivehyller_db:/var/lib/virtuoso/db"
       - "./toLoad:/var/lib/virtuoso/db/toLoad"
