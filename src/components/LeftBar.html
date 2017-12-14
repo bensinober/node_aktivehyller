@@ -19,14 +19,14 @@
     methods: {
       previousBook: function(event) {
         this.bookStable.pop()                                     // remove one from stack
-        var book = this.get( bookStable[bookStable.length - 1] )  // select last
+        let book = this.get( bookStable[bookStable.length - 1] )  // select last
         console.log(book)
         headerRactive.set({title: book.title, authors: book.authors})
         contentsRactive.set({book: book})
       },
       close: function(event) {
         console.log(event)
-        var book = bookStable.shift()
+        let book = bookStable.shift()
         console.log(book)
         this.set({ bookStable: [] })
         this.bookStable.push(book)

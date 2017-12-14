@@ -23,7 +23,7 @@ const solutions = function(res) {
   let result = []
   res.results.bindings.forEach(s => {
     solution = {}
-    for (var key in s) {
+    for (let key in s) {
       if (s[key]) {
         solution[key] = s[key].value
       }

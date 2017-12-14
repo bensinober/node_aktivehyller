@@ -15,7 +15,7 @@ module.exports = (config) => {
 
   return {
     getFormatAndTitle: function(uri) {
-      const q = 
+      const q =
         `${prefixes}
         SELECT ?title ?format FROM <${config.graph}>
         WHERE { <${uri}> dct:title ?title .
@@ -33,7 +33,7 @@ module.exports = (config) => {
         }
         ORDER BY RAND()
         LIMIT 1`
-     
+
        return client.query(q).execute()
     },
 
@@ -61,24 +61,25 @@ module.exports = (config) => {
             #OPTIONAL { ?workId fabio:hasManifestation ?book .
             #  ?book deich:krydder_beskrivelse ?workKrydder . }
           }`
+console.log(q)
         return client.query(q).execute()
     },
     fetchLocalReviews: function(uri) {
       const q = `${prefixes}
-        SELECT DISTINCT ?reviewId ?reviewTitle ?reviewText ?reviewSource ?reviewer  
-        FROM <${config.graph}>  
-        WHERE {  
-         
-        GRAPH <${config.graph}> { <${uri}> rev:hasReview ?reviewId . } 
-          ?reviewId rev:title ?reviewTitle .  
-          ?reviewId rev:text ?reviewText .  
-          ?reviewId dct:issued ?issued .  
-          OPTIONAL { ?reviewId dct:source ?sourceId .  
-            GRAPH <${config.graph}> { ?sourceId foaf:name ?reviewSource . } 
-          } 
+        SELECT DISTINCT ?reviewId ?reviewTitle ?reviewText ?reviewSource ?reviewer
+        FROM <${config.graph}>
+        WHERE {
+
+        GRAPH <${config.graph}> { <${uri}> rev:hasReview ?reviewId . }
+          ?reviewId rev:title ?reviewTitle .
+          ?reviewId rev:text ?reviewText .
+          ?reviewId dct:issued ?issued .
+          OPTIONAL { ?reviewId dct:source ?sourceId .
+            GRAPH <${config.graph}> { ?sourceId foaf:name ?reviewSource . }
+          }
         OPTIONAL { ?reviewId rev:reviewer ?reviewer . }
         }`
-
+console.log(q)
         return client.query(q).execute()
     },
     fetchSameAuthorBooks: function(uri) {
@@ -98,6 +99,7 @@ module.exports = (config) => {
         OPTIONAL { ?bookId deich:originalLanguage ?originalLanguage . }
         MINUS { ?work fabio:hasManifestation ?bookId . }
         }`
+console.log(q)
       return client.query(q).execute()
     },
 

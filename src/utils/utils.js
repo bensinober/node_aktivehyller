@@ -1,4 +1,4 @@
-export function doGetRequest (args) {
+export function doGetRequest(args) {
   return fetch(`http://localhost:5000${args.path}${args.params.join("/")}`)
   .then((res) => {
     if (res.status == 200) {

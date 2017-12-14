@@ -1,0 +1,21 @@
+{
+	"parserOptions": {
+	   "ecmaVersion": 6,
+     "sourceType": "module"
+	},
+  "rules": {
+    "jsx-quotes": [
+      "error",
+      "prefer-double"
+    ],
+    "no-var": 2,
+    "prefer-arrow-callback": [
+      "error",
+      {
+        "allowNamedFunctions": true
+      }
+    ],
+    "arrow-parens": 0,
+    "no-useless-escape": 0
+  }
+}

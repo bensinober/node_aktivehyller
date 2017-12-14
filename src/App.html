@@ -1,14 +1,14 @@
 <div id="container" class="select-disable dim">
-  <input type="hidden" id="seeking_tnr" /> 
+  <input type="hidden" id="seeking_tnr" />
   <input type="hidden" id="seeking_title" />
-  <LeftBar :book :history id="leftbarElement" on:snurr='chooseRandom()'/>
+  <LeftBar :book :history id="leftbarElement" on:snurr="chooseRandom()" />
   <Header :book id="headerElement" />
   <Content :book id="contentsElement" />
   <div id="vi-leter">
     <p>vi leter</p>
     <div id="avbryt">
-      <button id="avbryt-knapp" class="top-button" on-click="cancelRequest">Avbryt</button>
-      <button id="retry-knapp" class="top-button" on-click="retryRequest">Prøv på nytt</button>
+      <button id="avbryt-knapp" class="top-button" on:click="cancelRequest()">Avbryt</button>
+      <button id="retry-knapp" class="top-button" on:click="retryRequest()">Prøv på nytt</button>
     </div>
   </div>
   <div id="overlay"></div>
@@ -88,11 +88,11 @@
 </script>
 <style>
   /*  Global App styles */
-  #container { 
-    width: 1680px; 
-    height:1049px; 
-    color: #222; 
-    border:0px solid black; 
+  #container {
+    width: 1680px;
+    height:1049px;
+    color: #222;
+    border:0px solid black;
     overflow: hidden;
     background-image: url("/images/leftbar.png"); background-repeat: no-repeat;
   }
