@@ -52,7 +52,7 @@
 </div>
 <div class="clearfix"></div>
 <!-- Similar and related books coverflow -->
-<CoverFlow :book on:sameAuthorMode />
+<CoverFlow :book on:sameAuthorMode on:similarWorksMode on:reviewsSameAuthorBook on:reviewsSimilarWorks />
 
 <script>
   import Review from './Review.html'
@@ -65,12 +65,6 @@
     },
     data: () => ({
       reviewIndex: 0
-    }),
-    methods: {
-      moreSimilarWorks (sw) {
-        console.dir(sw)
-        this.set({reviewMode: false, moreFromAuthorMode: false, similarWorkMode: true});
-      }
-    }
+    })
   }
 </script>

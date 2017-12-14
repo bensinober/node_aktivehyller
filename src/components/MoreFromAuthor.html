@@ -1,9 +1,9 @@
 <div id="liste-wrapper">
   <ul class="listevisning">
     {{#each book.sameAuthorBooks as sa }}
-      <li on:click='lookupBook(sa)'>
+      <li on:click='fire("reviewsSameAuthorBook", {sa})'>
         <p class="liste-tittel">{{ sa.title }}</p>
-        <p class="liste-forfatter">{{ sa.authors }}</p>
+        <p class="liste-forfatter">{{ book.authors }}</p>
         <hr style="width:100%;" />
         <div class="liste-bilde">
           {{#if (sa.coverUrl) }}
@@ -22,12 +22,3 @@
   </ul>
 </div>
 <div id="fade-to-white"></div>
-
-<script>
-  import { lookupBook } from '../utils/utils.js'
-  export default {
-    methods: {
-      lookupBook,
-    }
-  }
-</script>

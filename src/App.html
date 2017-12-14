@@ -1,14 +1,18 @@
 <div id="container" class="select-disable dim">
   <input type="hidden" id="seeking_tnr" />
   <input type="hidden" id="seeking_title" />
-  <LeftBar :book :history id="leftbarElement" on:snurr="chooseRandom()" />
+  <LeftBar :book :bookStable id="leftbarElement" on:snurr="chooseRandom()" on:previousBook="previousBook()" />
   <Header :book id="headerElement" />
-  <Content :book id="contentsElement" />
+  <Content :book :mode id="contentsElement"
+    on:reviewsSameAuthorBook="reviewsSameAuthorBook(event)"
+    on:reviewsSimilarWorks="reviewsSimilarWorks(event)"
+    on:sameAuthorMode='set({mode: "SAME_AUTHOR"})'
+    on:similarWorksMode='set({mode: "SIMILAR_WORKS"})' />
   <div id="vi-leter">
     <p>vi leter</p>
     <div id="avbryt">
-      <button id="avbryt-knapp" class="top-button" on:click="cancelRequest()">Avbryt</button>
-      <button id="retry-knapp" class="top-button" on:click="retryRequest()">Prøv på nytt</button>
+      <button id="avbryt-knapp" class="top-button" on-click="cancelRequest()">Avbryt</button>
+      <button id="retry-knapp" class="top-button" on-click="retryRequest()">Prøv på nytt</button>
     </div>
   </div>
   <div id="overlay"></div>
@@ -24,8 +28,10 @@
     data: () => ({
       err: "",
       title: "Aktive hyller",
+      mode: 'REVIEWS',
       history: [],
-      book: null
+      book: null,
+      bookStable: []
     }),
     components: {
       LeftBar,
@@ -33,10 +39,20 @@
       Content
     },
     oncreate () {
-      console.log("Randomizer")
       this.chooseRandom()
     },
     methods: {
+      previousBook: function() {
+        console.log("previousbook")
+        let stack = this.get("bookStable")
+        console.log(stack.length)
+        stack.pop()
+        let book = stack.slice(-1)[0]
+        console.log(book)
+        console.log(stack.length)
+        this.set({book: book, bookstable: stack})
+      },
+
       chooseRandom: function() {
         fetch('/random')
         .then(res => { return res.json() })
@@ -44,6 +60,14 @@
           console.log(uri)
           this.populate(uri)
         }).catch(err => console.log(err))
+      },
+
+      reviewsSameAuthorBook: function(event) {
+        this.populate(event.sa.bookId)
+      },
+
+      reviewsSimilarWorks: function(event) {
+        this.populate(event.sw.bookId)
       },
 
       populate: function(uri) {
@@ -79,7 +103,9 @@
         })
         .then(b => {
           console.log(b)
-          this.set({book: b})
+          let stack = this.get("bookStable")
+          stack.push(b)
+          this.set({book: b, bookStable: stack, mode: 'REVIEWS'})
         })
         .catch(err => console.log(err))
       }

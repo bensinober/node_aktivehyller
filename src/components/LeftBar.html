@@ -1,8 +1,8 @@
 <div id="left-bar">
   <div class="logo"><img src="/images/logo.png" class="logo" /></div>
   <button id="random" class="square" on:click='fire("snurr")'>SNURR</button>
-  {{#if (history.length > 0) }}
-    <button id="tilbake" class="square" on:click="previousBook()"><img src="/images/tilbake.png" id="tilbake-pil"/>TILBAKE</button>
+  {{#if (bookStable.length > 1) }}
+    <button id="tilbake" class="square" on:click='fire("previousBook")'><img src="/images/tilbake.png" id="tilbake-pil"/>TILBAKE</button>
     <div id="avslutt-container">
       <button id="avslutt" class="square" on:click='close()'>
         <span>AVSLUTT <img src="/images/avslutt.png" id="avslutt-ikon" /></span>
@@ -12,18 +12,8 @@
 </div>
 <script>
   export default {
-    data: () => ({
-      bookStable: []
-    }),
-    // Events? yup
     methods: {
-      previousBook: function(event) {
-        this.bookStable.pop()                                     // remove one from stack
-        let book = this.get( bookStable[bookStable.length - 1] )  // select last
-        console.log(book)
-        headerRactive.set({title: book.title, authors: book.authors})
-        contentsRactive.set({book: book})
-      },
+      props: ['bookStable'],
       close: function(event) {
         console.log(event)
         let book = bookStable.shift()

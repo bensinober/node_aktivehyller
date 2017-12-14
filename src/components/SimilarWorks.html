@@ -1,7 +1,7 @@
 <div id="liste-wrapper">
   <ul class="listevisning">
     {{#each book.similarWorks as sw}}
-      <li on:click='lookupBook(sw)'>
+      <li on:click='fire("reviewsSimilarWorks", {sw})'>
         <p class="liste-tittel">{{ sw.title }}</p>
         <p class="liste-forfatter">{{ sw.authors }}</p>
         <hr style="width:100%;" />
@@ -22,12 +22,3 @@
   </ul>
 </div>
 <div id="fade-to-white"></div>
-
-<script>
-  import { lookupBook } from '../utils/utils.js'
-  export default {
-    methods: {
-      lookupBook,
-    }
-  }
-</script>

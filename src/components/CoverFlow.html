@@ -7,11 +7,11 @@
       {{#each book.sameAuthorBooks as sa, idx }}
         {{#if (idx < 3)}}
           <div class="liste-small">
-            <div class="cover-small" on:click='lookupBook(sa)'>
+            <div class="cover-small" on:click='fire("reviewsSameAuthorBook", {sa})'>
             {{#if (sa.coverUrl) }}
                 <img src="{{ sa.coverUrl }}" />
             {{else}}
-              <div class="cover-small-missing" >
+              <div class="cover-small-missing" on:click='fire("reviewsSameAuthorBook", {sa})'>
                 <strong> {{ sa.title }} </strong>
               </div>
             {{/if}}
@@ -40,11 +40,11 @@
         {{#if (idx < 3)}}
           <div class="liste-small">
             {{#if (sw.coverUrl) }}
-              <div class="cover-small" on:click='lookupBook(sw)'>
+              <div class="cover-small" on:click='fire("reviewsSimilarWorks", {sw})'>
                 <img src="{{sw.coverUrl}}"  />
               </div>
             {{else}}
-              <div class="cover-small-missing" on:click='lookupBook(sw)'>
+              <div class="cover-small-missing" on:click='fire("reviewsSimilarWorks", {sw})'>
                 <!-- TODO: book authors separated with comma -->
                 <!-- _.map(book.authors, function(a) { return a.creatorName; }).join(', ') %> <strong> {{title}}</strong>-->
                 {{ sw.creatorName }} <strong> {{ sw.title }} </strong>
@@ -55,7 +55,7 @@
         {{else}}
           {{#if (idx === 3 && book.similarWorks.length > 5) }}
             <div class="liste-small">
-              <div class="cover-small" on:click='moreSimilarWorks(sw)'>
+              <div class="cover-small" on:click='fire("similarWorksMode")'>
                 <div class="cover-small-missing">se mer</div>
               </div>
             </div>
@@ -65,26 +65,3 @@
     {{/if}}
   </div>
 </div>
-
-<script>
-  import { lookupBook } from '../utils/utils.js'
-  export default {
-    data: () => ({
-      reviewMode: true,
-      moreFromAuthorMode: false,
-      similarWorkMode: false
-    }),
-    methods: {
-      lookupBook,
-      moresameAuthorBooks (sa) {
-        console.log("same author lookup...")
-        console.dir(sa)
-        this.set({reviewMode: false, moreFromAuthorMode: true, similarWorkMode: false});
-      },
-      moreSimilarWorks (sw) {
-        console.dir(sw)
-        this.set({reviewMode: false, moreFromAuthorMode: false, similarWorkMode: true});
-      }
-    }
-  }
-</script>

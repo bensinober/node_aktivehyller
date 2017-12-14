@@ -1,11 +1,11 @@
 <div id="contents">
   <div class="buffer"></div>
   {{#if (book) }}
-    {{#if (reviewMode) }}
-      <Reviews :book on:sameAuthorMode="setSameAuthorMode()" on:similarWorkMode="setSimilarWorkMode()"/>
+    {{#if (mode === 'REVIEWS') }}
+      <Reviews :book on:sameAuthorMode on:similarWorksMode on:reviewsSimilarWorks on:reviewsSameAuthorBook />
     {{/if}}
-    {{#if (sameAuthorMode) }} <MoreFromAuthor :book />{{/if}}
-    {{#if (similarWorkMode) }}<SimilarWorks :book />{{/if}}
+    {{#if (mode === 'SAME_AUTHOR') }} <MoreFromAuthor :book on:reviewsSameAuthorBook />{{/if}}
+    {{#if (mode === 'SIMILAR_WORKS') }}<SimilarWorks :book on:reviewsSimilarWorks />{{/if}}
   {{/if}}
 </div>
 
@@ -19,22 +19,6 @@
       MoreFromAuthor,
       SimilarWorks
     },
-    data: () => ({
-      reviewMode: true,
-      sameAuthorMode: false,
-      similarWorkMode: false
-    }),
-    props: ['book'],
-    methods: {
-      setReviewMode: function() {
-        this.set({reviewMode: true, sameAuthorMode: false, similarWorkMode: false})
-      },
-      setSameAuthorMode: function() {
-        this.set({reviewMode: false, sameAuthorMode: true, similarWorkMode: false})
-      },
-      similarWorkMode: function() {
-        this.set({reviewMode: false, sameAuthorMode: false, similarWorkMode: true})
-      }
-    }
+    props: ['book', 'mode']
   }
 </script>
