@@ -33,41 +33,6 @@ const solutions = function(res) {
   return result
 }
 
-const exampleBook = {
-  bookId: "http://data.deichman.no/resource/tnr_1430248",
-  title: "Rampete Robin",
-  authors: "Punk Cody",
-  coverUrl: "http://www.bokkilden.no/SamboWeb/servlet/VisBildeServlet?produktId=8973271",
-  localReviews: [
-    {
-      reviewTitle: "A review's title",
-      reviewText: "Some shit about the book, bla bla bla...",
-      reviewSource: "Komintern"
-    },
-    {
-      reviewTitle: "Another review's title",
-      reviewText: "A lorem ipsum parody...",
-      reviewSource: "Lambada"
-    },
-  ],
-  sameAuthorBooks: [
-    {
-      bookId: "http://data.deichman.no/resource/tnr_1430248",
-      title: "Rampete Robin",
-      authors: "Wim Wam",
-      coverUrl: "http://www.bokkilden.no/SamboWeb/servlet/VisBildeServlet?produktId=8973271"
-    }
-  ],
-  similarWorks: [
-    {
-      bookId: "http://data.deichman.no/resource/tnr_621959",
-      title: "Alle mine kjære",
-      authors: "Soma Catu",
-      coverUrl: "http://krydder.bib.no/0047/828961.bilde.1327545784.s.jpg"
-    }
-  ]
-}
-
 module.exports = (app) => {
 
   app.get('/random', (request, response) => {
