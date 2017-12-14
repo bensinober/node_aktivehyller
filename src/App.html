@@ -78,11 +78,11 @@
           b.workId  = json[0].workId.value
           b.formats = json[0].format.value
           b.title   = json[0].title.value
-          b.language = json[0].language.value
+          b.lang    = json[0].lang.value
           b.authors = json[0].creatorName.value //extractProperties(data.solutions, ["creatorId", "creatorName"]);
           b.responsible = json[0].responsible ? json[0].responsible.value : null
-          b.workAbstract = json[0].workAbstract ? json[0].workAbstract.value : null
-          b.workKrydder   = json[0].workKrydder ? json[0].workKrydder.value : null
+          b.abstract  = json[0].abstract ? json[0].abstract.value : null
+          b.krydder   = json[0].krydder ? json[0].krydder.value : null
           b.coverUrl = json[0].coverUrl ? json[0].coverUrl.value : json[0].altCoverUrl ? json[0].altCoverUrl.value : null
           return fetch(`/localreviews/${encodeURIComponent(uri)}`)
         })
