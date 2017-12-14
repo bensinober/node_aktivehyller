@@ -81,8 +81,15 @@
           b.lang    = json[0].lang.value
           b.authors = json[0].creatorName.value //extractProperties(data.solutions, ["creatorId", "creatorName"]);
           b.responsible = json[0].responsible ? json[0].responsible.value : null
-          b.abstract  = json[0].abstract ? json[0].abstract.value : null
-          b.krydder   = json[0].krydder ? json[0].krydder.value : null
+          b.abstract  = json[0].abstract ?
+            { reviewTitle: "Omtale fra Bokomslag",
+              reviewText: json[0].abstract.value,
+              reviewSource: "Omslagsinfo" } : null
+          b.krydder   = json[0].krydder ?
+            { reviewId: rand(1000),
+              reviewTitle: "Omtale fra Krydderbasen",
+              reviewText: json[0].krydder.value,
+              reviewSource: "Krydderbasen" } : null
           b.coverUrl = json[0].coverUrl ? json[0].coverUrl.value : json[0].altCoverUrl ? json[0].altCoverUrl.value : null
           return fetch(`/localreviews/${encodeURIComponent(uri)}`)
         })
@@ -90,6 +97,8 @@
         .then(json => {
           console.dir(json)
           b.localReviews = solutions(json)
+          b.localReviews.push(b.krydder)
+          b.localReviews.push(b.abstract)
           return fetch(`/sameauthor/${encodeURIComponent(uri)}`)
         })
         .then(res => { return res.json() })
