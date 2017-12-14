@@ -8,9 +8,7 @@
       <div id="omtale-bilde">
         <div id="inner-border">
           <div class="book-author">
-            {{#each book.authors as aut}}
-              {{ aut.creatorName }}
-            {{/each }}
+            {{ book.authors }}
           </div>
           <div class="book-title">
             {{ book.title }}
