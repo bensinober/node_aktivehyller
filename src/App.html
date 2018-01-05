@@ -39,7 +39,15 @@
       Content
     },
     oncreate () {
-      this.chooseRandom()
+      // just grab any query in the form /?tnr=123455 and lookup title, else choose a random title
+      const params = new URLSearchParams(location.search)
+      const tnr = params.get("tnr")
+      if (tnr && /^\d{5,8}$/.test(tnr) ) {
+        console.log(`checking title: ${tnr}`)
+        this.populate(`http://data.deichman.no/resource/tnr_${tnr}`)
+      } else {
+        this.chooseRandom()
+      }
     },
     methods: {
       previousBook: function() {
